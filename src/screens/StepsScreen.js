@@ -32,8 +32,12 @@ export default class StepsScreen extends React.Component {
     console.log(this.state);
     return (
       <View style={styles.container}>
-        <Text>Today's Steps {this.state.steps}</Text>
-        <Text>Updated Steps: {this.state.currSteps}</Text>
+        <Text>Is pedometer available? {(this.state.isPedometerAvailable).toString()}</Text>
+        <Text>Steps taken in the last 24 hours: {this.state.steps}</Text>
+        <Text>Live Steps: {this.state.currSteps}</Text>
+        <Text>Walk 5 steps to get to the next phase:</Text>
+    {this.state.currSteps < 5 ? <Text>Start</Text> : <Text>Next Stage</Text>}
+    {this.state.currSteps < 5 ? <View style={{height: 100, width: 100, backgroundColor: 'rgb(0,255,0)'}} /> : <View style={{height: 100, width: 100, backgroundColor: 'rgb(255,0,0)'}}/> }
       </View>
     );
   }
