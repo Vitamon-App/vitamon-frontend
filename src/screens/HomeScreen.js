@@ -12,10 +12,10 @@ function HomeScreen({ navigation, login, user }) {
   const onButtonPress = async () => {
     try {
       await login(email, password, formType);
-      console.log("user", user);
-      navigation.navigate("Steps");
+
+      navigation.navigate("Welcome");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
