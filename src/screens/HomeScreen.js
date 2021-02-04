@@ -2,17 +2,22 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AuthForm from "../components/AuthForm";
-import {connect} from 'react-redux'
-import {auth} from '../store/user'
+import { connect } from "react-redux";
+import { auth } from "../store/user";
 
-function HomeScreen({ navigation, login, user}) {
+function HomeScreen({ navigation, login, user }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [formType, setFormType] = useState("login") 
-  const onButtonPress = () => {
-    login(email, password, formType)
-    console.log("user", user)
-  }
+  const [formType, setFormType] = useState("login");
+  const onButtonPress = async () => {
+    try {
+      await login(email, password, formType);
+      console.log("user", user);
+      navigation.navigate("Steps");
+    } catch (error) {
+      console.log(error)
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -23,7 +28,7 @@ function HomeScreen({ navigation, login, user}) {
         password={password}
         onEmailChange={(newEmail) => setEmail(newEmail)}
         onPasswordChange={(newPassword) => setPassword(newPassword)}
-        onPress = {() => onButtonPress()}
+        onPress={() => onButtonPress()}
       />
 
       <Button
@@ -47,15 +52,17 @@ const styles = StyleSheet.create({
 });
 
 const mapState = (state) => {
-  return{
-    user: state.user
-  }
-}
-
-const mapDispatch = (dispatch) => {
   return {
-    login: (email, password, formType) => {dispatch(auth(email, password, formType))}
+    user: state.user,
   };
 };
 
-export default connect(mapState, mapDispatch)(HomeScreen)
+const mapDispatch = (dispatch) => {
+  return {
+    login: (email, password, formType) => {
+      dispatch(auth(email, password, formType));
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(HomeScreen);
