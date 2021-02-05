@@ -11,26 +11,31 @@ function HomeScreen({ navigation, login, user }) {
   const [formType, setFormType] = useState("login");
   const onButtonPress = async () => {
     try {
-      await login(email, password, formType);
-
+      await login(email, password, "login");
       navigation.navigate("Welcome");
     } catch (error) {
       console.log(error);
     }
+    setEmail("");
+    setPassword("");
   };
 
   return (
     <View style={styles.container}>
       <Text>Welcome To Vitamon!</Text>
-      <AuthForm
-        formType={formType}
-        email={email}
-        password={password}
-        onEmailChange={(newEmail) => setEmail(newEmail)}
-        onPasswordChange={(newPassword) => setPassword(newPassword)}
-        onPress={() => onButtonPress()}
-      />
-      <TouchableOpacity
+      {!user.id && (
+        <AuthForm
+          formType={formType}
+          email={email}
+          password={password}
+          onEmailChange={(newEmail) => setEmail(newEmail)}
+          onPasswordChange={(newPassword) => setPassword(newPassword)}
+          onPress={() => onButtonPress()}
+        />
+      )}
+
+      <Button
+        title="Go To Steps Screen"
         onPress={() => {
           navigation.navigate("Steps");
         }}
@@ -75,19 +80,3 @@ const mapDispatch = (dispatch) => {
 
 export default connect(mapState, mapDispatch)(HomeScreen);
 
-{
-  /* <TouchableOpacity title = 'Go to steps' onPress={() => {
-          navigation.navigate("Steps");
-        }}>
-        <Text>Submit</Text>
-      </TouchableOpacity> */
-}
-
-{
-  /* <Button
-        title="Go To Steps Screen"
-        onPress={() => {
-          navigation.navigate("Steps");
-        }}
-      /> */
-}

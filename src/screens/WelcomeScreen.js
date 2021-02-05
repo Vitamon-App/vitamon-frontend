@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button } from "react-native";
 import { connect } from "react-redux";
 import { logout } from "../store/user";
 
-function WelcomeScreen({ navigation, logout }) {
+function WelcomeScreen({ navigation, logout, user }) {
   return (
     <View>
       <Text>Welcome To Vitamon</Text>
@@ -14,9 +14,21 @@ function WelcomeScreen({ navigation, logout }) {
           navigation.navigate("Home");
         }}
       />
+      <Button
+        title="See My Friends"
+        onPress={() => {
+          navigation.navigate("Friends");
+        }}
+      />
     </View>
   );
 }
+
+const mapState = (state) => {
+  return {
+    user: state.user,
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
@@ -26,4 +38,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatch)(WelcomeScreen);
+export default connect(mapState, mapDispatch)(WelcomeScreen);
