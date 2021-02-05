@@ -43,7 +43,7 @@ function HomeScreen({ navigation, login, user }) {
         }}
       >
         <Text>Go to steps</Text>
-      </TouchableOpacity>
+      </Button>
 
       <TouchableOpacity
         onPress={() => {

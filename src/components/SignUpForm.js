@@ -37,7 +37,10 @@ const SignUpForm = ({
       />
       <View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => onPress(email, password)}>
+          <TouchableOpacity
+            
+            onPress={() => onPress(email, password)}
+          >
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
         </View>
@@ -62,6 +65,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#F2F2F2",
     padding: 8,
     margin: 10,
+  },
+  button: {
+    marginLeft: 0,
+    marginTop: 20,
+    backgroundColor: "#000000",
+    paddingVertical: 12,
+    borderRadius: 10,
   },
 });
 

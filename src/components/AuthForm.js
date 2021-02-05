@@ -35,11 +35,30 @@ const AuthForm = ({
         onChangeText={onPasswordChange}
         placeholder="enter password"
       />
-      <TouchableOpacity onPress={() => onPress(email, password, formType)}>
-        <Text>Submit</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => onPress(email, password, formType)}
+      >
+        <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    marginLeft: 10,
+    marginTop: 20,
+    backgroundColor: "#9F1BEE",
+    paddingVertical: 12,
+    borderRadius: 10,
+  },
+  buttonText: {
+    fontWeight: "600",
+    color: "white",
+    fontSize: 18,
+    textAlign: "center",
+  },
+});
 
 export default AuthForm;
