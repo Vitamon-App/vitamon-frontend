@@ -56,6 +56,7 @@ export const logout = () => async (dispatch) => {
 
 export const signup = (newUser) => async (dispatch) => {
   try {
+    console.log("in redux:signup");
     const { data } = await vitamon.post("/auth/signup", newUser);
     dispatch(getUser(data));
   } catch (err) {

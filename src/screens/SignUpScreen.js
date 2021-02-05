@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
-import { connect } from "react-redux";
 import SignUpForm from "../components/SignUpForm";
+import { connect } from "react-redux";
 import { signup } from "../store/user";
 
-function SignUp(navigation) {
+function SignUp({ navigation, signupUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  console.log("email: ", email);
+  console.log("password: ", password);
   const onSignUpButtonPress = async () => {
-    let newUser = {
-      email: email,
-      password: password,
-    };
     try {
-      await signup(newUser);
-      navigation.navigate("Welcome");
+      let newUser = {
+        email: email,
+        password: password,
+      };
+      await signupUser(newUser);
+      navigation.navigate("Home");
     } catch (error) {
       console.log(error);
     }
@@ -28,14 +30,14 @@ function SignUp(navigation) {
         password={password}
         onEmailChange={(newEmail) => setEmail(newEmail)}
         onPasswordChange={(newPassword) => setPassword(newPassword)}
-        onPress={() => oonSignUpButtonPress()}
+        onPress={() => onSignUpButtonPress()}
       />
     </View>
   );
 }
 const mapDispatch = (dispatch) => {
   return {
-    signup: (newUser) => {
+    signupUser: (newUser) => {
       dispatch(signup(newUser));
     },
   };
