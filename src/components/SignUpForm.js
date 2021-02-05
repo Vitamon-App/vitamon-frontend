@@ -6,7 +6,6 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import Constants from "expo-constants";
 
 /**
  * COMPONENT
