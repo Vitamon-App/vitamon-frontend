@@ -6,6 +6,7 @@ import StepsScreen from "./src/screens/StepsScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
 import { Provider } from "react-redux";
 import store from "./src/store";
+import AllFriendsScreen from "./src/screens/AllFriendsScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Steps" component={StepsScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen name="Friends" component={AllFriendsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
