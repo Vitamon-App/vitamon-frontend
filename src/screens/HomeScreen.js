@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AuthForm from "../components/AuthForm";
 import { connect } from "react-redux";
@@ -13,32 +13,45 @@ function HomeScreen({ navigation, login, user }) {
   const [formType, setFormType] = useState("login");
   const onButtonPress = async () => {
     try {
-      await login(email, password, formType);
-      console.log("user", user);
-      navigation.navigate("Steps");
+      await login(email, password, "login");
+      navigation.navigate("Welcome");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
+    setEmail("");
+    setPassword("");
   };
 
   return (
     <View style={styles.container}>
       <Text>Welcome To Vitamon!</Text>
-      <AuthForm
-        formType={formType}
-        email={email}
-        password={password}
-        onEmailChange={(newEmail) => setEmail(newEmail)}
-        onPasswordChange={(newPassword) => setPassword(newPassword)}
-        onPress={() => onButtonPress()}
-      />
+      {!user.id && (
+        <AuthForm
+          formType={formType}
+          email={email}
+          password={password}
+          onEmailChange={(newEmail) => setEmail(newEmail)}
+          onPasswordChange={(newPassword) => setPassword(newPassword)}
+          onPress={() => onButtonPress()}
+        />
+      )}
 
       <Button
         title="Go To Steps Screen"
         onPress={() => {
           navigation.navigate("Steps");
         }}
-      />
+      >
+        <Text>Go to steps</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("SignUp");
+        }}
+      >
+        <Text>SignUp</Text>
+      </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
   );
@@ -68,3 +81,4 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatch)(HomeScreen);
+
