@@ -21,7 +21,7 @@ function NavTabs() {
     <Tab.Navigator>
       <Tab.Screen name="Welcome" component={WelcomeScreen} />
       <Tab.Screen name="Steps" component={StepsScreen} />
-      <Tab.Screen name="AllFriends" component={AllFriendsScreen} />
+      <Tab.Screen name="Friends" component={AllFriendsScreen} />
     </Tab.Navigator>
   );
 }
