@@ -14,6 +14,13 @@ function WelcomeScreen({ navigation, logout }) {
           navigation.navigate("Home");
         }}
       />
+       {/* Temporary button to all goals for testing purposes before nav bar exists */}
+      <Button
+        title="All Goals"
+        onPress={() => {
+          navigation.navigate("AllGoals");
+        }}
+      />
     </View>
   );
 }
