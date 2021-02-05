@@ -5,6 +5,7 @@ import vitamon from "../api/vitamon";
  */
 const GET_USER = "GET_USER";
 const REMOVE_USER = "REMOVE_USER";
+
 /**
  * INITIAL STATE
  */
@@ -39,7 +40,7 @@ export const auth = (email, password, method) => async (dispatch) => {
   try {
     dispatch(getUser(res.data));
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
@@ -51,6 +52,17 @@ export const logout = () => async (dispatch) => {
     console.error(err);
   }
 };
+
+export const signup = (newUser) => async (dispatch) => {
+  try {
+    console.log("in redux:signup");
+    const { data } = await vitamon.post("/auth/signup", newUser);
+    dispatch(getUser(data));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 
 /**
  * REDUCER
