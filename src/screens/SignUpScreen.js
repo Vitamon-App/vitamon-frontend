@@ -16,7 +16,7 @@ function SignUp({ navigation, signupUser }) {
         password: password,
       };
       await signupUser(newUser);
-      navigation.navigate("Home");
+      navigation.navigate("Welcome");
     } catch (error) {
       console.log(error);
     }
