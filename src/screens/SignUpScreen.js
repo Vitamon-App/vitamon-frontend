@@ -24,7 +24,7 @@ function SignUp({ navigation, signupUser }) {
 
   return (
     <View>
-      <Text>Sign Up</Text>
+      <Text style={styles.buttonText}>Sign Up</Text>
       <SignUpForm
         email={email}
         password={password}
@@ -42,5 +42,12 @@ const mapDispatch = (dispatch) => {
     },
   };
 };
+
+const styles = StyleSheet.create({
+  buttonText: {
+    color: "#333333",
+    fontSize: 18,
+  },
+});
 
 export default connect(null, mapDispatch)(SignUp);
