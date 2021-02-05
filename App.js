@@ -7,9 +7,24 @@ import WelcomeScreen from "./src/screens/WelcomeScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
 import { Provider } from "react-redux";
 import store from "./src/store";
+import { SimpleLineIcons, FontAwesome5 } from "@expo/vector-icons";
+
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllFriendsScreen from "./src/screens/AllFriendsScreen";
 
 const Stack = createStackNavigator();
+
+const Tab = createBottomTabNavigator();
+
+function NavTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Welcome" component={WelcomeScreen} />
+      <Tab.Screen name="Steps" component={StepsScreen} />
+      <Tab.Screen name="Friends" component={AllFriendsScreen} />
+    </Tab.Navigator>
+  );
+}
 
 function App() {
   return (
@@ -17,6 +32,13 @@ function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Welcome" component={NavTabs} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+
+      {/* <NavigationContainer>
+        <Stack.Navigator>
           <Stack.Screen name="Steps" component={StepsScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
 
@@ -26,6 +48,24 @@ function App() {
 
         </Stack.Navigator>
       </NavigationContainer>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen
+            name="Home"
+            options={{
+              tabBarLabel: "Home",
+              //tabBarColor: "#2F004C",
+              tabBarIcon: ({ color }) => (
+                <SimpleLineIcons name="home" size={24} color={color} />
+              ),
+            }}
+            component={HomeScreen}
+          />
+        </Tab.Navigator>
+        {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
+
+      {/* <MyTabBar /> */}
+      {/* </NavigationContainer>  */}
     </Provider>
   );
 }

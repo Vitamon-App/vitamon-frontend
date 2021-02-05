@@ -5,6 +5,8 @@ import AuthForm from "../components/AuthForm";
 import { connect } from "react-redux";
 import { auth } from "../store/user";
 
+
+
 function HomeScreen({ navigation, login, user }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,7 +43,7 @@ function HomeScreen({ navigation, login, user }) {
         }}
       >
         <Text>Go to steps</Text>
-      </TouchableOpacity>
+      </Button>
 
       <TouchableOpacity
         onPress={() => {
