@@ -1,11 +1,8 @@
-import axios from 'axios'
+import axios from "axios";
 import publicIp from "public-ip";
 
-
-
-
-const  ip = "192.168.1.165"
-//daniel 
+const ip = "192.168.4.222";
+//daniel 192.168.1.165
 //veronica 192.168.1.4
 //melissa 192.168.1.243
 //priscila 192.168.4.222
