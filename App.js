@@ -8,6 +8,7 @@ import SignUpScreen from "./src/screens/SignUpScreen";
 import { Provider } from "react-redux";
 import store from "./src/store";
 import { SimpleLineIcons, FontAwesome5 } from "@expo/vector-icons";
+import SingleGoal from "./src/screens/SingleGoal";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllFriendsScreen from "./src/screens/AllFriendsScreen";
@@ -33,7 +34,9 @@ function App() {
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Welcome" component={NavTabs} />
+          <Stack.Screen name="Steps" component={StepsScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="SingleGoal" component={SingleGoal} />
         </Stack.Navigator>
       </NavigationContainer>
 

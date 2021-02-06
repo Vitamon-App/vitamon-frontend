@@ -20,6 +20,13 @@ function WelcomeScreen({ navigation, logout, user }) {
           navigation.navigate("Friends");
         }}
       />
+
+      <Button
+        title="Goal Details"
+        onPress={() => {
+          navigation.navigate("SingleGoal", { id: 2 });
+        }}
+      />
     </View>
   );
 }
@@ -37,6 +44,5 @@ const mapDispatch = (dispatch) => {
     },
   };
 };
-
 
 export default connect(mapState, mapDispatch)(WelcomeScreen);
