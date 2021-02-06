@@ -1,60 +1,57 @@
-import React, {useState} from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, {useState, useReducer} from 'react'
+import { View, Text, StyleSheet, Button } from 'react-native'
 import SearchBar from '../components/SearchBar'
 import { connect } from "react-redux";
-import { findUser } from '../store/user'
-import { SearchBar } from 'react-native-elements'
-
-class SearchScreen extends React.Component {
-    constructor(props){
-        super(props);
-        state = {
-            term: '',
-            // results: []
-      };
-    }
-
-    componentDidMount() {
-
-    }
-
-    onTermChange = term => {
-        this.setState({term})
-    }
-
-    onTermSubmit = async () => {
-        const term = this.state.term;
-        await this.props.findFriends(email)
-    }
+import { findFriend } from '../store/friend'
 
 
-    // console.log("RESULTS", results)
-    // console.log("PROPS", props)
-    // const search = (term) => {
-    //     const res = findUser(term)
-    //     setResults(res)
-    // }
-    render() {
+
+function AddFriendScreen({searchFriend, user, friend}) {
+  const [term, setTerm] = useState('')
+
+
+  // console.log("LOOKING FOR FRIENDS", user.friends)
+
+ const searchAPI = async () => {
+   try{
+  searchFriend(term)
+   } catch (err) {
+     console.log(err)
+   }
+ }
+
+//  const onClick = async (friendId) => {
+
+//  }
+  return (
+      <View style={styles.mainBackground}>
+          <SearchBar 
+          term={term} 
+          onTermChange={(newTerm)=> setTerm(newTerm)} 
+          onTermSubmit={searchAPI}
+          />
+          <Text>Search for a friend by email!</Text>
+          {friend.name ? 
+          <Text>We found {friend.name} with that email</Text> :
+          <Text> </Text>}
        
-        const term = this.props.term || ''
-        // const results = this.props.results || []
-        console.log("PROPS", this.state.term)
-    return (
-        <View style={styles.mainBackground}>
-            <SearchBar 
-            term={term}
-            onTermChange={this.onTermChange}
-            onTermSubmit={this.onTermSubmit}
+         {friend.email ?  (
+           <View>
+         <Text> Add {friend.name} as a friend!</Text>
+         <Button 
+         title="add friend"
+        //  onPress={onClick(results.id)}
+         />
+         </View>) :
+         <Text></Text>
+         }
+          
+         
+          
 
-            // onTermSubmit={(term) => setResults(findFriends(term))}
-            />
-            <Text>Search for a friend by email</Text>
-            <Text>Found {this.props.results} friends with that email</Text>
-            <Text>{this.props.term}</Text>
-
-        </View>
-    )
-    }
+          <Text>you entered: {term}</Text>
+      </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -66,19 +63,18 @@ const styles = StyleSheet.create({
 const mapState = (state) => {
     return {
       user: state.user,
-      term: state.term,
-      results: state.results
+      friend: state.friend
     };
   };
   
   const mapDispatch = (dispatch) => {
     return {
-      findFriends: (email) => {
-        dispatch(findUser(email));
+    searchFriend: (email) => {
+        dispatch(findFriend(email));
       },
     };
   };
 
-export default connect(mapState, mapDispatch)(SearchScreen);
+export default connect(mapState, mapDispatch)(AddFriendScreen);
 
 
