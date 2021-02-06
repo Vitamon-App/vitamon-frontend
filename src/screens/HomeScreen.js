@@ -5,8 +5,6 @@ import AuthForm from "../components/AuthForm";
 import { connect } from "react-redux";
 import { auth } from "../store/user";
 
-
-
 function HomeScreen({ navigation, login, user }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,7 +48,7 @@ function HomeScreen({ navigation, login, user }) {
           navigation.navigate("SignUp");
         }}
       >
-        <Text>SignUp</Text>
+        <Text>Sign Up</Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
@@ -81,4 +79,3 @@ const mapDispatch = (dispatch) => {
 };
 
 export default connect(mapState, mapDispatch)(HomeScreen);
-
