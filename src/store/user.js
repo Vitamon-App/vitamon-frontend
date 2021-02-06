@@ -63,6 +63,14 @@ export const signup = (newUser) => async (dispatch) => {
   }
 };
 
+export const findUser = (email) => async (dispatch) => {
+  try {
+    const {data} = await vitamon.get(`/api/users/${email}`);
+    dispatch(getUser(data));
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 /**
  * REDUCER

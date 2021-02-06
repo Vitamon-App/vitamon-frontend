@@ -5,6 +5,7 @@ import HomeScreen from "./src/screens/HomeScreen";
 import StepsScreen from "./src/screens/StepsScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
+import AddFriendScreen from "./src/screens/AddFriendScreen"
 import { Provider } from "react-redux";
 import store from "./src/store";
 import { SimpleLineIcons, FontAwesome5 } from "@expo/vector-icons";
@@ -16,7 +17,7 @@ const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
-function NavTabs() {
+function NavTabs({navigation}) {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Welcome" component={WelcomeScreen} />
@@ -34,6 +35,7 @@ function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Welcome" component={NavTabs} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="AddFriend" component={AddFriendScreen} />
         </Stack.Navigator>
       </NavigationContainer>
 

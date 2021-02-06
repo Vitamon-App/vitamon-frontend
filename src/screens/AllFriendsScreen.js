@@ -6,6 +6,7 @@ import { fetchFriends } from "../store/user";
 class AllFriendsScreen extends React.Component {
   render() {
     console.log("HERE ARE THE FRIENDS", this.props.user.friends);
+    
     const friends = this.props.user.friends || [];
     return (
       <View>
@@ -25,10 +26,22 @@ class AllFriendsScreen extends React.Component {
                 );
               }}
             />
+               <Button
+        title="Add a New Friend!"
+        onPress={() => {
+          this.props.navigation.navigate("AddFriend");
+        }}
+      />
           </View>
         ) : (
           <View>
             <Text>Go to the find friends page!</Text>
+            <Button
+        title="Click here to add a friend!"
+        onPress={() => {
+          this.props.navigation.navigate("AddFriend");
+        }}
+      />
           </View>
         )}
       </View>
