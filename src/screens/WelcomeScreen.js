@@ -18,10 +18,10 @@ function WelcomeScreen({ navigation, logout, user }) {
       <Button
         title="All Goals"
         onPress={() => {
-          navigation.navigate("AllGoals");
+          navigation.navigate("Goals");
         }}
           />
-          
+
       <Button
         title="See My Friends"
         onPress={() => {

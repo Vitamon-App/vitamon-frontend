@@ -10,12 +10,28 @@ constructor() {
 }
 
     render(){
-      const goals = this.props.user.goals.usergoal
+      const goals = this.props.user.goals
+    //map or FlatList
       console.log("GOALSSS", goals)
-    console.log(this.props)
+     
     return (
         <View>
-            <Text>All Goals</Text>
+             <FlatList
+      keyExtractor={(goal) => {
+        return goal.id.toString();
+      }}
+      data={goals}
+      renderItem={({ item }) => {
+        return (
+          <View>
+            <Text>Goals:</Text>
+            <Text>status: {item.usergoal.status}</Text>
+            <Text>number of days: {item.usergoal.numberOfDays}</Text>
+            <Text>completed days: {item.usergoal.completedDays}</Text>
+          </View>
+        );
+      }}
+    />
         </View>
     )
     }

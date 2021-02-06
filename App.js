@@ -23,6 +23,7 @@ function NavTabs() {
       <Tab.Screen name="Welcome" component={WelcomeScreen} />
       <Tab.Screen name="Steps" component={StepsScreen} />
       <Tab.Screen name="Friends" component={AllFriendsScreen} />
+      <Tab.Screen name="Goals" component={AllGoalsScreen} />
     </Tab.Navigator>
   );
 }
