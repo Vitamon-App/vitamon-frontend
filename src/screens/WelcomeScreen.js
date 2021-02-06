@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { connect } from "react-redux";
 import { logout } from "../store/user";
+import { setFriends } from "../store/friends";
 
-function WelcomeScreen({ navigation, logout, user }) {
+function WelcomeScreen({ navigation, logout, user, getFriends }) {
+  useEffect(() => {
+    getFriends(user.friends);
+  });
+
   return (
     <View>
       <Text>Welcome To Vitamon</Text>
@@ -14,7 +19,7 @@ function WelcomeScreen({ navigation, logout, user }) {
           navigation.navigate("Home");
         }}
       />
-    
+
       <Button
         title="See My Friends"
         onPress={() => {
@@ -35,6 +40,7 @@ function WelcomeScreen({ navigation, logout, user }) {
 const mapState = (state) => {
   return {
     user: state.user,
+    friends: state.friends,
   };
 };
 
@@ -42,6 +48,9 @@ const mapDispatch = (dispatch) => {
   return {
     logout: () => {
       dispatch(logout());
+    },
+    getFriends: (friends) => {
+      dispatch(setFriends(friends));
     },
   };
 };
