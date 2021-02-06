@@ -1,28 +1,46 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  TouchableOpacity,
+  Keyboard,
+  Alert,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AuthForm from "../components/AuthForm";
 import { connect } from "react-redux";
 import { auth } from "../store/user";
 
-function HomeScreen({ navigation, login, user }) {
+function HomeScreen({ navigation, login, user, error }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formType, setFormType] = useState("login");
+
+  useEffect(() => {
+    if (user.id) {
+      navigation.navigate("Welcome");
+    } else if (error) {
+      Alert.alert("Log in attempt failed. Please try again.");
+    }
+  }, [user, error]);
+
   const onButtonPress = async () => {
+    Keyboard.dismiss();
     try {
       await login(email, password, "login");
-      navigation.navigate("Welcome");
-    } catch (error) {
-      console.log(error);
+      setEmail("");
+      setPassword("");
+    } catch (err) {
+      console.log(err);
     }
-    setEmail("");
-    setPassword("");
   };
 
   return (
     <View style={styles.container}>
       <Text>Welcome To Vitamon!</Text>
+
       {!user.id && (
         <AuthForm
           formType={formType}
@@ -67,6 +85,7 @@ const styles = StyleSheet.create({
 const mapState = (state) => {
   return {
     user: state.user,
+    error: state.user.error,
   };
 };
 

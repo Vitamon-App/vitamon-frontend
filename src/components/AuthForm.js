@@ -41,6 +41,7 @@ const AuthForm = ({
       >
         <Text style={styles.buttonText}>Submit</Text>
       </TouchableOpacity>
+      <View></View>
     </View>
   );
 };

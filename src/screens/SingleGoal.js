@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { connect } from "react-redux";
+import { ProgressBar, Colors } from "react-native-paper";
 
 function SingleGoal({ route, user }) {
   // we can access the user by connecting the component to redux and mapping the user on state to props.
@@ -16,6 +17,8 @@ function SingleGoal({ route, user }) {
   } else if (singleGoal.type === "Steps") {
     goalDetails = `Walk ${singleGoal.usergoal.quantity} steps a day`;
   }
+  const progress =
+    singleGoal.usergoal.completedDays / singleGoal.usergoal.numberOfDays;
 
   return (
     <View>
@@ -32,9 +35,17 @@ function SingleGoal({ route, user }) {
         ).toFixed(0)}
         %
       </Text>
+      <ProgressBar style={styles.progress} progress={progress} />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  progress: {
+    margin: 10,
+    width: 400,
+  },
+});
 
 const mapState = (state) => {
   return {

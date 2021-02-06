@@ -24,7 +24,7 @@ function WelcomeScreen({ navigation, logout, user }) {
       <Button
         title="Goal Details"
         onPress={() => {
-          navigation.navigate("SingleGoal", { id: 1 });
+          navigation.navigate("SingleGoal", { id: 2 });
         }}
       />
     </View>
