@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { StyleSheet, Text, View, Button, FlatList } from "react-native";
 import { connect } from "react-redux";
-import { fetchFriends } from "../store/user";
 
 class AllFriendsScreen extends React.Component {
   render() {
-    console.log("HERE ARE THE FRIENDS", this.props.user.friends);
-    const friends = this.props.user.friends || [];
+    const friends = this.props.friends || [];
     return (
       <View>
         {friends.length ? (
@@ -38,15 +36,8 @@ class AllFriendsScreen extends React.Component {
 const mapState = (state) => {
   return {
     user: state.user,
+    friends: state.friends,
   };
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    getFriends: (user) => {
-      dispatch(fetchFriends(user));
-    },
-  };
-};
-
-export default connect(mapState, mapDispatch)(AllFriendsScreen);
+export default connect(mapState)(AllFriendsScreen);
