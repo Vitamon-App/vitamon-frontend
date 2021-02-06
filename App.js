@@ -22,7 +22,6 @@ const Tab = createBottomTabNavigator();
 function NavTabs() {
   return (
     <Tab.Navigator>
-
       <Tab.Screen
         name="Welcome"
         component={WelcomeScreen}
@@ -57,8 +56,17 @@ function NavTabs() {
         }}
       />
 
-      <Tab.Screen name="Goals" component={AllGoalsScreen} />
-
+      <Tab.Screen
+        name="Goals"
+        component={AllGoalsScreen}
+        options={{
+          tabBarLabel: "Goals",
+          //tabBarColor: "#2F004C",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5 name="optin-monster" size={24} color="#2F004C" />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
