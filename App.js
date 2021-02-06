@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./src/screens/HomeScreen";
 import StepsScreen from "./src/screens/StepsScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
+import AllGoalsScreen from "./src/screens/AllGoalsScreen"
 import SignUpScreen from "./src/screens/SignUpScreen";
 import { Provider } from "react-redux";
 import store from "./src/store";
@@ -23,6 +24,7 @@ function NavTabs() {
       <Tab.Screen name="Welcome" component={WelcomeScreen} />
       <Tab.Screen name="Steps" component={StepsScreen} />
       <Tab.Screen name="Friends" component={AllFriendsScreen} />
+      <Tab.Screen name="Goals" component={AllGoalsScreen} />
     </Tab.Navigator>
   );
 }
@@ -44,11 +46,15 @@ function App() {
         <Stack.Navigator>
           <Stack.Screen name="Steps" component={StepsScreen} />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
+<<<<<<< HEAD
+          <Stack.Screen name="AllGoals" component={AllGoalsScreen} />
+=======
 
           <Stack.Screen name="SignUp" component={SignUpScreen} />
 
           <Stack.Screen name="Friends" component={AllFriendsScreen} />
 
+>>>>>>> main
         </Stack.Navigator>
       </NavigationContainer>
       <NavigationContainer>

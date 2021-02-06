@@ -14,6 +14,7 @@ function WelcomeScreen({ navigation, logout, user }) {
           navigation.navigate("Home");
         }}
       />
+    
       <Button
         title="See My Friends"
         onPress={() => {
