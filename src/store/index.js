@@ -1,13 +1,13 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunkMiddleware from "redux-thunk";
 import user from "./user";
-import goals from "./goal"
-import friend from "./friend"
+import goals from "./goal";
+import friends from "./friends";
 
 const reducer = combineReducers({
   user,
   goals,
-  friend
+  friends,
 });
 
 const middleware = applyMiddleware(thunkMiddleware);
