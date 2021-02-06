@@ -11,8 +11,7 @@ constructor() {
 
     render(){
       const goals = this.props.user.goals
-    //map or FlatList
-      console.log("GOALSSS", goals)
+ 
      
     return (
         <View>
@@ -28,6 +27,7 @@ constructor() {
             <Text>status: {item.usergoal.status}</Text>
             <Text>number of days: {item.usergoal.numberOfDays}</Text>
             <Text>completed days: {item.usergoal.completedDays}</Text>
+            <Text>type: {item.type} </Text>
           </View>
         );
       }}

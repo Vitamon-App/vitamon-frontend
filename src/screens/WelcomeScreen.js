@@ -14,14 +14,7 @@ function WelcomeScreen({ navigation, logout, user }) {
           navigation.navigate("Home");
         }}
       />
-       {/* Temporary button to all goals for testing purposes before nav bar exists */}
-      <Button
-        title="All Goals"
-        onPress={() => {
-          navigation.navigate("Goals");
-        }}
-          />
-
+    
       <Button
         title="See My Friends"
         onPress={() => {
