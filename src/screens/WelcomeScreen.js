@@ -14,18 +14,11 @@ function WelcomeScreen({ navigation, logout, user }) {
           navigation.navigate("Home");
         }}
       />
-    
+
       <Button
         title="See My Friends"
         onPress={() => {
           navigation.navigate("Friends");
-        }}
-      />
-
-      <Button
-        title="Goal Details"
-        onPress={() => {
-          navigation.navigate("SingleGoal", { id: 2 });
         }}
       />
     </View>
