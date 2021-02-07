@@ -37,7 +37,9 @@ class AllGoalsScreen extends React.Component {
                 <Button
                   title="Details"
                   onPress={() => {
-                    navigation.navigate("SingleGoal", { id: item.usergoal.id });
+                    navigation.navigate("SingleGoal", {
+                      id: item.id,
+                    });
                   }}
                 />
               </View>

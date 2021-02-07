@@ -4,10 +4,10 @@ import { connect } from "react-redux";
 import { logout } from "../store/user";
 import { setFriends } from "../store/friends";
 
-function WelcomeScreen({ navigation, logout, user, getFriends }) {
+function WelcomeScreen({ navigation, logout, user, getFriends, friends }) {
   useEffect(() => {
     getFriends(user.friends);
-  });
+  }, [friends]);
 
   return (
     <View>
