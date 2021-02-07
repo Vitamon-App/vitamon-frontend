@@ -63,7 +63,6 @@ export const signup = (newUser) => async (dispatch) => {
   }
 };
 
-
 /**
  * REDUCER
  */
