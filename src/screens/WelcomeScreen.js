@@ -26,8 +26,6 @@ function WelcomeScreen({ navigation, logout, user, getFriends, friends }) {
           navigation.navigate("Friends");
         }}
       />
-<<<<<<< HEAD
-=======
 
       <Button
         title="Goal Details"
@@ -42,7 +40,6 @@ function WelcomeScreen({ navigation, logout, user, getFriends, friends }) {
           navigation.navigate("UserStats");
         }}
       />
->>>>>>> main
     </View>
   );
 }

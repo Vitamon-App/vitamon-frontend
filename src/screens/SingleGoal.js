@@ -83,7 +83,7 @@ class SingleGoal extends React.Component {
                     <DataTable.Cell>{i + 1}</DataTable.Cell>
                     <DataTable.Cell>{day ? "Yes" : "No"}</DataTable.Cell>
                     <DataTable.Cell>
-                      {!day ? (
+                      {!day && goal.type === "Water" ? (
                         <TouchableOpacity
                           onPress={() => {
                             this.handleUpdate();
