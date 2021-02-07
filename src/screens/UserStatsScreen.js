@@ -10,6 +10,7 @@ import {
 import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
 
 import { connect } from "react-redux";
+import WaterVisualData from "../components/WaterVisualData";
 
 function UserStatsScreen({ user }) {
   //console.log("user.goals: ", user.goals);
@@ -99,6 +100,21 @@ function UserStatsScreen({ user }) {
             ) : (
               <View>
                 <Text style={styles.subHead2}>Visual stuff</Text>
+                <Text style={styles.subHead3}>Water Stats</Text>
+                {isWater(user) ? (
+                  user.goals[Number(isWater(user))].usergoal.status ===
+                  "complete" ? (
+                    <WaterVisualData
+                      userWaterData={
+                        user.goals[isWater(user)].usergoal.numberOfDays
+                      }
+                    />
+                  ) : (
+                    <Text>No water goals completed yet </Text>
+                  )
+                ) : (
+                  <Text>You dont have any water goals!!</Text>
+                )}
               </View>
             )}
           </View>
