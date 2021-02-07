@@ -1,53 +1,61 @@
-import vitamon from '../api/vitamon'
+import vitamon from "../api/vitamon";
 
 /**
  * ACTION TYPES
  */
-const GET_GOALS = 'GET_GOALS'
+const SET_GOAL = "SET_GOAL";
+const EDIT_GOAL = "EDIT_GOAL";
 
 /**
  * INITIAL STATE
  */
-const initialState = []
-
+const initialState = {};
 
 /**
  * ACTION CREATORS
  */
-export const getGoals = goals => {
-    return {
-      type: GET_GOALS,
-      goals
-    }
+export const setGoal = (goal) => {
+  return {
+    type: SET_GOAL,
+    goal,
+  };
+};
+
+export const editGoal = (goal) => {
+  return {
+    type: EDIT_GOAL,
+    goal,
+  };
+};
+
+export const updateGoal = (goal, update) => async (dispatch) => {
+  try {
+    const { data } = await vitamon.put(
+      `/api/goals/${goal.usergoal.id}`,
+      update
+    );
+    console.log("UPDATED GOAL", data);
+    dispatch(editGoal(data));
+  } catch (err) {
+    console.log("There was a problem updating the goal", err);
   }
+};
 
 /**
  * THUNK CREATORS
  */
-export const fetchGoals = userId => {
-    return async dispatch => {
-      try {
-        const {data} = await vitamon.get(`/api/goals/${userId}`)
-        // console.log(userId)
-        console.log("DATAAAA", data)
-        console.log("GetGoals", getGoals(data))
-        dispatch(getGoals(data))
-      
-      } catch (error) {
-        console.log(error)
-      }
-    }
-  }
 
 /**
  * REDUCER
  */
 
-export default function goalsReducer(state = initialState, action) {
-    switch (action.type) {
-      case GET_GOALS:
-        return action.goals
-      default:
-        return state
-    }
+export default function goalReducer(state = initialState, action) {
+  switch (action.type) {
+    case SET_GOAL:
+      return action.goal;
+    case EDIT_GOAL:
+      return { ...state, completedDays: action.goal.completedDays };
+    default:
+      return state;
   }
+}
