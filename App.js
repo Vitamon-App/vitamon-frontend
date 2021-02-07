@@ -4,16 +4,17 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./src/screens/HomeScreen";
 import StepsScreen from "./src/screens/StepsScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
-import AllGoalsScreen from "./src/screens/AllGoalsScreen"
+import AllGoalsScreen from "./src/screens/AllGoalsScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
 import { Provider } from "react-redux";
 import store from "./src/store";
 import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import SingleGoal from "./src/screens/SingleGoal";
 
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllFriendsScreen from "./src/screens/AllFriendsScreen";
+import UserStatsScreen from "./src/screens/UserStatsScreen";
+import SettingsScreen from "./src/screens/SettingsScreen";
 
 const Stack = createStackNavigator();
 
@@ -81,9 +82,10 @@ function App() {
           <Stack.Screen name="Steps" component={StepsScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="SingleGoal" component={SingleGoal} />
+          <Stack.Screen name="UserStats" component={UserStatsScreen} />
+          <Stack.Screen name="Settings" component={SettingsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-
     </Provider>
   );
 }
