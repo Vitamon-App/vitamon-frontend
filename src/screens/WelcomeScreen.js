@@ -13,10 +13,10 @@ function WelcomeScreen({ navigation, logout, user, getFriends, friends }) {
     <View>
       <Text>Welcome To Vitamon</Text>
       <Button
-        title="logout"
+        title="Settings"
         onPress={() => {
-          logout();
-          navigation.navigate("Home");
+          // logout();
+          navigation.navigate("Settings");
         }}
       />
 
@@ -26,6 +26,23 @@ function WelcomeScreen({ navigation, logout, user, getFriends, friends }) {
           navigation.navigate("Friends");
         }}
       />
+<<<<<<< HEAD
+=======
+
+      <Button
+        title="Goal Details"
+        onPress={() => {
+          navigation.navigate("SingleGoal", { id: 2 });
+        }}
+      />
+
+      <Button
+        title="User Stats"
+        onPress={() => {
+          navigation.navigate("UserStats");
+        }}
+      />
+>>>>>>> main
     </View>
   );
 }
