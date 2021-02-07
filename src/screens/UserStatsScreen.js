@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   RefreshControlBase,
 } from "react-native";
+import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
 
 import { connect } from "react-redux";
 
@@ -65,6 +66,7 @@ function UserStatsScreen({ user }) {
                 <Text style={styles.subHead2}>Text stuff</Text>
                 {}
                 <Text style={styles.subHead3}>Water Stats</Text>
+                <SimpleLineIcons name="drop" size={15} color={"blue"} />
                 {isWater(user) ? (
                   user.goals[Number(isWater(user))].usergoal.status ===
                   "complete" ? (

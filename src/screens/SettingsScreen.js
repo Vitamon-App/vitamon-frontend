@@ -2,13 +2,16 @@ import React from "react";
 import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { logout } from "../store/user";
+import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
 
 function SettingsScreen({ navigation, logout }) {
   //We must logout in settings inorder to aviod user is undefined  error
   return (
     <View>
-      <Text style={styles.textStyle}>Settings</Text>
-
+      <View style={styles.textContainer}>
+        <Text style={styles.textStyle}>Settings</Text>
+        <SimpleLineIcons name="settings" size={15} color={"blue"} />
+      </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           onPress={() => {
@@ -16,6 +19,7 @@ function SettingsScreen({ navigation, logout }) {
             navigation.navigate("Home");
           }}
         >
+          <SimpleLineIcons name="logout" size={12} color={"blue"} />
           <Text style={styles.buttonText}>Logout</Text>
         </TouchableOpacity>
       </View>
@@ -69,6 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#97A5E9",
     alignItems: "center",
     justifyContent: "center",
+    flexDirection: "row",
   },
   buttonText: {
     color: "#fff",
@@ -77,6 +82,16 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     flexWrap: "wrap",
     alignItems: "flex-start",
+    flexDirection: "row",
+  },
+  textContainer: {
+    height: 60,
+    //width: 300,
+    marginTop: 19,
+    marginHorizontal: 10,
+    backgroundColor: "#97A5E9",
+    alignItems: "center",
+    justifyContent: "center",
     flexDirection: "row",
   },
 });
