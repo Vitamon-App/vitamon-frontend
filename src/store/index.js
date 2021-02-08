@@ -3,12 +3,12 @@ import thunkMiddleware from "redux-thunk";
 import user from "./user";
 import goal from "./goal";
 import friends from "./friends";
-import friend from "./friend"
+import foundFriend from "./friend"
 
 const reducer = combineReducers({
   user,
   friends,
-  friend,
+  foundFriend,
   goal,
 });
 

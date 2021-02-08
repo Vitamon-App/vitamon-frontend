@@ -10,9 +10,9 @@ class AllFriendsScreen extends React.Component {
         {friends.length ? (
           <View>
             <Text>Friend List:</Text>
-            <FlatList
+             <FlatList
               keyExtractor={(friend) => {
-                return friend.id.toString();
+                  return friend.id.toString();
               }}
               data={friends}
               renderItem={({ item }) => {

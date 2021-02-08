@@ -14,7 +14,7 @@ const defaultFriend = {};
 /**
  * ACTION CREATORS
  */
-const getFriend = (friend) => ({ type: GET_FRIEND, friend });
+const getFriend = (foundFriend) => ({ type: GET_FRIEND, foundFriend });
 
 
 /**
@@ -40,7 +40,7 @@ export const findFriend = (email) => async (dispatch) => {
 export default function (state = defaultFriend, action) {
   switch (action.type) {
     case GET_FRIEND:
-      return action.friend;
+      return action.foundFriend;
     default:
       return state;
   }
