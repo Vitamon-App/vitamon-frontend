@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions, ScrollView } from "react-native";
 import Monster from '../components/Monster'
 import { connect } from "react-redux";
 import { ProgressBar, Colors, DataTable } from "react-native-paper";
@@ -53,15 +53,15 @@ class SingleGoal extends React.Component {
     console.log("GOAL IN SINGLE", goal);
 
     return (
-
-     <View style={styles.headlineContainer}>
-        {goal.type &&
+<ScrollView style={styles.headlineContainer}>
+     <View >
+        {/* {goal.type &&
 
           goal.usergoal.completedDays === goal.usergoal.numberOfDays && (
             <Text style={styles.headline}>You Completed Your Goal!</Text>
-          )}
-        {goal.type &&
-        goal.usergoal.completedDays !== goal.usergoal.numberOfDays ? (
+          )} */}
+        {goal.type 
+        ? (
           <View>
 
             <Text style={styles.headline}>Goal Details:</Text>
@@ -100,7 +100,7 @@ class SingleGoal extends React.Component {
                           style={styles.button}
                         >
                           <Text style={styles.buttonText}>
-                            Complete This Day
+                            Complete
                           </Text>
                         </TouchableOpacity>
                       ) : (
@@ -116,6 +116,7 @@ class SingleGoal extends React.Component {
           <View></View>
         )}
       </View>
+      </ScrollView>
     );
   }
 }
@@ -210,7 +211,7 @@ const styles = StyleSheet.create({
       marginLeft: 10,
       marginTop: 20,
       backgroundColor: "#f114af",
-      paddingVertical: 10,
+      // paddingVertical: 10,
       borderRadius: 10,
       bottom: 20
     }, 

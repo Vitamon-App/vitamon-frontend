@@ -7,7 +7,8 @@ import {
   FlatList,
   Button,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  ScrollView
 } from "react-native";
 import Monster from "../components/Monster";
 import { Pedometer } from "expo-sensors";
@@ -29,7 +30,7 @@ class AllGoalsScreen extends React.Component {
     const { navigation } = this.props;
     console.log("goals in ALL GOALS:", goals);
     return (
-
+<ScrollView>
       <View style={styles.headlineContainer}>
          {!goals.length ? <View>
        <Text style={styles.headline}>You haven't added any goals yet!</Text>
@@ -53,12 +54,13 @@ class AllGoalsScreen extends React.Component {
               return (
                 <View>
 
-                  <Text>Goals:</Text>
-                  <Text>status: {item.usergoal.status}</Text>
-                  <Text>number of days: {item.usergoal.numberOfDays}</Text>
-                  <Text>completed days: {item.usergoal.completedDays}</Text>
-                  <Text>type: {item.type} </Text>
-                  <Button
+                  <Text style={styles.subheading}>Goals:</Text>
+                  <Monster monsterType={item.type} monsterStatus={item.usergoal.status} />
+                  <Text style={styles.subheading}>status: {item.usergoal.status}</Text>
+                  <Text style={styles.subheading}>number of days: {item.usergoal.numberOfDays}</Text>
+                  <Text style={styles.subheading}>completed days: {item.usergoal.completedDays}</Text>
+                  <Text style={styles.subheading}>type: {item.type} </Text>
+                  {/* <Button
                     title="Details"
                     onPress={() => {
                       console.log("ITEM", item);
@@ -66,7 +68,15 @@ class AllGoalsScreen extends React.Component {
                         id: item.usergoal.id,
                       });
                     }}
-                  />
+                  /> */}
+      <TouchableOpacity style={styles.buttonTwo}
+      onPress={() => {
+        navigation.navigate("SingleGoal", {
+          id: item.usergoal.id,
+        });
+      }}>
+      <Text style={styles.buttonText}> Go to Details</Text>
+    </TouchableOpacity>
 
                 </View>
               );
@@ -86,6 +96,7 @@ class AllGoalsScreen extends React.Component {
           <Text style={styles.buttonText}>Add A New Goal</Text>
         </TouchableOpacity>
       </View>
+      </ScrollView>
     );
   }
 }
