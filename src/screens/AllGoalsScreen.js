@@ -20,8 +20,6 @@ class AllGoalsScreen extends React.Component {
   render() {
     const goals = this.props.user.goals;
     const { navigation } = this.props;
-    const sentUser = this.props.user.id;
-    console.log("In all goals :", this.props.user.id);
     return (
       <View>
         <FlatList
