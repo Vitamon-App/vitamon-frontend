@@ -54,7 +54,14 @@ export default function goalReducer(state = initialState, action) {
     case SET_GOAL:
       return action.goal;
     case EDIT_GOAL:
-      return { ...state, completedDays: action.goal.completedDays };
+      return {
+        ...state,
+        usergoal: {
+          ...state.usergoal,
+          completedDays: action.goal.completedDays,
+          status: action.goal.status,
+        },
+      };
     default:
       return state;
   }
