@@ -7,12 +7,14 @@ import {
   FlatList,
   Button,
   TouchableOpacity,
+  Dimensions
 } from "react-native";
 import Monster from '../components/Monster'
 import { Pedometer } from "expo-sensors";
 import { connect } from "react-redux";
 import { fetchGoals } from "../store/goal";
 import { setGoals } from "../store/allTheUsersGoals";
+const width = Dimensions.get('window').width;
 
 
 class AllGoalsScreen extends React.Component {
@@ -28,9 +30,9 @@ class AllGoalsScreen extends React.Component {
     const { navigation } = this.props;
     console.log("goals:", goals);
     return (
-      <View>
+      <View style={styles.headlineContainer}>
          {!goals.length ? <View>
-       <Text>You haven't added any goals yet!</Text>
+       <Text style={styles.headline}>You haven't added any goals yet!</Text>
        <Button title="Click Here to Adopt a Vitamon"
       //  onPress={() => {
       //   navigation.navigate("AddGoal");
@@ -39,6 +41,8 @@ class AllGoalsScreen extends React.Component {
        </View> : null}
 
         {goals.length ? (
+          <View>
+          <Text style={styles.headline}>Goals:</Text>
           <FlatList
             keyExtractor={(goal) => {
               return goal.usergoal.id.toString();
@@ -47,43 +51,186 @@ class AllGoalsScreen extends React.Component {
             renderItem={({ item }) => {
               return (
                 <View>
-                  <Text>Goals:</Text>
-                  <Text>status: {item.usergoal.status}</Text>
-                  <Text>number of days: {item.usergoal.numberOfDays}</Text>
-                  <Text>completed days: {item.usergoal.completedDays}</Text>
-                  <Text>type: {item.type} </Text>
-                  <Button
-                    title="Details"
-                    onPress={() => {
-                      navigation.navigate("SingleGoal", {
-                        id: item.id,
-                      });
-                    }}
-                  />
+               
+                  <Monster monsterType={item.type} monsterStatus={item.usergoal.status} />
+        
+                  <Text style={styles.headline}>status: {item.usergoal.status}</Text>
+                  <Text style={styles.subheading}>number of days: {item.usergoal.numberOfDays}</Text>
+                  <Text style={styles.subheading}>completed days: {item.usergoal.completedDays}</Text>
+                  <Text style={styles.subheading}>type: {item.type} </Text>
+                
+                   <TouchableOpacity
+        style={styles.buttonTwo}
+        onPress={() => {
+          navigation.navigate("SingleGoal", {
+            id: item.id,
+          });
+        }}
+        >
+          <Text style={styles.buttonText}>Go to Goal Details</Text>
+        </TouchableOpacity>
                 </View>
               );
             }}
           />
+          </View>
         ) : (
          null
         )}
         <TouchableOpacity
+        style={styles.button}
           onPress={() => {
             navigation.navigate("AddGoal");
           }}
         >
-          <Text>Add A New Goal</Text>
+          <Text style={styles.buttonText}>Add A New Goal</Text>
         </TouchableOpacity>
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
-  mediumLogo: {
-    width: 100,
-    height: 100,
+  headlineContainer: {
+		paddingTop: '18%',
+		paddingLeft: 20,
+		paddingRight: 20,
+		backgroundColor: '#8c55fa'
+	},
+	headline: {
+		marginTop: 10,
+		color: 'white',
+		fontSize: 26,
+		textAlign: 'center',
+		marginBottom: 20,
+		fontWeight: '500'
+	},
+	subheading: {
+		fontWeight: '700',
+		fontSize: 20,
+		padding: 15,
+		color: '#424347'
+	},
+	outerContainer: {
+		display: 'flex',
+		flexDirection: 'row',
+		backgroundColor: '#FFF',
+		marginHorizontal: '5%',
+		marginVertical: '2%',
+		maxWidth: '95%',
+		justifyContent: 'space-between'
+	},
+	leftRequestContainer: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignContent: 'center',
+		borderRadius: 5,
+		marginVertical: '2%',
+		marginLeft: 15,
+		backgroundColor: '#FFF'
+	},
+	rightRequestContainer: {
+		display: 'flex',
+		alignSelf: 'center',
+		borderRadius: 5
+	},
+	photo: {
+		height: 60,
+		width: 60,
+		borderRadius: 30,
+		marginRight: '7%',
+		alignSelf: 'center',
+		justifyContent: 'center'
+	},
+	icon: {
+		color: '#9FC78A',
+		paddingLeft: '2%',
+		marginRight: '2%'
+	},
+	iconNo: {
+		color: 'black',
+		paddingLeft: '2%',
+		marginRight: '2%'
+	},
+	iconContainer: {
+		flexDirection: 'row'
+	},
+	requestBottom: {
+		display: 'flex',
+		flexDirection: 'row'
+	},
+	name: {
+		fontSize: 0.045 * width,
+		fontWeight: '700',
+		alignSelf: 'center',
+		textAlignVertical: 'center',
+		color: '#424347'
+	},
+	email: {
+		fontSize: 20,
+		padding: 10,
+		color: '#424347'
+	},
+	instructions: {
+		alignSelf: 'center',
+		margin: 15,
+		maxWidth: '90%',
+		fontSize: 0.045 * width,
+		textAlign: 'center',
+		padding: 10,
+		color: '#424347'
+	},
+	input: {
+		height: 48,
+		borderRadius: 5,
+		overflow: 'hidden',
+		backgroundColor: 'white',
+		fontSize: 20,
+		marginHorizontal: 15,
+		paddingLeft: 10
+	},
+	sendButton: {
+		fontWeight: 'bold',
+		color: 'white',
+		fontSize: 18,
+		textAlign: 'center',
+		fontFamily: 'Avenir'
+	},
+	buttonContainer: {
+		width: '40%',
+		alignSelf: 'center',
+		marginHorizontal: 15,
+		marginTop: '4%',
+		backgroundColor: '#9FC78A',
+		paddingVertical: 12,
+		borderRadius: 10
+  },
+  button: {
+    marginLeft: 10,
+    marginTop: 20,
+    backgroundColor: "#f114af",
+    paddingVertical: 10,
+    borderRadius: 10,
+    bottom: 20
+  }, 
+  buttonTwo: {
+    marginLeft: 10,
+    marginTop: 20,
+    alignSelf: "flex-end",
+    backgroundColor: "#f114af",
+    paddingVertical: 10,
+    borderRadius: 10,
+    bottom: 20
+  },
+
+  buttonText: {
+    fontWeight: "600",
+    color: "white",
+    fontSize: 18,
+    textAlign: "center",
   }
 })
+
+
 
 
 const mapState = (state) => {
