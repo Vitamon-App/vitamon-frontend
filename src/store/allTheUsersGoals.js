@@ -4,11 +4,12 @@ import vitamon from "../api/vitamon";
  */
 
 const ADD_GOAL = "ADD_GOAL";
+const SET_GOALS = "SET_GOALS";
 
 /**
  * INITIAL STATE
  */
-const initialState = { goals: [] };
+const initialState = [];
 
 /**
  * ACTION CREATORS
@@ -20,6 +21,12 @@ export const addGoal = (goal) => {
     goal,
   };
 };
+export const setGoals = (goals) => {
+  return {
+    type: SET_GOALS,
+    goals,
+  };
+};
 
 /**
  * THUNK CREATORS
@@ -28,7 +35,18 @@ export const addGoal = (goal) => {
 export const addGoalToUser = (newGoal) => async (dispatch) => {
   try {
     const { data } = await vitamon.post(`/api/goals/add`, newGoal);
-    dispatch(addGoal(data));
+    let type;
+    if (newGoal.goalId === 1) {
+      type = "Steps";
+    } else if (newGoal.goalId === 2) {
+      type = "Water";
+    }
+    const goal = {
+      type: type,
+      id: newGoal.id,
+      usergoal: data,
+    };
+    dispatch(addGoal(goal));
   } catch (error) {
     console.log(error);
   }
@@ -41,8 +59,9 @@ export const addGoalToUser = (newGoal) => async (dispatch) => {
 export default function (state = initialState, action) {
   switch (action.type) {
     case ADD_GOAL:
-      return { ...state, goals: [...state.goals, action.goal] };
-
+      return [...state, action.goal];
+    case SET_GOALS:
+      return action.goals;
     default:
       return state;
   }
