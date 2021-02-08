@@ -34,7 +34,6 @@ export const updateGoal = (goal, update) => async (dispatch) => {
       `/api/goals/${goal.usergoal.id}`,
       update
     );
-    console.log("UPDATED GOAL", data);
     dispatch(editGoal(data));
   } catch (err) {
     console.log("There was a problem updating the goal", err);
@@ -54,7 +53,14 @@ export default function goalReducer(state = initialState, action) {
     case SET_GOAL:
       return action.goal;
     case EDIT_GOAL:
-      return { ...state, completedDays: action.goal.completedDays };
+      return {
+        ...state,
+        usergoal: {
+          ...state.usergoal,
+          completedDays: action.goal.completedDays,
+          status: action.goal.status,
+        },
+      };
     default:
       return state;
   }

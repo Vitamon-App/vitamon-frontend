@@ -28,13 +28,6 @@ function WelcomeScreen({ navigation, logout, user, getFriends, friends }) {
       />
 
       <Button
-        title="Goal Details"
-        onPress={() => {
-          navigation.navigate("SingleGoal", { id: 2 });
-        }}
-      />
-
-      <Button
         title="User Stats"
         onPress={() => {
           navigation.navigate("UserStats");

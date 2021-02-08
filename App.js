@@ -9,7 +9,7 @@ import SignUpScreen from "./src/screens/SignUpScreen";
 import { Provider } from "react-redux";
 import store from "./src/store";
 import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
-import SingleGoal from "./src/screens/SingleGoal";
+import SingleGoalScreen from "./src/screens/SingleGoalScreen";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllFriendsScreen from "./src/screens/AllFriendsScreen";
@@ -81,7 +81,7 @@ function App() {
           <Stack.Screen name="Welcome" component={NavTabs} />
           <Stack.Screen name="Steps" component={StepsScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="SingleGoal" component={SingleGoal} />
+          <Stack.Screen name="SingleGoal" component={SingleGoalScreen} />
           <Stack.Screen name="UserStats" component={UserStatsScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
         </Stack.Navigator>

@@ -67,7 +67,6 @@ class StepGoalDetails extends React.Component {
       );
     };
 
-    console.log("GOAL", new Date(goal.createdAt));
     return (
       <View>
         {goal.id &&

@@ -22,7 +22,6 @@ class WaterGoalDetails extends React.Component {
     let progress = 0;
 
     const { goal } = this.props || {};
-    console.log("GOAL", goal);
     let dayArray = [];
     if (goal.id) {
       progress = goal.usergoal.completedDays / goal.usergoal.numberOfDays;
