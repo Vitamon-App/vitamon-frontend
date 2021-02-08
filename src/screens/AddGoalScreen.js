@@ -13,14 +13,6 @@ function AddGoalScreen({ navigation, user, addGoal }) {
   const [descriptionOfQty, setDescriptionOfQty] = useState(
     "How many steps do you want to walk daily?"
   );
-  console.log("userFromState: ", user.id);
-  /* {
-      userId: users[1].id,
-      goalId: 1= Steps   2= Water
-      quantity: 6,
-      numberOfDays: 5,
-   
-    } */
   const goalTypes = [
     {
       item: "Steps",
@@ -33,30 +25,21 @@ function AddGoalScreen({ navigation, user, addGoal }) {
   ];
 
   const goalChanger = () => {
-    console.log("pick");
-
     return (val) => {
-      console.log(val.id);
-
-      console.log(goalId, val.id);
-
       if (val.id === 1) {
         setGoalId(1);
         setSelected(val.item);
         setDescriptionOfQty("How many steps do you want to walk daily?");
-        console.log("STEP!!");
       } else {
         setGoalId(2);
         setSelected(val.item);
         setDescriptionOfQty(
           "How many water bottles do you want to drink daily?"
         );
-        console.log("WATER!!");
       }
     };
   };
   const onAddGoalButtonPress = async () => {
-    /// console.log(addAGoal());
     try {
       let newGoal = {
         userId: user.id,
