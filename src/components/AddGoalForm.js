@@ -7,12 +7,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-/**
- * COMPONENT
- */
-/* quantity: 6,
-numberOfDays: 5, */
-
 const AddGoalForm = ({
   descriptionOfQty,
   goalId,
@@ -31,7 +25,7 @@ const AddGoalForm = ({
         autoCorrect={false}
         value={quantity}
         onChangeText={onQuantityChange}
-        // placeholder="enter quantity"
+        placeholder="enter quantity"
       />
 
       <View>
@@ -42,7 +36,7 @@ const AddGoalForm = ({
           autoCorrect={false}
           value={numberOfDays}
           onChangeText={onNumberOfDaysChange}
-          //placeholder="enter numberOfDays"
+          placeholder="enter number of days"
         />
       </View>
       <View>

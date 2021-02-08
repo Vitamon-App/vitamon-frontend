@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
 import AddGoalForm from "../components/AddGoalForm";
 import { connect } from "react-redux";
 import { addGoalToUser } from "../store/allTheUsersGoals";
@@ -7,8 +7,8 @@ import SelectBox from "react-native-multi-selectbox";
 
 function AddGoalScreen({ navigation, user, addGoal }) {
   const [goalId, setGoalId] = useState(1);
-  const [quantity, setQuantity] = useState("0");
-  const [numberOfDays, setNumberOfDays] = useState("0");
+  const [quantity, setQuantity] = useState("");
+  const [numberOfDays, setNumberOfDays] = useState("");
   const [selected, setSelected] = useState("Steps");
   const [descriptionOfQty, setDescriptionOfQty] = useState(
     "How many steps do you want to walk daily?"
@@ -48,6 +48,16 @@ function AddGoalScreen({ navigation, user, addGoal }) {
         numberOfDays: Number(numberOfDays),
         completedDays: 0,
       };
+      console.log("newGoal.quanity: ", newGoal.quantity);
+      if (newGoal.quantity === 0 && newGoal.numberOfDays === 0) {
+        return Alert.alert(
+          "Invalid Amount For Both Quantity And Number Of Days"
+        );
+      } else if (newGoal.numberOfDays === 0) {
+        return Alert.alert("Invalid Amount for Quantity ");
+      } else if (newGoal.numberOfDays === 0) {
+        return Alert.alert("Invalid Amount for Number Of Days ");
+      }
       await addGoal(newGoal);
       navigation.navigate("Goals");
     } catch (error) {
