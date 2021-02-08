@@ -8,7 +8,6 @@ import {
   ScrollView,
 } from "react-native";
 import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
-
 import { connect } from "react-redux";
 import WaterVisualData from "../components/WaterVisualData";
 import StepVisualData from "../components/StepVisualData";
@@ -43,7 +42,8 @@ function UserStatsScreen({ user }) {
   };
   return (
     <ScrollView>
-      <Text style={styles.textStyle}>UserStats</Text>
+      {/* <Text style={styles.textStyle}>UserStats</Text> */}
+      <Image source={require('../../assets/profile2.png')} style={{alignSelf: "center"}}/>
       {user.goals.length ? (
         <View>
           <View>

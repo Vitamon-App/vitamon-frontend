@@ -8,10 +8,12 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import Monster from '../components/Monster'
 import { Pedometer } from "expo-sensors";
 import { connect } from "react-redux";
 import { fetchGoals } from "../store/goal";
 import { setGoals } from "../store/allTheUsersGoals";
+
 
 class AllGoalsScreen extends React.Component {
   constructor() {
@@ -27,6 +29,15 @@ class AllGoalsScreen extends React.Component {
     console.log("goals:", goals);
     return (
       <View>
+         {!goals.length ? <View>
+       <Text>You haven't added any goals yet!</Text>
+       <Button title="Click Here to Adopt a Vitamon"
+      //  onPress={() => {
+      //   navigation.navigate("AddGoal");
+      // }}
+      ></Button>
+       </View> : null}
+
         {goals.length ? (
           <FlatList
             keyExtractor={(goal) => {
@@ -54,7 +65,7 @@ class AllGoalsScreen extends React.Component {
             }}
           />
         ) : (
-          <View> </View>
+         null
         )}
         <TouchableOpacity
           onPress={() => {
@@ -67,6 +78,13 @@ class AllGoalsScreen extends React.Component {
     );
   }
 }
+const styles = StyleSheet.create({
+  mediumLogo: {
+    width: 100,
+    height: 100,
+  }
+})
+
 
 const mapState = (state) => {
   return {

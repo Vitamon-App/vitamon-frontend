@@ -5,6 +5,7 @@ import vitamon from "../api/vitamon";
  */
 const GET_USER = "GET_USER";
 const REMOVE_USER = "REMOVE_USER";
+const ADD_FRIEND = "ADD_FRIEND"
 
 /**
  * INITIAL STATE
@@ -16,6 +17,7 @@ const defaultUser = {};
  */
 const getUser = (user) => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
+const addFriend = (userId, friendId) => ({type: ADD_FRIEND, userId, friendId})
 
 /**
  * THUNK CREATORS
@@ -62,6 +64,24 @@ export const signup = (newUser) => async (dispatch) => {
     console.log(err);
   }
 };
+
+export const findUser = (email) => async (dispatch) => {
+  try {
+    const {data} = await vitamon.get(`/api/users/${email}`);
+    dispatch(getUser(data));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// export const addFriendThunk = (userId, friendId) => async (dispatch) => {
+//   try {
+//     const {data} = await vitamon.put(`/api/${user.id}/friend/${friendId}`)
+//     dispatch(addFriend(data))
+//   } catch (err) {
+//     console.log(err)
+//   }
+// }
 
 /**
  * REDUCER

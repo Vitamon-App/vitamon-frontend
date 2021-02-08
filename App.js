@@ -6,11 +6,11 @@ import StepsScreen from "./src/screens/StepsScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
 import AllGoalsScreen from "./src/screens/AllGoalsScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
+import AddFriendScreen from "./src/screens/AddFriendScreen"
 import { Provider } from "react-redux";
 import store from "./src/store";
 import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import SingleGoal from "./src/screens/SingleGoal";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllFriendsScreen from "./src/screens/AllFriendsScreen";
 import UserStatsScreen from "./src/screens/UserStatsScreen";
@@ -21,7 +21,8 @@ const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
-function NavTabs() {
+
+function NavTabs({navigation}) {
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -31,7 +32,7 @@ function NavTabs() {
           tabBarLabel: "Home",
           //tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
-            <SimpleLineIcons name="home" size={24} color={color} />
+            <SimpleLineIcons name="home" size={24} color="purple" />
           ),
         }}
       />
@@ -42,7 +43,7 @@ function NavTabs() {
           tabBarLabel: "Steps",
           //tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="shoe-prints" size={24} color="black" />
+            <FontAwesome5 name="shoe-prints" size={24} color="purple" />
           ),
         }}
       />
@@ -53,7 +54,7 @@ function NavTabs() {
           tabBarLabel: "Friends",
           //tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="group" size={24} color="black" />
+            <FontAwesome name="group" size={24} color="purple" />
           ),
         }}
       />
@@ -65,7 +66,7 @@ function NavTabs() {
           tabBarLabel: "Goals",
           //tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="optin-monster" size={24} color="#2F004C" />
+            <FontAwesome5 name="optin-monster" size={24} color="purple" />
           ),
         }}
       />
@@ -81,6 +82,7 @@ function App() {
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Welcome" component={NavTabs} />
           <Stack.Screen name="Steps" component={StepsScreen} />
+          <Stack.Screen name="AddFriend" component={AddFriendScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
           <Stack.Screen name="SingleGoal" component={SingleGoal} />
           <Stack.Screen name="UserStats" component={UserStatsScreen} />

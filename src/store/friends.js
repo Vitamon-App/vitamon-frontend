@@ -1,7 +1,10 @@
+import vitamon from "../api/vitamon";
+
 /**
  * ACTION TYPES
  */
 const SET_FRIENDS = "SET_FRIENDS";
+
 
 /**
  * INITIAL STATE
@@ -18,9 +21,11 @@ export const setFriends = (friends) => {
   };
 };
 
+
 /**
  * THUNK CREATORS
- *
+ */
+
 
 /**
  * REDUCER
