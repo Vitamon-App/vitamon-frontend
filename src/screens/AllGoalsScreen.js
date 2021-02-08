@@ -36,8 +36,8 @@ class AllGoalsScreen extends React.Component {
       //   navigation.navigate("AddGoal");
       // }}
       ></Button>
-       </View> : <View></View>}
-       
+       </View> : null}
+
         {goals.length ? (
           <FlatList
             keyExtractor={(goal) => {
@@ -65,7 +65,7 @@ class AllGoalsScreen extends React.Component {
             }}
           />
         ) : (
-          <View> </View>
+         null
         )}
         <TouchableOpacity
           onPress={() => {
