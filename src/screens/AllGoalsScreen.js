@@ -9,13 +9,12 @@ import {
   TouchableOpacity,
   Dimensions
 } from "react-native";
-import Monster from '../components/Monster'
+import Monster from "../components/Monster";
 import { Pedometer } from "expo-sensors";
 import { connect } from "react-redux";
 import { fetchGoals } from "../store/goal";
 import { setGoals } from "../store/allTheUsersGoals";
 const width = Dimensions.get('window').width;
-
 
 class AllGoalsScreen extends React.Component {
   constructor() {
@@ -28,8 +27,9 @@ class AllGoalsScreen extends React.Component {
   render() {
     const goals = this.props.goals;
     const { navigation } = this.props;
-    console.log("goals:", goals);
+    console.log("goals in ALL GOALS:", goals);
     return (
+
       <View style={styles.headlineContainer}>
          {!goals.length ? <View>
        <Text style={styles.headline}>You haven't added any goals yet!</Text>
@@ -39,6 +39,7 @@ class AllGoalsScreen extends React.Component {
       // }}
       ></Button>
        </View> : null}
+
 
         {goals.length ? (
           <View>
@@ -51,24 +52,22 @@ class AllGoalsScreen extends React.Component {
             renderItem={({ item }) => {
               return (
                 <View>
-               
-                  <Monster monsterType={item.type} monsterStatus={item.usergoal.status} />
-        
-                  <Text style={styles.headline}>status: {item.usergoal.status}</Text>
-                  <Text style={styles.subheading}>number of days: {item.usergoal.numberOfDays}</Text>
-                  <Text style={styles.subheading}>completed days: {item.usergoal.completedDays}</Text>
-                  <Text style={styles.subheading}>type: {item.type} </Text>
-                
-                   <TouchableOpacity
-        style={styles.buttonTwo}
-        onPress={() => {
-          navigation.navigate("SingleGoal", {
-            id: item.id,
-          });
-        }}
-        >
-          <Text style={styles.buttonText}>Go to Goal Details</Text>
-        </TouchableOpacity>
+
+                  <Text>Goals:</Text>
+                  <Text>status: {item.usergoal.status}</Text>
+                  <Text>number of days: {item.usergoal.numberOfDays}</Text>
+                  <Text>completed days: {item.usergoal.completedDays}</Text>
+                  <Text>type: {item.type} </Text>
+                  <Button
+                    title="Details"
+                    onPress={() => {
+                      console.log("ITEM", item);
+                      navigation.navigate("SingleGoal", {
+                        id: item.usergoal.id,
+                      });
+                    }}
+                  />
+
                 </View>
               );
             }}
@@ -77,6 +76,7 @@ class AllGoalsScreen extends React.Component {
         ) : (
          null
         )}
+
         <TouchableOpacity
         style={styles.button}
           onPress={() => {
@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   }
 })
+
 
 
 

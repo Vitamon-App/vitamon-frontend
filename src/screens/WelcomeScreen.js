@@ -1,43 +1,48 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Button, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { connect } from "react-redux";
 import { logout } from "../store/user";
-import { setFriends } from "../store/friends";
-// import { TouchableOpacity } from "react-native-gesture-handler";
 
-function WelcomeScreen({ navigation, logout, user, getFriends, friends }) {
-  useEffect(() => {
-    getFriends(user.friends);
-  }, [friends]);
+function WelcomeScreen({ navigation, logout, user }) {
+  // useEffect(() => {
+  //   getFriends(user.friends);
+  // }, [friends]);
 
   return (
     <View>
       {/* <Image style={styles.mediumLogo} source ={require('/Users/vmt/vitamon/assets/icon2.png')} /> */}
-      <Image source={require('../../assets/Welcome.png')} />
-   
-      
+      <Image source={require("../../assets/Welcome.png")} />
+
       <Text style={styles.subHeader}>Navigate Below</Text>
-      <Image source={require('../../assets/blob.png')}/>
+      <Image source={require("../../assets/blob.png")} />
       <Text> or go to your user settings or profile:</Text>
-      <View style={{flexDirection: "row"}}>
-         {/* <Button
+      <View style={{ flexDirection: "row" }}>
+        {/* <Button
         title="Settings"
         onPress={() => {
           // logout();
           navigation.navigate("Settings");
         }}
       /> */}
-       <TouchableOpacity
-       style={styles.buttonOne}
-      //  style={{alignSelf: "flex-start"}}
-        onPress={() => {
-          // logout();
-          navigation.navigate("Settings");
-        }}> 
-      <Text style={styles.buttonText}>Settings</Text>
+        <TouchableOpacity
+          style={styles.buttonOne}
+          //  style={{alignSelf: "flex-start"}}
+          onPress={() => {
+            // logout();
+            navigation.navigate("Settings");
+          }}
+        >
+          <Text style={styles.buttonText}>Settings</Text>
         </TouchableOpacity>
 
-      {/* <Button
+        {/* <Button
         title="See My Friends"
         onPress={() => {
           navigation.navigate("Friends");
@@ -51,30 +56,29 @@ function WelcomeScreen({ navigation, logout, user, getFriends, friends }) {
         }}
       /> */}
 
-      {/* <Button
+        {/* <Button
         title="User Stats"
         onPress={() => {
           navigation.navigate("UserStats");
         }}
       /> */}
-      
-        
-   
-       <TouchableOpacity
-       style={styles.buttonTwo}
-        onPress={() => {
-          // logout();
-          navigation.navigate("UserStats");
-        }}> 
-    <Text style={styles.buttonText}>Profile</Text>
+
+        <TouchableOpacity
+          style={styles.buttonTwo}
+          onPress={() => {
+            // logout();
+            navigation.navigate("UserStats");
+          }}
+        >
+          <Text style={styles.buttonText}>Profile</Text>
         </TouchableOpacity>
-        </View>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-subHeader: {
+  subHeader: {
     fontSize: 20,
     fontWeight: "bold",
     // fontFamily: "Cochin",
@@ -83,7 +87,7 @@ subHeader: {
   mediumLogo: {
     width: 100,
     height: 100,
-    alignSelf: "center"
+    alignSelf: "center",
   },
   buttonOne: {
     marginLeft: 10,
@@ -91,7 +95,7 @@ subHeader: {
     backgroundColor: "#9F1BEE",
     paddingVertical: 12,
     borderRadius: 10,
-    alignSelf: "flex-start"
+    alignSelf: "flex-start",
   },
   buttonTwo: {
     marginLeft: 10,
@@ -99,15 +103,15 @@ subHeader: {
     backgroundColor: "#9F1BEE",
     paddingVertical: 12,
     borderRadius: 10,
-    alignSelf: "flex-end"
+    alignSelf: "flex-end",
   },
   buttonText: {
     fontWeight: "600",
     color: "white",
     fontSize: 18,
     textAlign: "center",
-  }
-})
+  },
+});
 
 const mapState = (state) => {
   return {

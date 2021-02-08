@@ -1,22 +1,31 @@
 import React from "react";
+
 import { StyleSheet, Text, View, Button, FlatList, Image, Dimensions, TouchableOpacity} from "react-native";
 import { Asset } from 'expo-asset';
 import { connect } from "react-redux";
+import { setFriends } from "../store/friends";
 const width = Dimensions.get('window').width;
 
+
 class AllFriendsScreen extends React.Component {
+  componentDidMount() {
+    this.props.getFriends(this.props.user.friends);
+  }
+
   render() {
     const friends = this.props.friends || [];
     return (
       <View style={styles.headlineContainer}>
         {friends.length ? (
           <View>
+
             <Text style={styles.headline}>Friend List:</Text>
             <Text style={styles.name}>Here are all your friends!</Text>
              <FlatList
           
+
               keyExtractor={(friend) => {
-                  return friend.id.toString();
+                return friend.id.toString();
               }}
               data={friends}
               renderItem={({ item }) => {
@@ -46,6 +55,7 @@ class AllFriendsScreen extends React.Component {
       }}>
       <Text style={styles.buttonText}> Click here to add a friend!</Text>
     </TouchableOpacity>
+
           </View>
         )}
       </View>
@@ -192,4 +202,12 @@ const mapState = (state) => {
   };
 };
 
-export default connect(mapState)(AllFriendsScreen);
+const mapDispatch = (dispatch) => {
+  return {
+    getFriends: (friends) => {
+      dispatch(setFriends(friends));
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(AllFriendsScreen);
