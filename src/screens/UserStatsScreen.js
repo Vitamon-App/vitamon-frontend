@@ -14,7 +14,7 @@ import WaterVisualData from "../components/WaterVisualData";
 import StepVisualData from "../components/StepVisualData";
 
 function UserStatsScreen({ user }) {
-  console.log("user.goals: ", user.goals);
+  //console.log("user.goals: ", user.goals);
 
   const [selected, setSelected] = useState("text");
   const changeSelectedToText = () => {
@@ -26,7 +26,6 @@ function UserStatsScreen({ user }) {
   const isWater = (theUser) => {
     for (let i = 0; i < theUser.goals.length; i++) {
       if (theUser.goals[i].type === "Water") {
-        console.log("theUser.goals[i].type ", theUser.goals[i].type, i);
         //Need to return string in order to aviod falsey value
         return i.toString();
       }
@@ -76,8 +75,8 @@ function UserStatsScreen({ user }) {
                   "complete" ? (
                     <Text>
                       Congrats you have compeleted your{" "}
-                      {user.goals[isWater(user)].usergoal.numberOfDays} day
-                      water goal!!!!!
+                      {user.goals[Number(isWater(user))].usergoal.numberOfDays}{" "}
+                      day water goal!!!!!
                     </Text>
                   ) : (
                     <Text>No water goals completed yet </Text>
@@ -91,8 +90,8 @@ function UserStatsScreen({ user }) {
                   "complete" ? (
                     <Text>
                       Congrats you have compeleted your{" "}
-                      {user.goals[isSteps(user)].usergoal.numberOfDays} day
-                      steps goal!!!!!
+                      {user.goals[Number(isSteps(user))].usergoal.numberOfDays}{" "}
+                      day steps goal!!!!!
                     </Text>
                   ) : (
                     <Text>No step goals completed yet </Text>
@@ -111,7 +110,8 @@ function UserStatsScreen({ user }) {
                     "complete" ? (
                       <WaterVisualData
                         userWaterData={
-                          user.goals[isWater(user)].usergoal.numberOfDays
+                          user.goals[Number(isWater(user))].usergoal
+                            .numberOfDays
                         }
                       />
                     ) : (
