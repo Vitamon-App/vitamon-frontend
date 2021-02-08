@@ -59,6 +59,8 @@ export const signup = (newUser) => async (dispatch) => {
   try {
     console.log("in redux:signup");
     const { data } = await vitamon.post("/auth/signup", newUser);
+    data.friends = []
+    data.goals = []
     dispatch(getUser(data));
   } catch (err) {
     console.log(err);
