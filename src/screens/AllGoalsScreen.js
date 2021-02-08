@@ -8,12 +8,11 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import Monster from '../components/Monster'
+import Monster from "../components/Monster";
 import { Pedometer } from "expo-sensors";
 import { connect } from "react-redux";
 import { fetchGoals } from "../store/goal";
 import { setGoals } from "../store/allTheUsersGoals";
-
 
 class AllGoalsScreen extends React.Component {
   constructor() {
@@ -26,17 +25,20 @@ class AllGoalsScreen extends React.Component {
   render() {
     const goals = this.props.goals;
     const { navigation } = this.props;
-    console.log("goals:", goals);
+    console.log("goals in ALL GOALS:", goals);
     return (
       <View>
-         {!goals.length ? <View>
-       <Text>You haven't added any goals yet!</Text>
-       <Button title="Click Here to Adopt a Vitamon"
-      //  onPress={() => {
-      //   navigation.navigate("AddGoal");
-      // }}
-      ></Button>
-       </View> : null}
+        {!goals.length ? (
+          <View>
+            <Text>You haven't added any goals yet!</Text>
+            <Button
+              title="Click Here to Adopt a Vitamon"
+              //  onPress={() => {
+              //   navigation.navigate("AddGoal");
+              // }}
+            ></Button>
+          </View>
+        ) : null}
 
         {goals.length ? (
           <FlatList
@@ -55,8 +57,9 @@ class AllGoalsScreen extends React.Component {
                   <Button
                     title="Details"
                     onPress={() => {
+                      console.log("ITEM", item);
                       navigation.navigate("SingleGoal", {
-                        id: item.id,
+                        id: item.usergoal.id,
                       });
                     }}
                   />
@@ -64,9 +67,7 @@ class AllGoalsScreen extends React.Component {
               );
             }}
           />
-        ) : (
-         null
-        )}
+        ) : null}
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("AddGoal");
@@ -82,9 +83,8 @@ const styles = StyleSheet.create({
   mediumLogo: {
     width: 100,
     height: 100,
-  }
-})
-
+  },
+});
 
 const mapState = (state) => {
   return {
