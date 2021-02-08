@@ -49,13 +49,18 @@ function AddGoalScreen({ navigation, user, addGoal }) {
         completedDays: 0,
       };
 
-      if (newGoal.quantity === 0 && newGoal.numberOfDays === 0) {
+
+      if (
+        (newGoal.quantity === 0 && newGoal.numberOfDays === 0) ||
+        (isNaN(newGoal.quantity) && isNaN(newGoal.numberOfDays))
+      ) {
+
         return Alert.alert(
           "Invalid Amount For Both Quantity And Number Of Days"
         );
-      } else if (newGoal.quantity === 0) {
+      } else if (newGoal.quantity === 0 || isNaN(newGoal.quantity)) {
         return Alert.alert("Invalid Amount for Quantity ");
-      } else if (newGoal.numberOfDays === 0) {
+      } else if (newGoal.numberOfDays === 0 || isNaN(newGoal.numberOfDays)) {
         return Alert.alert("Invalid Amount for Number Of Days ");
       }
       await addGoal(newGoal);
