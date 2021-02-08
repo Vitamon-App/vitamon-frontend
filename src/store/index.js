@@ -4,12 +4,14 @@ import user from "./user";
 import goal from "./goal";
 import friends from "./friends";
 import foundFriend from "./friend"
+import goals from "./allTheUsersGoals";
 
 const reducer = combineReducers({
   user,
   friends,
   foundFriend,
   goal,
+  goals,
 });
 
 const middleware = applyMiddleware(thunkMiddleware);
