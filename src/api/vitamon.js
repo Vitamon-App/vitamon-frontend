@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const ip = "192.168.4.222";
+
+const ip = "192.168.1.243";
+
 //daniel "192.168.1.165"
 //veronica 192.168.1.4
 //melissa 192.168.1.243

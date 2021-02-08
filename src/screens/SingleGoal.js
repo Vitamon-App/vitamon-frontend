@@ -1,10 +1,9 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import Monster from '../components/Monster'
+import Monster from "../components/Monster";
 import { connect } from "react-redux";
 import { ProgressBar, Colors, DataTable } from "react-native-paper";
 import { setGoal, updateGoal } from "../store/goal";
-
 
 class SingleGoal extends React.Component {
   constructor() {
@@ -13,10 +12,10 @@ class SingleGoal extends React.Component {
   }
 
   async componentDidMount() {
-    const goals = this.props.user.goals;
-    // you can pass down custom params on props using react navigation, which we access as props.route.params.paramName.
+    const goals = this.props.goals;
+    // you can pass down custom params on props using react navigation, which we access as props.route.params.paramName
     const { id } = this.props.route.params;
-    const singleGoal = goals.find((goal) => goal.id === id);
+    const singleGoal = goals.find((goal) => goal.usergoal.id === id);
     await this.props.getGoal(singleGoal);
   }
 
@@ -34,7 +33,7 @@ class SingleGoal extends React.Component {
 
     const { goal } = this.props || {};
     let dayArray = [];
-    if (goal.id) {
+    if (goal.type) {
       progress = goal.usergoal.completedDays / goal.usergoal.numberOfDays;
       dayArray = new Array(goal.usergoal.numberOfDays).fill(false);
       dayArray.fill(true, 0, goal.usergoal.completedDays);
@@ -48,18 +47,22 @@ class SingleGoal extends React.Component {
         goalDetails = `Walk ${goal.usergoal.quantity} steps a day`;
       }
     }
+    console.log("GOAL IN SINGLE", goal);
 
     return (
       <View>
-        {goal.id &&
+        {goal.type &&
           goal.usergoal.completedDays === goal.usergoal.numberOfDays && (
             <Text>You Completed Your Goal!</Text>
           )}
-        {goal.id &&
+        {goal.type &&
         goal.usergoal.completedDays !== goal.usergoal.numberOfDays ? (
           <View>
             <Text>Goal Details:</Text>
-            <Monster monsterType={goal.type} monsterStatus={goal.usergoal.status} />
+            <Monster
+              monsterType={goal.type}
+              monsterStatus={goal.usergoal.status}
+            />
             <Text>{goalDetails}</Text>
             <Text>Goal Length: {goal.usergoal.numberOfDays} days</Text>
             <Text>Days Completed: {goal.usergoal.completedDays} days</Text>
@@ -86,7 +89,7 @@ class SingleGoal extends React.Component {
                     <DataTable.Cell>{i + 1}</DataTable.Cell>
                     <DataTable.Cell>{day ? "Yes" : "No"}</DataTable.Cell>
                     <DataTable.Cell>
-                      {!day && goal.type === "Water" ? (
+                      {!day ? (
                         <TouchableOpacity
                           onPress={() => {
                             this.handleUpdate();
@@ -139,6 +142,7 @@ const mapState = (state) => {
   return {
     user: state.user,
     goal: state.goal,
+    goals: state.goals,
   };
 };
 
