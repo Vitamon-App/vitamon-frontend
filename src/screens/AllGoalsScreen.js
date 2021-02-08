@@ -6,46 +6,63 @@ import {
   TextInput,
   FlatList,
   Button,
+  TouchableOpacity,
 } from "react-native";
 import { Pedometer } from "expo-sensors";
 import { connect } from "react-redux";
 import { fetchGoals } from "../store/goal";
+import { setGoals } from "../store/allTheUsersGoals";
 
 class AllGoalsScreen extends React.Component {
   constructor() {
     super();
   }
+  componentDidMount() {
+    this.props.setUserGoals(this.props.user.goals);
+  }
 
   render() {
-    const goals = this.props.user.goals;
+    const goals = this.props.goals;
     const { navigation } = this.props;
+    console.log("goals:", goals);
     return (
       <View>
-        <FlatList
-          keyExtractor={(goal) => {
-            return goal.id.toString();
+        {goals.length ? (
+          <FlatList
+            keyExtractor={(goal) => {
+              return goal.usergoal.id.toString();
+            }}
+            data={goals}
+            renderItem={({ item }) => {
+              return (
+                <View>
+                  <Text>Goals:</Text>
+                  <Text>status: {item.usergoal.status}</Text>
+                  <Text>number of days: {item.usergoal.numberOfDays}</Text>
+                  <Text>completed days: {item.usergoal.completedDays}</Text>
+                  <Text>type: {item.type} </Text>
+                  <Button
+                    title="Details"
+                    onPress={() => {
+                      navigation.navigate("SingleGoal", {
+                        id: item.id,
+                      });
+                    }}
+                  />
+                </View>
+              );
+            }}
+          />
+        ) : (
+          <View> </View>
+        )}
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("AddGoal");
           }}
-          data={goals}
-          renderItem={({ item }) => {
-            return (
-              <View>
-                <Text>Goals:</Text>
-                <Text>status: {item.usergoal.status}</Text>
-                <Text>number of days: {item.usergoal.numberOfDays}</Text>
-                <Text>completed days: {item.usergoal.completedDays}</Text>
-                <Text>type: {item.type} </Text>
-                <Button
-                  title="Details"
-                  onPress={() => {
-                    navigation.navigate("SingleGoal", {
-                      id: item.id,
-                    });
-                  }}
-                />
-              </View>
-            );
-          }}
-        />
+        >
+          <Text>Add A New Goal</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -54,7 +71,15 @@ class AllGoalsScreen extends React.Component {
 const mapState = (state) => {
   return {
     user: state.user,
+    goals: state.goals,
+  };
+};
+const mapDispatch = (dispatch) => {
+  return {
+    setUserGoals: (goals) => {
+      dispatch(setGoals(goals));
+    },
   };
 };
 
-export default connect(mapState)(AllGoalsScreen);
+export default connect(mapState, mapDispatch)(AllGoalsScreen);

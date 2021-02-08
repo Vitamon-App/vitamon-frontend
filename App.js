@@ -15,6 +15,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllFriendsScreen from "./src/screens/AllFriendsScreen";
 import UserStatsScreen from "./src/screens/UserStatsScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
+import AddGoalScreen from "./src/screens/AddGoalScreen";
 
 const Stack = createStackNavigator();
 
@@ -84,6 +85,7 @@ function App() {
           <Stack.Screen name="SingleGoal" component={SingleGoal} />
           <Stack.Screen name="UserStats" component={UserStatsScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
+          <Stack.Screen name="AddGoal" component={AddGoalScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
