@@ -53,7 +53,7 @@ function AddGoalScreen({ navigation, user, addGoal }) {
         return Alert.alert(
           "Invalid Amount For Both Quantity And Number Of Days"
         );
-      } else if (newGoal.numberOfDays === 0) {
+      } else if (newGoal.quantity === 0) {
         return Alert.alert("Invalid Amount for Quantity ");
       } else if (newGoal.numberOfDays === 0) {
         return Alert.alert("Invalid Amount for Number Of Days ");
