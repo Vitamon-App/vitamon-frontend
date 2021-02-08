@@ -3,13 +3,12 @@ import { View, Text, StyleSheet, Button } from 'react-native'
 import SearchBar from '../components/SearchBar'
 import { connect } from "react-redux";
 import { findFriend } from '../store/friend'
-// import { addFriendThunk } from '../store/friends'
+
 
 
 
 function AddFriendScreen({
   searchFriend,
-  // addFriend,
   user, 
   foundFriend,
   friends
@@ -29,19 +28,12 @@ function AddFriendScreen({
  }
  
 
-//  const addFriendButton = (userId, friendId) => {
-//    try{
-//      addFriend(userId, friendId)
-//     } catch (err) {
-//       console.log(err)
-//     }
-//  }
 
-//  console.log("FRIENDS", friends)
 
- console.log("FRIEND ID", foundFriend.id)
 
- console.log("USER ID", user.id)
+//  console.log("FRIEND ID", foundFriend.id)
+
+//  console.log("USER ID", user.id)
   return (
       <View style={styles.mainBackground}>
      
@@ -61,7 +53,6 @@ function AddFriendScreen({
          <Text> Add {foundFriend.name} as a friend!</Text>
          <Button 
          title="add friend"
-        //  onPress={addFriendButton(user.id, foundFriend.id)}
          />
          </View>) :
          <Text></Text>
@@ -95,9 +86,7 @@ const mapState = (state) => {
     searchFriend: (email) => {
         dispatch(findFriend(email))
       },
-      // addFriend: (userId, friendId) => {
-      //   dispatch(addFriendThunk(userId, friendId))
-      // }
+   
     };
   };
 

@@ -7,9 +7,11 @@ import {
   FlatList,
   Button,
 } from "react-native";
+import Monster from '../components/Monster'
 import { Pedometer } from "expo-sensors";
 import { connect } from "react-redux";
 import { fetchGoals } from "../store/goal";
+
 
 class AllGoalsScreen extends React.Component {
   constructor() {
@@ -18,9 +20,19 @@ class AllGoalsScreen extends React.Component {
 
   render() {
     const goals = this.props.user.goals;
+    console.log(goals)
     const { navigation } = this.props;
     return (
       <View>
+       
+     {!goals.length ? <View>
+       <Text>You haven't added any goals yet!</Text>
+       <Button title="Click Here to Adopt a Vitamon"
+      //  onPress={() => {
+      //   navigation.navigate("AddGoal");
+      // }}
+      ></Button>
+       </View> : <View></View>}
         <FlatList
           keyExtractor={(goal) => {
             return goal.id.toString();
@@ -30,6 +42,7 @@ class AllGoalsScreen extends React.Component {
             return (
               <View>
                 <Text>Goals:</Text>
+                <Monster monsterStatus={item.usergoal.status} monsterType={item.type} />
                 <Text>status: {item.usergoal.status}</Text>
                 <Text>number of days: {item.usergoal.numberOfDays}</Text>
                 <Text>completed days: {item.usergoal.completedDays}</Text>
@@ -42,14 +55,21 @@ class AllGoalsScreen extends React.Component {
                     });
                   }}
                 />
-              </View>
+              </View> 
             );
           }}
-        />
+        /> 
       </View>
     );
   }
 }
+const styles = StyleSheet.create({
+  mediumLogo: {
+    width: 100,
+    height: 100,
+  }
+})
+
 
 const mapState = (state) => {
   return {

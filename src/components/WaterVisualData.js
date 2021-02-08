@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 
+
 function WaterVisualData({ userWaterData }) {
   const data = [
     { GoalCompleted: 1, LengthOfGoals: userWaterData },

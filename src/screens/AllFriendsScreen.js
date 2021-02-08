@@ -1,6 +1,8 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, FlatList } from "react-native";
+import { StyleSheet, Text, View, Button, FlatList, Image } from "react-native";
+import { Asset } from 'expo-asset';
 import { connect } from "react-redux";
+
 
 class AllFriendsScreen extends React.Component {
   render() {
@@ -18,6 +20,7 @@ class AllFriendsScreen extends React.Component {
               renderItem={({ item }) => {
                 return (
                   <View>
+                    {/* <Image source={resource(`${item.imageUrl}`)} /> */}
                     <Text>{item.name}</Text>
                   </View>
                 );

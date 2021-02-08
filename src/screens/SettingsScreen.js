@@ -1,15 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from "react-native";
 import { connect } from "react-redux";
 import { logout } from "../store/user";
 import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
+import { Asset } from 'expo-asset';
 
 function SettingsScreen({ navigation, logout }) {
   //We must logout in settings inorder to aviod user is undefined  error
   return (
     <View>
-      <View style={styles.textContainer}>
-        <Text style={styles.textStyle}>Settings</Text>
+      {/* <View style={styles.textContainer}> */}
+      <View>
+        {/* <Text style={styles.textStyle}>Settings</Text> */}
+        <Image source={require('../../assets/Settings.png')} style={{alignSelf:"center"}}/>
         <SimpleLineIcons name="settings" size={15} color={"blue"} />
       </View>
       <View style={styles.buttonContainer}>

@@ -11,7 +11,6 @@ import { Provider } from "react-redux";
 import store from "./src/store";
 import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import SingleGoal from "./src/screens/SingleGoal";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllFriendsScreen from "./src/screens/AllFriendsScreen";
 import UserStatsScreen from "./src/screens/UserStatsScreen";
@@ -20,6 +19,7 @@ import SettingsScreen from "./src/screens/SettingsScreen";
 const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
+
 
 function NavTabs({navigation}) {
   return (
@@ -31,7 +31,7 @@ function NavTabs({navigation}) {
           tabBarLabel: "Home",
           //tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
-            <SimpleLineIcons name="home" size={24} color={color} />
+            <SimpleLineIcons name="home" size={24} color="purple" />
           ),
         }}
       />
@@ -42,7 +42,7 @@ function NavTabs({navigation}) {
           tabBarLabel: "Steps",
           //tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="shoe-prints" size={24} color="black" />
+            <FontAwesome5 name="shoe-prints" size={24} color="purple" />
           ),
         }}
       />
@@ -53,7 +53,7 @@ function NavTabs({navigation}) {
           tabBarLabel: "Friends",
           //tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="group" size={24} color="black" />
+            <FontAwesome name="group" size={24} color="purple" />
           ),
         }}
       />
@@ -65,7 +65,7 @@ function NavTabs({navigation}) {
           tabBarLabel: "Goals",
           //tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="optin-monster" size={24} color="#2F004C" />
+            <FontAwesome5 name="optin-monster" size={24} color="purple" />
           ),
         }}
       />

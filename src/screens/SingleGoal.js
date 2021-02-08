@@ -1,8 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import Monster from '../components/Monster'
 import { connect } from "react-redux";
 import { ProgressBar, Colors, DataTable } from "react-native-paper";
 import { setGoal, updateGoal } from "../store/goal";
+
 
 class SingleGoal extends React.Component {
   constructor() {
@@ -57,6 +59,7 @@ class SingleGoal extends React.Component {
         goal.usergoal.completedDays !== goal.usergoal.numberOfDays ? (
           <View>
             <Text>Goal Details:</Text>
+            <Monster monsterType={goal.type} monsterStatus={goal.usergoal.status} />
             <Text>{goalDetails}</Text>
             <Text>Goal Length: {goal.usergoal.numberOfDays} days</Text>
             <Text>Days Completed: {goal.usergoal.completedDays} days</Text>

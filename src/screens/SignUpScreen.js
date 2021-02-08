@@ -4,6 +4,7 @@ import SignUpForm from "../components/SignUpForm";
 import { connect } from "react-redux";
 import { signup } from "../store/user";
 
+
 function SignUp({ navigation, signupUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -7,11 +7,13 @@ import {
   TouchableOpacity,
   Keyboard,
   Alert,
+  Image
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AuthForm from "../components/AuthForm";
 import { connect } from "react-redux";
 import { auth } from "../store/user";
+
 
 function HomeScreen({ navigation, login, user, error }) {
   const [email, setEmail] = useState("");
@@ -38,10 +40,13 @@ function HomeScreen({ navigation, login, user, error }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Welcome To Vitamon!</Text>
 
-      {!user.id && (
+    <View style={styles.container}>
+      <Image source={require('../../assets/Header.png') } style={{top:10}} />
+      <Text style= {styles.subHeader}>The once a day way to achieve your goals.</Text>
+     
+
+        {!user.id && (
         <AuthForm
           formType={formType}
           email={email}
@@ -51,23 +56,42 @@ function HomeScreen({ navigation, login, user, error }) {
           onPress={() => onButtonPress()}
         />
       )}
+       <Image style={styles.largeLogo} 
+      source={require('../../assets/icon2.png')} 
+      // resizeMode={'contain'}
+      />
+      
 
-      <Button
+    
+
+      {/* <Button
         title="Go To Steps Screen"
         onPress={() => {
           navigation.navigate("Steps");
         }}
       >
         <Text>Go to steps</Text>
-      </Button>
-
-      <TouchableOpacity
+      </Button> */}
+ 
+      {!user.id && 
+      <TouchableOpacity style={styles.button}
         onPress={() => {
           navigation.navigate("SignUp");
         }}
       >
-        <Text>Sign Up</Text>
+        <Text style={styles.buttonText}> Not a User? Sign Up</Text>
       </TouchableOpacity>
+      }
+
+      {user.id && 
+      <TouchableOpacity style={styles.button}
+      onPress={() => {
+        navigation.navigate("Welcome");
+      }}
+    >
+      <Text style={styles.buttonText}> Back to DashBoard</Text>
+    </TouchableOpacity>
+    }
       <StatusBar style="auto" />
     </View>
   );
@@ -80,6 +104,52 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  mediumLogo: {
+    width: 100,
+    height: 100,
+  },
+  largeLogo: {
+    width: 300,
+    height: 300,
+    top:10
+  },
+  subHeader: {
+    fontSize: 20,
+    fontWeight: "bold",
+    // fontFamily: "Cochin",
+    color: "#f114af",
+
+  },
+  button: {
+    marginLeft: 10,
+    marginTop: 20,
+    backgroundColor: "#9F1BEE",
+    paddingVertical: 10,
+    borderRadius: 10,
+    bottom: 20
+  },
+  button: {
+    marginLeft: 10,
+    marginTop: 20,
+    backgroundColor: "#f114af",
+    paddingVertical: 10,
+    borderRadius: 10,
+    bottom: 20
+  }, 
+  buttonText: {
+    fontWeight: "600",
+    color: "white",
+    fontSize: 18,
+    textAlign: "center",
+  },
+  bottomText: {
+    fontSize: 10,
+    fontWeight: "bold",
+    // fontFamily: "Cochin",
+    color: "red",
+    top:10
+  }
+
 });
 
 const mapState = (state) => {

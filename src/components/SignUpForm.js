@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+
 /**
  * COMPONENT
  */
