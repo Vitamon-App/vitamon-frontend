@@ -58,7 +58,6 @@ function AddFriendScreen({
          <Text></Text>
          }
           
-         
           
 
           <Text>you entered: {searchEmail}</Text>
@@ -69,7 +68,8 @@ function AddFriendScreen({
 const styles = StyleSheet.create({
     mainBackground: {
         backgroundColor: 'white'
-    }
+    },
+    
 })
 
 const mapState = (state) => {

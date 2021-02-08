@@ -21,13 +21,13 @@ function SearchBar({monsterType, monsterStatus}) {
             {monsterType === 'Steps' && monsterStatus === 'start' ? 
             <Image source={require('../../assets/stepsstart.png')} style={styles.mediumLogo}/> :<View></View> }
              {monsterType === 'Steps' && monsterStatus === 'middle' ? 
-            <Text>Steps Middle</Text> :<View></View> }
+        <Image source={require('../../assets/stepsmiddle.png')} style={styles.mediumLogo}/> :<View></View> }
             {monsterType === 'Steps' && monsterStatus === 'warning' ? 
-            <Text>Water Warning</Text> :<View></View> }
+            <Image source={require('../../assets/stepswarning.png')} style={styles.mediumLogo}/> :<View></View> }
             {monsterType === 'Steps' && monsterStatus === 'complete' ? 
-            <Text>Steps Middle</Text> :<View></View> }
+            <Image source={require('../../assets/stepscomplete.png')} style={styles.mediumLogo}/> :<View></View> }
             {monsterType === 'Steps' && monsterStatus === 'fail' ? 
-            <Text>Steps Middle</Text> :<View></View> }
+           <Image source={require('../../assets/stepsfail.png')} style={styles.mediumLogo}/> :<View></View> }
 
 
         </View>
