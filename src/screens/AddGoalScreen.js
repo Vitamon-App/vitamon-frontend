@@ -48,7 +48,7 @@ function AddGoalScreen({ navigation, user, addGoal }) {
         numberOfDays: Number(numberOfDays),
         completedDays: 0,
       };
-      console.log("newGoal.quanity: ", newGoal.quantity);
+
       if (newGoal.quantity === 0 && newGoal.numberOfDays === 0) {
         return Alert.alert(
           "Invalid Amount For Both Quantity And Number Of Days"
