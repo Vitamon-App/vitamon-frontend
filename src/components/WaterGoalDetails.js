@@ -17,15 +17,15 @@ const width = Dimensions.get("window").width;
 class WaterGoalDetails extends React.Component {
   constructor() {
     super();
-    this.handleUpdate = this.handleUpdate.bind(this);
+    // this.handleUpdate = this.handleUpdate.bind(this);
   }
 
-  async handleUpdate() {
-    const { goal } = this.props;
-    await this.props.editGoal(goal, {
-      completedDays: (goal.usergoal.completedDays += 1),
-    });
-  }
+  // async handleUpdate() {
+  //   const { goal } = this.props;
+  //   await this.props.editGoal(goal, {
+  //     completedDays: (goal.usergoal.completedDays += 1),
+  //   });
+  // }
 
   render() {
     let goalDetails = "";
@@ -35,19 +35,12 @@ class WaterGoalDetails extends React.Component {
     let dayArray = [];
     if (goal.type) {
       progress = goal.usergoal.completedDays / goal.usergoal.numberOfDays;
-      dayArray = new Array(goal.usergoal.numberOfDays).fill(false);
-      dayArray.fill(true, 0, goal.usergoal.completedDays);
       goalDetails = `Drink ${goal.usergoal.quantity} glasses of water a day`;
     }
 
     return (
       <ScrollView style={styles.headlineContainer}>
         <View>
-          {/* {goal.type &&
-
-          goal.usergoal.completedDays === goal.usergoal.numberOfDays && (
-            <Text style={styles.headline}>You Completed Your Goal!</Text>
-          )} */}
           {goal.type ? (
             <View>
               <Text style={styles.headline}>Goal Details:</Text>
@@ -81,16 +74,18 @@ class WaterGoalDetails extends React.Component {
                   <DataTable.Title>Goal Completed?</DataTable.Title>
                   <DataTable.Title></DataTable.Title>
                 </DataTable.Header>
-                {dayArray.map((day, i) => {
+                {this.props.days.map((day, i) => {
                   return (
                     <DataTable.Row key={i}>
                       <DataTable.Cell>{i + 1}</DataTable.Cell>
-                      <DataTable.Cell>{day ? "Yes" : "No"}</DataTable.Cell>
                       <DataTable.Cell>
-                        {!day ? (
+                        {day.status ? "Yes" : "No"}
+                      </DataTable.Cell>
+                      <DataTable.Cell>
+                        {!day.status ? (
                           <TouchableOpacity
                             onPress={() => {
-                              this.handleUpdate();
+                              this.props.handleUpdate();
                             }}
                             style={styles.button}
                           >

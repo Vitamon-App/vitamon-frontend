@@ -20,8 +20,7 @@ class SingleGoalScreen extends React.Component {
   }
 
   async componentDidMount() {
-    const goals = this.props.user.goals;
-    console.log("THE GOALS", goals);
+    const goals = this.props.goals;
     // you can pass down custom params on props using react navigation, which we access as props.route.params.paramName.
     const { id } = this.props.route.params;
     const singleGoal = goals.find((goal) => goal.usergoal.id === id);
@@ -43,24 +42,26 @@ class SingleGoalScreen extends React.Component {
       return { date: date, status: false, steps: 0 };
     });
 
+    const { completedDays } = goal.usergoal;
+    for (let i = 0; i < completedDays; i++) {
+      result[i].status = true;
+    }
+
     for (let i = 0; i < result.length; i++) {
-      let startDate = sub(result[i].date, { days: 1 });
-      let endDate = result[i].date;
+      let startDate = new Date(result[i].date);
+      let endDate = new Date(result[i].date);
+      startDate.setDate(endDate.getDate() - 1);
       try {
         const { steps } = await Pedometer.getStepCountAsync(startDate, endDate);
         result[i].steps = steps;
+        if (steps > goal.usergoal.quantity && !result[i].status) {
+          result[i].status = true;
+          this.handleUpdate();
+        }
       } catch (err) {
         console.log(err);
       }
     }
-
-    result.forEach((day) => {
-      const { goal } = this.props;
-      if (day.steps > goal.usergoal.quantity) {
-        day.status = true;
-        this.handleUpdate();
-      }
-    });
 
     this.setState({ days: result });
   }
@@ -70,6 +71,7 @@ class SingleGoalScreen extends React.Component {
     await this.props.editGoal(goal, {
       completedDays: (goal.usergoal.completedDays += 1),
     });
+    await this.setDays();
   }
 
   async checkPedometer() {
@@ -78,11 +80,18 @@ class SingleGoalScreen extends React.Component {
   }
 
   render() {
+    console.log("DAYS ON STATE", this.state.days);
+
     const { goal } = this.props || {};
+    console.log("THE CURRENT GOAL", goal);
     return (
       <View>
         {goal.type && goal.type === "Water" ? (
-          <WaterGoalDetails goal={this.props.goal} />
+          <WaterGoalDetails
+            goal={this.props.goal}
+            days={this.state.days}
+            handleUpdate={this.handleUpdate}
+          />
         ) : (
           <View></View>
         )}
@@ -120,6 +129,7 @@ const mapState = (state) => {
   return {
     user: state.user,
     goal: state.goal,
+    goals: state.goals,
   };
 };
 
