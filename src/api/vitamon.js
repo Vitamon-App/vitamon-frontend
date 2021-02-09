@@ -9,6 +9,6 @@ const ip = "192.168.1.4";
 //priscila 192.168.4.222
 
 export default axios.create({
-  // baseURL: `http://${ip}:8080`,
-  baseURL: `https://vitamonapp.herokuapp.com`
+  baseURL: `http://${ip}:8080`,
+  // baseURL: `https://vitamonapp.herokuapp.com`
 });
