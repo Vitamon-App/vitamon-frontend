@@ -71,6 +71,7 @@ class SingleGoalScreen extends React.Component {
     await this.props.editGoal(goal, {
       completedDays: (goal.usergoal.completedDays += 1),
     });
+    
     await this.setDays();
   }
 
