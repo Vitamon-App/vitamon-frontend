@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button } from 'react-native'
 import SearchBar from '../components/SearchBar'
 import { connect } from "react-redux";
 import { findFriend } from '../store/friend'
+import { addFriendThunk } from '../store/friends'
 
 
 
@@ -11,7 +12,8 @@ function AddFriendScreen({
   searchFriend,
   user, 
   foundFriend,
-  friends
+  friends,
+  addFriend
 }) {
   const [searchEmail, setSearchEmail] = useState('')
 
@@ -27,11 +29,19 @@ function AddFriendScreen({
    }
  }
  
+const onButtonPress = async () => {
+  try{
+    const friendId= foundFriend.id
+   await addFriend(user.id, friendId)
+  } catch(error) {
+    console.log(error)
+  }
+}
 
 
 
-
-//  console.log("FRIEND ID", foundFriend.id)
+ console.log("found FRIEND ", foundFriend)
+ console.log("FRIENDS", friends)
 
 //  console.log("USER ID", user.id)
   return (
@@ -53,6 +63,7 @@ function AddFriendScreen({
          <Text> Add {foundFriend.name} as a friend!</Text>
          <Button 
          title="add friend"
+         onPress={()=> onButtonPress()}
          />
          </View>) :
          <Text></Text>
@@ -86,7 +97,9 @@ const mapState = (state) => {
     searchFriend: (email) => {
         dispatch(findFriend(email))
       },
-   
+   addFriend: (userId, friendId) => {
+     dispatch(addFriendThunk(userId, friendId))
+   }
     };
   };
 

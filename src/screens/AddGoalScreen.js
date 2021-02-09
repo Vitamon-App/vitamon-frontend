@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Alert } from "react-native";
 import AddGoalForm from "../components/AddGoalForm";
 import { connect } from "react-redux";
-import { addGoalToUser } from "../store/allTheUsersGoals";
+import { addGoalToUser, fetchGoals } from "../store/allTheUsersGoals";
 import SelectBox from "react-native-multi-selectbox";
 
 function AddGoalScreen({ navigation, user, addGoal }) {
@@ -65,6 +65,7 @@ function AddGoalScreen({ navigation, user, addGoal }) {
       }
       await addGoal(newGoal);
       navigation.navigate("Goals");
+      await setGoals(this.props.user.id)
     } catch (error) {
       console.log(error);
     }
@@ -109,7 +110,9 @@ const mapDispatch = (dispatch) => {
   return {
     addGoal: (newGoal) => {
       dispatch(addGoalToUser(newGoal));
-    },
+    },  setGoals: (userId) => {
+      dispatch(fetchGoals(userId))
+    }
   };
 };
 

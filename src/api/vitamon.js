@@ -9,5 +9,5 @@ const ip = "192.168.1.243";
 
 export default axios.create({
   baseURL: `http://${ip}:8080`,
-  // baseURL: `https://vitamonapp.herokuapp.com`,
+  // baseURL: `https://vitamonapp.herokuapp.com`
 });

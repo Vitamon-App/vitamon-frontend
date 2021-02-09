@@ -28,6 +28,12 @@ export const editGoal = (goal) => {
   };
 };
 
+
+
+/**
+ * THUNK CREATORS
+ */
+
 export const updateGoal = (goal, update) => async (dispatch) => {
   try {
     const { data } = await vitamon.put(
@@ -39,11 +45,6 @@ export const updateGoal = (goal, update) => async (dispatch) => {
     console.log("There was a problem updating the goal", err);
   }
 };
-
-/**
- * THUNK CREATORS
- */
-
 /**
  * REDUCER
  */

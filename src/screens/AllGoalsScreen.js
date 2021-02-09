@@ -13,16 +13,16 @@ import {
 import Monster from "../components/Monster";
 import { Pedometer } from "expo-sensors";
 import { connect } from "react-redux";
-import { fetchGoals } from "../store/goal";
-import { setGoals } from "../store/allTheUsersGoals";
+import { fetchGoals } from "../store/allTheUsersGoals";
 const width = Dimensions.get("window").width;
 
 class AllGoalsScreen extends React.Component {
   constructor() {
     super();
   }
-  componentDidMount() {
-    this.props.setUserGoals(this.props.user.goals);
+  async componentDidMount() {
+    console.log("USERS IN COMPONENT", this.props.user);
+    await this.props.setUserGoals(this.props.user.id);
   }
 
   render() {
@@ -251,7 +251,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     setUserGoals: (goals) => {
-      dispatch(setGoals(goals));
+      dispatch(fetchGoals(goals));
     },
   };
 };
