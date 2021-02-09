@@ -33,12 +33,12 @@ export const setGoals = (goals) => {
  */
 export const fetchGoals = (userId) => async (dispatch) => {
   try {
-    const {data} = await vitamon.get(`/api/goals/${userId}`)
-    dispatch(setGoals(data))
-  } catch(err) {
-    console.log(err)
+    const { data } = await vitamon.get(`/api/goals/${userId}`);
+    dispatch(setGoals(data));
+  } catch (err) {
+    console.log(err);
   }
-}
+};
 
 export const addGoalToUser = (newGoal) => async (dispatch) => {
   try {
