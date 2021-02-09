@@ -6,11 +6,11 @@ import StepsScreen from "./src/screens/StepsScreen";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
 import AllGoalsScreen from "./src/screens/AllGoalsScreen";
 import SignUpScreen from "./src/screens/SignUpScreen";
-import AddFriendScreen from "./src/screens/AddFriendScreen"
+import AddFriendScreen from "./src/screens/AddFriendScreen";
 import { Provider } from "react-redux";
 import store from "./src/store";
 import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
-import SingleGoal from "./src/screens/SingleGoal";
+import SingleGoalScreen from "./src/screens/SingleGoalScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllFriendsScreen from "./src/screens/AllFriendsScreen";
 import UserStatsScreen from "./src/screens/UserStatsScreen";
@@ -21,8 +21,7 @@ const Stack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
-
-function NavTabs({navigation}) {
+function NavTabs({ navigation }) {
   return (
     <Tab.Navigator>
       <Tab.Screen
@@ -84,7 +83,7 @@ function App() {
           <Stack.Screen name="Steps" component={StepsScreen} />
           <Stack.Screen name="AddFriend" component={AddFriendScreen} />
           <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="SingleGoal" component={SingleGoal} />
+          <Stack.Screen name="SingleGoal" component={SingleGoalScreen} />
           <Stack.Screen name="UserStats" component={UserStatsScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
           <Stack.Screen name="AddGoal" component={AddGoalScreen} />
