@@ -11,9 +11,14 @@ import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import WaterVisualData from "../components/WaterVisualData";
 import StepVisualData from "../components/StepVisualData";
-
-function UserStatsScreen({ user }) {
+import allTheUsersGoals from "../store/allTheUsersGoals";
+import { fetchGoals } from "../store/allTheUsersGoals";
+function UserStatsScreen({ user, goals, setUserGoals }) {
   //console.log("user.goals: ", user.goals);
+
+  useEffect(() => {
+    setUserGoals(user.id);
+  }, [goals]);
 
   const [selected, setSelected] = useState("text");
   const changeSelectedToText = () => {
@@ -22,28 +27,61 @@ function UserStatsScreen({ user }) {
   const changeSelectedToVisual = () => {
     setSelected("visual");
   };
-  const isWater = (theUser) => {
-    for (let i = 0; i < theUser.goals.length; i++) {
-      if (theUser.goals[i].type === "Water") {
+  const isWater = () => {
+    for (let i = 0; i < goals.length; i++) {
+      if (goals[i].type === "Water") {
         //Need to return string in order to aviod falsey value
         return i.toString();
       }
     }
     return false;
   };
-  const isSteps = (theStepUser) => {
-    for (let i = 0; i < theStepUser.goals.length; i++) {
-      if (theStepUser.goals[i].type === "Steps") {
+
+  const completedWater = () => {
+    let sum = 0;
+    for (let i = 0; i < goals.length; i++) {
+      if (
+        goals[i].type === "Water" &&
+        goals[i].usergoal.status === "complete"
+      ) {
+        let total =
+          goals[i].usergoal.quantity * goals[i].usergoal.completedDays;
+        sum += total;
+      }
+    }
+    return sum;
+  };
+  const isSteps = () => {
+    for (let i = 0; i < goals.length; i++) {
+      if (goals[i].type === "Steps") {
         //Need to return string in order to aviod falsey value
         return i.toString();
       }
     }
     return false;
+  };
+
+  const completedSteps = () => {
+    let sum = 0;
+    for (let i = 0; i < goals.length; i++) {
+      if (
+        goals[i].type === "Steps" &&
+        goals[i].usergoal.status === "complete"
+      ) {
+        let total =
+          goals[i].usergoal.quantity * goals[i].usergoal.completedDays;
+        sum += total;
+      }
+    }
+    return sum;
   };
   return (
     <ScrollView>
       {/* <Text style={styles.textStyle}>UserStats</Text> */}
-      <Image source={require('../../assets/profile2.png')} style={{alignSelf: "center"}}/>
+      <Image
+        source={require("../../assets/profile2.png")}
+        style={{ alignSelf: "center" }}
+      />
       {user.goals.length ? (
         <View>
           <View>
@@ -74,9 +112,8 @@ function UserStatsScreen({ user }) {
                   user.goals[Number(isWater(user))].usergoal.status ===
                   "complete" ? (
                     <Text>
-                      Congrats you have compeleted your{" "}
-                      {user.goals[Number(isWater(user))].usergoal.numberOfDays}{" "}
-                      day water goal!!!!!
+                      By completing your water goal you have dranked{" "}
+                      {completedWater()} bottles of water !!!!!
                     </Text>
                   ) : (
                     <Text>No water goals completed yet </Text>
@@ -89,9 +126,8 @@ function UserStatsScreen({ user }) {
                   user.goals[Number(isSteps(user))].usergoal.status ===
                   "complete" ? (
                     <Text>
-                      Congrats you have compeleted your{" "}
-                      {user.goals[Number(isSteps(user))].usergoal.numberOfDays}{" "}
-                      day steps goal!!!!!
+                      By completing your step goals you have walked{" "}
+                      {completedSteps()} steps!!!!!
                     </Text>
                   ) : (
                     <Text>No step goals completed yet </Text>
@@ -154,6 +190,15 @@ function UserStatsScreen({ user }) {
 const mapState = (state) => {
   return {
     user: state.user,
+    goals: state.goals,
+  };
+};
+
+const mapDispatch = (dispatch) => {
+  return {
+    setUserGoals: (userId) => {
+      dispatch(fetchGoals(userId));
+    },
   };
 };
 const styles = StyleSheet.create({
@@ -206,4 +251,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapState, null)(UserStatsScreen);
+export default connect(mapState, mapDispatch)(UserStatsScreen);
