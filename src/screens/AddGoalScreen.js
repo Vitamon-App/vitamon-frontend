@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { addGoalToUser, fetchGoals } from "../store/allTheUsersGoals";
 import SelectBox from "react-native-multi-selectbox";
 
-function AddGoalScreen({ navigation, user, addGoal }) {
+function AddGoalScreen({ navigation, user, addGoal, setGoals }) {
   const [goalId, setGoalId] = useState(1);
   const [quantity, setQuantity] = useState("");
   const [numberOfDays, setNumberOfDays] = useState("");
@@ -49,12 +49,10 @@ function AddGoalScreen({ navigation, user, addGoal }) {
         completedDays: 0,
       };
 
-
       if (
         (newGoal.quantity === 0 && newGoal.numberOfDays === 0) ||
         (isNaN(newGoal.quantity) && isNaN(newGoal.numberOfDays))
       ) {
-
         return Alert.alert(
           "Invalid Amount For Both Quantity And Number Of Days"
         );
@@ -65,7 +63,7 @@ function AddGoalScreen({ navigation, user, addGoal }) {
       }
       await addGoal(newGoal);
       navigation.navigate("Goals");
-      await setGoals(this.props.user.id)
+      await setGoals(this.props.user.id);
     } catch (error) {
       console.log(error);
     }
@@ -110,9 +108,10 @@ const mapDispatch = (dispatch) => {
   return {
     addGoal: (newGoal) => {
       dispatch(addGoalToUser(newGoal));
-    },  setGoals: (userId) => {
-      dispatch(fetchGoals(userId))
-    }
+    },
+    setGoals: (userId) => {
+      dispatch(fetchGoals(userId));
+    },
   };
 };
 
