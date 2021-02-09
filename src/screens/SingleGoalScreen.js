@@ -4,38 +4,65 @@ import { connect } from "react-redux";
 import { setGoal, updateGoal } from "../store/goal";
 import WaterGoalDetails from "../components/WaterGoalDetails";
 import StepGoalDetails from "../components/StepGoalDetails";
+import eachDayOfInterval from "date-fns/eachDayOfInterval";
+import add from "date-fns/add";
+import { Pedometer } from "expo-sensors";
+import sub from "date-fns/sub";
 
 class SingleGoalScreen extends React.Component {
   constructor() {
     super();
-
-    this.state = { days: [] };
+    this.state = { days: [], isPedometerAvailable: false };
     this.handleUpdate = this.handleUpdate.bind(this);
     this.setDays = this.setDays.bind(this);
+    this.checkPedometer = this.checkPedometer.bind(this);
+    // this.getSteps = this.getSteps.bind(this);
   }
 
   async componentDidMount() {
     const goals = this.props.user.goals;
+    console.log("THE GOALS", goals);
     // you can pass down custom params on props using react navigation, which we access as props.route.params.paramName.
     const { id } = this.props.route.params;
-    const singleGoal = goals.find((goal) => goal.id === id);
+    const singleGoal = goals.find((goal) => goal.usergoal.id === id);
     await this.props.getGoal(singleGoal);
     this.setDays();
+    this.checkPedometer();
   }
 
-  setDays() {
+  async setDays() {
     const { goal } = this.props;
-    if (goal.id) {
-      const start = new Date(goal.usergoal.createdAt);
-      const date = new Date();
-      date.setDate(start.getDate() + i);
-      this.setState({
-        days: new Array(goal.usergoal.numberOfDays).fill({
-          date: date.setDate(start.getDate() + 1),
-          status: false,
-        }),
-      });
+    const goalDays = goal.usergoal.numberOfDays;
+    const start = new Date(goal.usergoal.createdAt);
+    const end = add(start, { days: goalDays - 1 });
+    const dates = eachDayOfInterval({
+      start,
+      end,
+    });
+    const result = dates.map((date) => {
+      return { date: date, status: false, steps: 0 };
+    });
+
+    for (let i = 0; i < result.length; i++) {
+      let startDate = sub(result[i].date, { days: 1 });
+      let endDate = result[i].date;
+      try {
+        const { steps } = await Pedometer.getStepCountAsync(startDate, endDate);
+        result[i].steps = steps;
+      } catch (err) {
+        console.log(err);
+      }
     }
+
+    result.forEach((day) => {
+      const { goal } = this.props;
+      if (day.steps > goal.usergoal.quantity) {
+        day.status = true;
+        this.handleUpdate();
+      }
+    });
+
+    this.setState({ days: result });
   }
 
   async handleUpdate() {
@@ -45,19 +72,22 @@ class SingleGoalScreen extends React.Component {
     });
   }
 
+  async checkPedometer() {
+    const result = await Pedometer.isAvailableAsync();
+    this.setState({ isPedometerAvailable: result });
+  }
+
   render() {
     const { goal } = this.props || {};
-    console.log(this.state.days);
-
     return (
       <View>
-        {goal.id && goal.type === "Water" ? (
+        {goal.type && goal.type === "Water" ? (
           <WaterGoalDetails goal={this.props.goal} />
         ) : (
           <View></View>
         )}
-        {goal.id && goal.type === "Steps" ? (
-          <StepGoalDetails goal={this.props.goal} />
+        {goal.type && goal.type === "Steps" ? (
+          <StepGoalDetails goal={this.props.goal} days={this.state.days} />
         ) : (
           <View></View>
         )}

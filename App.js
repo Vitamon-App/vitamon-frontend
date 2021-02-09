@@ -11,7 +11,6 @@ import { Provider } from "react-redux";
 import store from "./src/store";
 import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import SingleGoalScreen from "./src/screens/SingleGoalScreen";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import AllFriendsScreen from "./src/screens/AllFriendsScreen";
 import UserStatsScreen from "./src/screens/UserStatsScreen";
