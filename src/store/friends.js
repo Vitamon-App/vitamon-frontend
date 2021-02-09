@@ -32,6 +32,15 @@ export const addFriend = (friend) => {
 /**
  * THUNK CREATORS
  */
+export const fetchFriends = (userId) => async (dispatch) => {
+  try {
+    const {data} = await vitamon.get(`/api/users/${userId}/friends`)
+    dispatch(setFriends(data))
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 export const addFriendThunk = (userId, friendId) => async (dispatch) => {
   try {
     const {data} = await vitamon.post(`/api/users/${userId}/add/${friendId}`)

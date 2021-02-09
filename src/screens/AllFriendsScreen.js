@@ -1,20 +1,21 @@
 import React from "react";
 
-import { StyleSheet, Text, View, Button, FlatList, Image, Dimensions, TouchableOpacity} from "react-native";
+import { StyleSheet, Text, View, Button, FlatList, Image, Dimensions, TouchableOpacity, ScrollView} from "react-native";
 import { Asset } from 'expo-asset';
 import { connect } from "react-redux";
-import { setFriends } from "../store/friends";
+import { fetchFriends } from "../store/friends";
 const width = Dimensions.get('window').width;
 
 
 class AllFriendsScreen extends React.Component {
-  componentDidMount() {
-    this.props.getFriends(this.props.user.friends);
+  async componentDidMount() {
+    await this.props.getFriends(this.props.user.id);
   }
 
   render() {
     const friends = this.props.friends || [];
     return (
+		<ScrollView>
       <View style={styles.headlineContainer}>
         {friends.length ? (
           <View>
@@ -24,9 +25,9 @@ class AllFriendsScreen extends React.Component {
              <FlatList
           
 
-              keyExtractor={(friend) => {
-                return friend.id.toString();
-              }}
+            //   keyExtractor={(friend) => {
+            //     return friend.id.toString();
+            //   }}
               data={friends}
               renderItem={({ item }) => {
                 return (
@@ -59,6 +60,7 @@ class AllFriendsScreen extends React.Component {
           </View>
         )}
       </View>
+	  </ScrollView>
     );
   }
 }
@@ -204,8 +206,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    getFriends: (friends) => {
-      dispatch(setFriends(friends));
+    getFriends: (userId) => {
+      dispatch(fetchFriends(userId));
     },
   };
 };

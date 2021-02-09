@@ -29,14 +29,14 @@ function AddFriendScreen({
    }
  }
  
-// const onButtonPress = async () => {
-//   try{
-//     const friendId= foundFriend.id
-//    await addFriend(user.id, friendId)
-//   } catch(error) {
-//     console.log(error)
-//   }
-// }
+const onButtonPress = async () => {
+  try{
+    const friendId= foundFriend.id
+   await addFriend(user.id, friendId)
+  } catch(error) {
+    console.log(error)
+  }
+}
 
 
 
@@ -63,7 +63,7 @@ function AddFriendScreen({
          <Text> Add {foundFriend.name} as a friend!</Text>
          <Button 
          title="add friend"
-        //  onPress={()=> onButtonPress()}
+         onPress={()=> onButtonPress()}
          />
          </View>) :
          <Text></Text>
