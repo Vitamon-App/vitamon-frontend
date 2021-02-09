@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button, Alert } from 'react-native'
 import SearchBar from '../components/SearchBar'
 import { connect } from "react-redux";
 import { findFriend } from '../store/friend'
-import { addFriendThunk } from '../store/friends'
+import { addFriendThunk, fetchFriends } from '../store/friends'
 
 
 
@@ -13,7 +13,8 @@ function AddFriendScreen({
   user, 
   foundFriend,
   friends,
-  addFriend
+  addFriend,
+  navigation
 }) {
   const [searchEmail, setSearchEmail] = useState('')
 
@@ -33,6 +34,10 @@ const onButtonPress = async () => {
   try{
     const friendId= foundFriend.id
    await addFriend(user.id, friendId)
+   navigation.navigate("Home")
+   return Alert.alert("Friend Added!");
+  //  navigation.navigate("Friends")
+  //  await setFriends(user.id)
   } catch(error) {
     console.log(error)
   }
@@ -40,8 +45,8 @@ const onButtonPress = async () => {
 
 
 
- console.log("found FRIEND ", foundFriend)
- console.log("FRIENDS", friends)
+//  console.log("found FRIEND ", foundFriend)
+//  console.log("FRIENDS", friends)
 
 //  console.log("USER ID", user.id)
   return (
@@ -58,15 +63,22 @@ const onButtonPress = async () => {
           <Text>We found {foundFriend.name} with that email</Text> :
           <Text> </Text>}
        
-         {foundFriend.email ?  (
-           <View>
+         {foundFriend.email && !(friends.map( friend => friend.email).includes(foundFriend.email))
+         ?  
+         (<View>
          <Text> Add {foundFriend.name} as a friend!</Text>
          <Button 
          title="add friend"
          onPress={()=> onButtonPress()}
          />
          </View>) :
-         <Text></Text>
+         <>
+         {(foundFriend.name !== "nobody") ?
+           <Text>{foundFriend.name} is already your friend!</Text> :
+           <Text></Text>
+         }
+      
+         </>
          }
           
           
@@ -99,6 +111,9 @@ const mapState = (state) => {
       },
    addFriend: (userId, friendId) => {
      dispatch(addFriendThunk(userId, friendId))
+   },
+   setFriends: (userId) => {
+     dispatch(fetchFriends(userId))
    }
     };
   };
