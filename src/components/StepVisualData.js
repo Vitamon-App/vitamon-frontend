@@ -2,13 +2,12 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 
-
-function WaterVisualData({ userWaterData }) {
+function StepVisualData({ userStepData }) {
   const data = [
-    { GoalCompleted: 1, LengthOfGoals: userWaterData },
-    { GoalCompleted: 2, LengthOfGoals: 5 },
-    { GoalCompleted: 3, LengthOfGoals: 14 },
-    { GoalCompleted: 4, LengthOfGoals: 2 },
+    { GoalCompleted: 1, LengthOfGoals: userStepData },
+    { GoalCompleted: 2, LengthOfGoals: 2 },
+    { GoalCompleted: 3, LengthOfGoals: 9 },
+    { GoalCompleted: 4, LengthOfGoals: 3 },
   ];
 
   return (
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#dff6f9",
+    backgroundColor: "#faecd9",
   },
 });
-export default WaterVisualData;
+export default StepVisualData;

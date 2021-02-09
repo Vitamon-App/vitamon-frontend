@@ -5,12 +5,12 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  RefreshControlBase,
+  ScrollView,
 } from "react-native";
 import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
-
 import { connect } from "react-redux";
 import WaterVisualData from "../components/WaterVisualData";
+import StepVisualData from "../components/StepVisualData";
 
 function UserStatsScreen({ user }) {
   //console.log("user.goals: ", user.goals);
@@ -25,7 +25,8 @@ function UserStatsScreen({ user }) {
   const isWater = (theUser) => {
     for (let i = 0; i < theUser.goals.length; i++) {
       if (theUser.goals[i].type === "Water") {
-        return i;
+        //Need to return string in order to aviod falsey value
+        return i.toString();
       }
     }
     return false;
@@ -40,8 +41,9 @@ function UserStatsScreen({ user }) {
     return false;
   };
   return (
-    <View>
-      <Text style={styles.textStyle}>UserStats</Text>
+    <ScrollView>
+      {/* <Text style={styles.textStyle}>UserStats</Text> */}
+      <Image source={require('../../assets/profile2.png')} style={{alignSelf: "center"}}/>
       {user.goals.length ? (
         <View>
           <View>
@@ -73,8 +75,8 @@ function UserStatsScreen({ user }) {
                   "complete" ? (
                     <Text>
                       Congrats you have compeleted your{" "}
-                      {user.goals[isWater(user)].usergoal.numberOfDays} day
-                      water goal!!!!!
+                      {user.goals[Number(isWater(user))].usergoal.numberOfDays}{" "}
+                      day water goal!!!!!
                     </Text>
                   ) : (
                     <Text>No water goals completed yet </Text>
@@ -84,11 +86,12 @@ function UserStatsScreen({ user }) {
                 )}
                 <Text style={styles.subHead3}>Steps Stats</Text>
                 {isSteps(user) ? (
-                  user.goals[isSteps(user)].usergoal.status === "complete" ? (
+                  user.goals[Number(isSteps(user))].usergoal.status ===
+                  "complete" ? (
                     <Text>
                       Congrats you have compeleted your{" "}
-                      {user.goals[isSteps(user)].usergoal.numberOfDays} day
-                      steps goal!!!!!
+                      {user.goals[Number(isSteps(user))].usergoal.numberOfDays}{" "}
+                      day steps goal!!!!!
                     </Text>
                   ) : (
                     <Text>No step goals completed yet </Text>
@@ -100,21 +103,42 @@ function UserStatsScreen({ user }) {
             ) : (
               <View>
                 <Text style={styles.subHead2}>Visual stuff</Text>
-                <Text style={styles.subHead3}>Water Stats</Text>
-                {isWater(user) ? (
-                  user.goals[Number(isWater(user))].usergoal.status ===
-                  "complete" ? (
-                    <WaterVisualData
-                      userWaterData={
-                        user.goals[isWater(user)].usergoal.numberOfDays
-                      }
-                    />
+                <View style={styles.chartContainer1}>
+                  <Text style={styles.subHead3}>Water Stats</Text>
+                  {isWater(user) ? (
+                    user.goals[Number(isWater(user))].usergoal.status ===
+                    "complete" ? (
+                      <WaterVisualData
+                        userWaterData={
+                          user.goals[Number(isWater(user))].usergoal
+                            .numberOfDays
+                        }
+                      />
+                    ) : (
+                      <Text>No water goals completed yet </Text>
+                    )
                   ) : (
-                    <Text>No water goals completed yet </Text>
-                  )
-                ) : (
-                  <Text>You dont have any water goals!!</Text>
-                )}
+                    <Text>You dont have any water goals!!</Text>
+                  )}
+                </View>
+                <View style={styles.chartContainer2}>
+                  <Text style={styles.subHead3}>Steps Stats</Text>
+                  {isSteps(user) ? (
+                    user.goals[Number(isSteps(user))].usergoal.status ===
+                    "complete" ? (
+                      <StepVisualData
+                        userStepData={
+                          user.goals[Number(isSteps(user))].usergoal
+                            .numberOfDays
+                        }
+                      />
+                    ) : (
+                      <Text>No step goals completed yet </Text>
+                    )
+                  ) : (
+                    <Text>You dont have any step goals!!</Text>
+                  )}
+                </View>
               </View>
             )}
           </View>
@@ -124,7 +148,7 @@ function UserStatsScreen({ user }) {
           <Text>No Stats Available</Text>
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 }
 const mapState = (state) => {
@@ -173,6 +197,12 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     alignItems: "flex-start",
     flexDirection: "row",
+  },
+  chartContainer1: {
+    marginTop: 10,
+  },
+  chartContainer2: {
+    marginTop: 10,
   },
 });
 

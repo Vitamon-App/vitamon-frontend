@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+
 /**
  * COMPONENT
  */
@@ -20,13 +21,15 @@ const AuthForm = ({
 }) => {
   return (
     <View>
-      <Text>Log In </Text>
+      <View style={styles.loginBox}>
+      <Text style={styles.loginText}>Please Log In</Text>
       <TextInput
         autoCapitalize="none"
         autoCorrect={false}
         value={email}
         onChangeText={onEmailChange}
         placeholder="enter email"
+        style={styles.input}
       />
       <TextInput
         autoCapitalize="none"
@@ -34,12 +37,14 @@ const AuthForm = ({
         value={password}
         onChangeText={onPasswordChange}
         placeholder="enter password"
+        style={styles.input}
       />
+      </View>
       <TouchableOpacity
         style={styles.button}
         onPress={() => onPress(email, password, formType)}
       >
-        <Text style={styles.buttonText}>Submit</Text>
+        <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
       <View></View>
     </View>
@@ -60,6 +65,23 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
   },
+  loginBox: {
+justifyContent: 'center',
+alignItems: 'stretch',
+  },
+  input: {
+    borderWidth: 1,
+    backgroundColor: "#F2F2F2",
+    padding: 8,
+    margin: 10,
+  },
+  loginText: {
+    fontSize: 50,
+    fontWeight: "bold",
+    color: "#9F1BEE",
+    textAlign: "center",
+  }
+
 });
 
 export default AuthForm;

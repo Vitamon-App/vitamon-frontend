@@ -7,41 +7,41 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-
-/**
- * COMPONENT
- */
-const SignUpForm = ({
-  email,
-  password,
-  onEmailChange,
-  onPasswordChange,
+const AddGoalForm = ({
+  descriptionOfQty,
+  goalId,
+  quantity,
+  numberOfDays,
+  onQuantityChange,
+  onNumberOfDaysChange,
   onPress,
 }) => {
   return (
     <View>
+      <Text>{descriptionOfQty}</Text>
       <TextInput
         style={styles.input}
         autoCapitalize="none"
         autoCorrect={false}
-        value={email}
-        onChangeText={onEmailChange}
-        placeholder="enter email"
+        value={quantity}
+        onChangeText={onQuantityChange}
+        placeholder="enter quantity"
       />
-      <TextInput
-        style={styles.input}
-        autoCapitalize="none"
-        autoCorrect={false}
-        value={password}
-        onChangeText={onPasswordChange}
-        placeholder="enter password"
-      />
+
+      <View>
+        <Text>{`Duration of Goal (Days)`}</Text>
+        <TextInput
+          style={styles.input}
+          autoCapitalize="none"
+          autoCorrect={false}
+          value={numberOfDays}
+          onChangeText={onNumberOfDaysChange}
+          placeholder="enter number of days"
+        />
+      </View>
       <View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            
-            onPress={() => onPress(email, password)}
-          >
+          <TouchableOpacity onPress={() => onPress()}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
         </View>
@@ -76,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUpForm;
+export default AddGoalForm;
