@@ -45,6 +45,7 @@ class SingleGoalScreen extends React.Component {
     await this.props.editGoal(goal, {
       completedDays: (goal.usergoal.completedDays += num),
     });
+
   }
 
   async handleWaterUpdate() {
@@ -61,6 +62,7 @@ class SingleGoalScreen extends React.Component {
     } catch (err) {
       console.log(err);
     }
+
   }
 
   async checkPedometer() {
