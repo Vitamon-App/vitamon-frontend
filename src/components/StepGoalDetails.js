@@ -12,30 +12,30 @@ class StepGoalDetails extends React.Component {
 
   render() {
     const { goal } = this.props || {};
-    let progress = goal.usergoal.completedDays / goal.usergoal.numberOfDays;
-    let goalDetails = `Walk ${goal.usergoal.quantity} steps a day`;
+    let progress = goal.completedDays / goal.numberOfDays;
+    let goalDetails = `Walk ${goal.quantity} steps a day`;
 
     return (
       <View>
         {goal.type ? (
           <View>
-            {/* <Monster monsterType={goals.type} monsterStatus={goals.usergoal.status}/> */}
+            <Monster monsterType={goal.type} monsterStatus={goal.status}/>
             <Text>Goal Details:</Text>
             <Text>{goalDetails}</Text>
-            <Text>Goal Length: {goal.usergoal.numberOfDays} days</Text>
+            <Text>Goal Length: {goal.numberOfDays} days</Text>
             {/* <Text>Your Steps From The Past 24 Hours: {this.state.steps}</Text> */}
-            <Text>Days Completed: {goal.usergoal.completedDays} days</Text>
+            <Text>Days Completed: {goal.completedDays} days</Text>
             <Text>
               Completion Status:{" "}
               {(
-                (goal.usergoal.completedDays / goal.usergoal.numberOfDays) *
+                (goal.completedDays / goal.numberOfDays) *
                 100
               ).toFixed(0)}
               %
             </Text>
 
             <ProgressBar style={styles.progress} progress={progress} />
-            <Text>Vitamon Status: {goal.usergoal.status}</Text>
+            <Text>Vitamon Status: {goal.status}</Text>
             <DataTable>
               <DataTable.Header>
                 <DataTable.Title>Day</DataTable.Title>

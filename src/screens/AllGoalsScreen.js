@@ -35,12 +35,12 @@ class AllGoalsScreen extends React.Component {
               <Text style={styles.headline}>
                 You haven't added any goals yet!
               </Text>
-              <Button
+              {/* <Button
                 title="Click Here to Adopt a Vitamon"
-                //  onPress={() => {
-                //   navigation.navigate("AddGoal");
-                // }}
-              ></Button>
+                 onPress={() => {
+                  navigation.navigate("AddGoal");
+                }}
+              ></Button> */}
             </View>
           ) : null}
 
@@ -49,7 +49,7 @@ class AllGoalsScreen extends React.Component {
               <Text style={styles.headline}>Goals:</Text>
               <FlatList
                 keyExtractor={(goal) => {
-                  return goal.usergoal.id.toString();
+                  return goal.id.toString();
                 }}
                 data={goals}
                 renderItem={({ item }) => {
@@ -58,23 +58,23 @@ class AllGoalsScreen extends React.Component {
                       <Text style={styles.subheading}>Goals:</Text>
                       <Monster
                         monsterType={item.type}
-                        monsterStatus={item.usergoal.status}
+                        monsterStatus={item.status}
                       />
                       <Text style={styles.subheading}>
-                        status: {item.usergoal.status}
+                        status: {item.status}
                       </Text>
                       <Text style={styles.subheading}>
-                        number of days: {item.usergoal.numberOfDays}
+                        number of days: {item.numberOfDays}
                       </Text>
                       <Text style={styles.subheading}>
-                        completed days: {item.usergoal.completedDays}
+                        completed days: {item.completedDays}
                       </Text>
                       <Text style={styles.subheading}>type: {item.type} </Text>
                       <TouchableOpacity
                         style={styles.buttonTwo}
                         onPress={() => {
                           navigation.navigate("SingleGoal", {
-                            id: item.usergoal.id,
+                            id: item.id,
                           });
                         }}
                       >

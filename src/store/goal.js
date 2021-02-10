@@ -28,8 +28,6 @@ export const editGoal = (goal) => {
   };
 };
 
-
-
 /**
  * THUNK CREATORS
  */
@@ -37,7 +35,7 @@ export const editGoal = (goal) => {
 export const updateGoal = (goal, update) => async (dispatch) => {
   try {
     const { data } = await vitamon.put(
-      `/api/goals/${goal.usergoal.id}`,
+      `/api/goals/${goal.id}`,
       update
     );
     dispatch(editGoal(data));
@@ -54,14 +52,15 @@ export default function goalReducer(state = initialState, action) {
     case SET_GOAL:
       return action.goal;
     case EDIT_GOAL:
-      return {
-        ...state,
-        usergoal: {
-          ...state.usergoal,
-          completedDays: action.goal.completedDays,
-          status: action.goal.status,
-        },
-      };
+      return action.goal;
+    // return {
+    //   ...state,
+    //   usergoal: {
+    //     ...state.usergoal,
+    //     completedDays: action.goal.completedDays,
+    //     status: action.goal.status,
+    //   },
+    // };
     default:
       return state;
   }
