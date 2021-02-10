@@ -6,7 +6,7 @@ import { addGoalToUser, fetchGoals } from "../store/allTheUsersGoals";
 import SelectBox from "react-native-multi-selectbox";
 
 function AddGoalScreen({ navigation, user, addGoal, setGoals }) {
-  const [goalId, setGoalId] = useState(1);
+  const [type, setType] = useState("Steps");
   const [quantity, setQuantity] = useState("");
   const [numberOfDays, setNumberOfDays] = useState("");
   const [selected, setSelected] = useState("Steps");
@@ -26,12 +26,12 @@ function AddGoalScreen({ navigation, user, addGoal, setGoals }) {
 
   const goalChanger = () => {
     return (val) => {
-      if (val.id === 2) {
-        setGoalId(2);
+      if (val.item === "Steps") {
+        setType("Steps");
         setSelected(val.item);
         setDescriptionOfQty("How many steps do you want to walk daily?");
       } else {
-        setGoalId(1);
+        setType("Water");
         setSelected(val.item);
         setDescriptionOfQty(
           "How many water bottles do you want to drink daily?"
@@ -43,7 +43,7 @@ function AddGoalScreen({ navigation, user, addGoal, setGoals }) {
     try {
       let newGoal = {
         userId: user.id,
-        goalId: goalId,
+        type: type,
         quantity: Number(quantity),
         numberOfDays: Number(numberOfDays),
         completedDays: 0,
@@ -82,7 +82,7 @@ function AddGoalScreen({ navigation, user, addGoal, setGoals }) {
         <SelectBox
           label={selected}
           options={goalTypes}
-          value={goalId}
+          value={type}
           onChange={goalChanger()}
           hideInputFilter={false}
         />
