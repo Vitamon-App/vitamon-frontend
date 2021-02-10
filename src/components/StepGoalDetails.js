@@ -8,45 +8,12 @@ import { updateGoal } from "../store/goal";
 class StepGoalDetails extends React.Component {
   constructor() {
     super();
-    // this.state = {
-    //   isPedometerAvailable: false,
-    //   steps: [],
-    // };
-    // this.handleUpdate = this.handleUpdate.bind(this);
-    // this.checkPedometer = this.checkPedometer.bind(this);
-    // this.getSteps = this.getSteps.bind(this);
   }
-  // componentDidMount() {
-  //   this.checkPedometer();
-  //   this.getSteps();
-  // }
-
-  // async handleUpdate() {
-  //   const { goal } = this.props;
-  //   await this.props.editGoal(goal, {
-  //     completedDays: (goal.usergoal.completedDays += 1),
-  //   });
-  // }
-
-  // async checkPedometer() {
-  //   const result = await Pedometer.isAvailableAsync();
-  //   this.setState({ isPedometerAvailable: result });
-  // }
-  // async getSteps() {
-  //   const end = new Date();
-  //   const start = new Date();
-  //   const { steps } = await Pedometer.getStepCountAsync(start, end);
-  //   this.setState({ steps });
-  // }
 
   render() {
-    let goalDetails = "";
-    let progress = 0;
     const { goal } = this.props || {};
-    if (goal.id) {
-      progress = goal.usergoal.completedDays / goal.usergoal.numberOfDays;
-      goalDetails = `Walk ${goal.usergoal.quantity} steps a day`;
-    }
+    let progress = goal.usergoal.completedDays / goal.usergoal.numberOfDays;
+    let goalDetails = `Walk ${goal.usergoal.quantity} steps a day`;
 
     return (
       <View>

@@ -4,17 +4,14 @@ import { connect } from "react-redux";
 import { setGoal, updateGoal } from "../store/goal";
 import WaterGoalDetails from "../components/WaterGoalDetails";
 import StepGoalDetails from "../components/StepGoalDetails";
-import eachDayOfInterval from "date-fns/eachDayOfInterval";
-import add from "date-fns/add";
+import { setDays } from "../lib/goalUtils";
 import { Pedometer } from "expo-sensors";
-import sub from "date-fns/sub";
 
 class SingleGoalScreen extends React.Component {
   constructor() {
     super();
     this.state = { days: [], isPedometerAvailable: false };
     this.handleUpdate = this.handleUpdate.bind(this);
-    this.setDays = this.setDays.bind(this);
     this.checkPedometer = this.checkPedometer.bind(this);
     // this.getSteps = this.getSteps.bind(this);
   }
@@ -24,54 +21,64 @@ class SingleGoalScreen extends React.Component {
     // you can pass down custom params on props using react navigation, which we access as props.route.params.paramName.
     const { id } = this.props.route.params;
     const singleGoal = goals.find((goal) => goal.usergoal.id === id);
-    await this.props.getGoal(singleGoal);
-    this.setDays();
+    try {
+      await this.props.getGoal(singleGoal);
+      console.log("HERE IS THE LOG", singleGoal);
+      const { dateArray, shouldUpdate } = await setDays(singleGoal.usergoal);
+      console.log("DATE ARRAY", dateArray, "SHOULD UPDATE", shouldUpdate);
+      this.setState({ days: dateArray }, () => {
+        if (shouldUpdate) {
+          this.handleUpdate();
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
     this.checkPedometer();
   }
 
-  async setDays() {
-    const { goal } = this.props;
-    const goalDays = goal.usergoal.numberOfDays;
-    const start = new Date(goal.usergoal.createdAt);
-    const end = add(start, { days: goalDays - 1 });
-    const dates = eachDayOfInterval({
-      start,
-      end,
-    });
-    const result = dates.map((date) => {
-      return { date: date, status: false, steps: 0 };
-    });
+  // async setDays() {
+  //   const { goal } = this.props;
+  //   const goalDays = goal.usergoal.numberOfDays;
+  //   const start = new Date(goal.usergoal.createdAt);
+  //   console.log("START", goal.usergoal.createdAt);
+  //   const end = add(start, { days: goalDays - 1 });
+  //   const dates = eachDayOfInterval({
+  //     start,
+  //     end,
+  //   });
+  //   const result = dates.map((date, index) => {
+  //     return { date: date, status: false, steps: 0 };
+  //   });
 
-    const { completedDays } = goal.usergoal;
-    for (let i = 0; i < completedDays; i++) {
-      result[i].status = true;
-    }
+  //   const { completedDays } = goal.usergoal;
+  //   for (let i = 0; i < completedDays; i++) {
+  //     result[i].status = true;
+  //   }
 
-    for (let i = 0; i < result.length; i++) {
-      let startDate = new Date(result[i].date);
-      let endDate = new Date(result[i].date);
-      startDate.setDate(endDate.getDate() - 1);
-      try {
-        const { steps } = await Pedometer.getStepCountAsync(startDate, endDate);
-        result[i - 1].steps = steps;
-        if (steps > goal.usergoal.quantity && !result[i].status) {
-          result[i].status = true;
-          this.handleUpdate();
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    this.setState({ days: result });
-  }
+  //   for (let i = 0; i < result.length; i++) {
+  //     let startDate = new Date(result[i].date);
+  //     let endDate = new Date(result[i].date);
+  //     startDate.setDate(endDate.getDate() - 1);
+  //     try {
+  //       const { steps } = await Pedometer.getStepCountAsync(startDate, endDate);
+  //       result[i].steps = steps;
+  //       if (steps > goal.usergoal.quantity && !result[i].status) {
+  //         result[i].status = true;
+  //         this.handleUpdate();
+  //       }
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   }
+  // }
 
   async handleUpdate() {
     const { goal } = this.props;
     await this.props.editGoal(goal, {
       completedDays: (goal.usergoal.completedDays += 1),
     });
-    await this.setDays();
   }
 
   async checkPedometer() {
@@ -80,8 +87,8 @@ class SingleGoalScreen extends React.Component {
   }
 
   render() {
-    console.log("DAYS ON STATE", this.state.days);
-
+    // console.log("DAYS ON STATE", this.state.days);
+    console.log("HERE IS STATE", this.state);
     const { goal } = this.props || {};
     console.log("THE CURRENT GOAL", goal);
     return (
