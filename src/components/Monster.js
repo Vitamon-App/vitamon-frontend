@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, TextInput, Text, StyleSheet, Image } from 'react-native'
-import { Feather } from '@expo/vector-icons'
+import { View, StyleSheet, Image } from 'react-native'
 
 
 
-function SearchBar({monsterType, monsterStatus}) {
+
+function Monster({monsterType, monsterStatus}) {
     return (
         <View style={styles.backgroundStyle}>
             {monsterType === 'Water' && monsterStatus === 'start' ? 
@@ -59,5 +59,5 @@ const styles = StyleSheet.create({
         }
 })
 
-export default SearchBar
+export default Monster
 

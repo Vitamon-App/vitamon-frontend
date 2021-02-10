@@ -11,7 +11,7 @@ import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import WaterVisualData from "../components/WaterVisualData";
 import StepVisualData from "../components/StepVisualData";
-import allTheUsersGoals from "../store/allTheUsersGoals";
+
 import { fetchGoals } from "../store/allTheUsersGoals";
 function UserStatsScreen({ user, goals, setUserGoals }) {
   //console.log("user.goals: ", user.goals);
@@ -42,10 +42,10 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
     for (let i = 0; i < goals.length; i++) {
       if (
         goals[i].type === "Water" &&
-        goals[i].usergoal.status === "complete"
+        goals[i].status === "complete"
       ) {
         let total =
-          goals[i].usergoal.quantity * goals[i].usergoal.completedDays;
+          goals[i].quantity * goals[i].completedDays;
         sum += total;
       }
     }
@@ -66,10 +66,10 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
     for (let i = 0; i < goals.length; i++) {
       if (
         goals[i].type === "Steps" &&
-        goals[i].usergoal.status === "complete"
+        goals[i].status === "complete"
       ) {
         let total =
-          goals[i].usergoal.quantity * goals[i].usergoal.completedDays;
+          goals[i].quantity * goals[i].completedDays;
         sum += total;
       }
     }
@@ -109,7 +109,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 <Text style={styles.subHead3}>Water Stats</Text>
                 <SimpleLineIcons name="drop" size={15} color={"blue"} />
                 {isWater(user) ? (
-                  user.goals[Number(isWater(user))].usergoal.status ===
+                  user.goals[Number(isWater(user))].status ===
                   "complete" ? (
                     <Text>
                       By completing your water goal you have dranked{" "}
@@ -123,7 +123,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 )}
                 <Text style={styles.subHead3}>Steps Stats</Text>
                 {isSteps(user) ? (
-                  user.goals[Number(isSteps(user))].usergoal.status ===
+                  user.goals[Number(isSteps(user))].status ===
                   "complete" ? (
                     <Text>
                       By completing your step goals you have walked{" "}
@@ -142,12 +142,11 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 <View style={styles.chartContainer1}>
                   <Text style={styles.subHead3}>Water Stats</Text>
                   {isWater(user) ? (
-                    user.goals[Number(isWater(user))].usergoal.status ===
+                    user.goals[Number(isWater(user))].status ===
                     "complete" ? (
                       <WaterVisualData
                         userWaterData={
-                          user.goals[Number(isWater(user))].usergoal
-                            .numberOfDays
+                          user.goals[Number(isWater(user))].numberOfDays
                         }
                       />
                     ) : (
@@ -160,12 +159,11 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 <View style={styles.chartContainer2}>
                   <Text style={styles.subHead3}>Steps Stats</Text>
                   {isSteps(user) ? (
-                    user.goals[Number(isSteps(user))].usergoal.status ===
+                    user.goals[Number(isSteps(user))].status ===
                     "complete" ? (
                       <StepVisualData
                         userStepData={
-                          user.goals[Number(isSteps(user))].usergoal
-                            .numberOfDays
+                          user.goals[Number(isSteps(user))].numberOfDays
                         }
                       />
                     ) : (

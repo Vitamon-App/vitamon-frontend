@@ -21,10 +21,9 @@ class WaterGoalDetails extends React.Component {
 
   render() {
     const { goal } = this.props || {};
-    let dayArray = [];
 
-    let progress = goal.usergoal.completedDays / goal.usergoal.numberOfDays;
-    let goalDetails = `Drink ${goal.usergoal.quantity} glasses of water a day`;
+    let progress = goal.completedDays / goal.numberOfDays;
+    let goalDetails = `Drink ${goal.quantity} glasses of water a day`;
 
     return (
       <ScrollView style={styles.headlineContainer}>
@@ -34,19 +33,19 @@ class WaterGoalDetails extends React.Component {
               <Text style={styles.headline}>Goal Details:</Text>
               <Monster
                 monsterType={goal.type}
-                monsterStatus={goal.usergoal.status}
+                monsterStatus={goal.status}
               />
               <Text style={styles.subheading}>{goalDetails}</Text>
               <Text style={styles.subheading}>
-                Goal Length: {goal.usergoal.numberOfDays} days
+                Goal Length: {goal.numberOfDays} days
               </Text>
               <Text style={styles.subheading}>
-                Days Completed: {goal.usergoal.completedDays} days
+                Days Completed: {goal.completedDays} days
               </Text>
               <Text style={styles.subheading}>
                 Completion Status:{" "}
                 {(
-                  (goal.usergoal.completedDays / goal.usergoal.numberOfDays) *
+                  (goal.completedDays / goal.numberOfDays) *
                   100
                 ).toFixed(0)}
                 %
@@ -54,7 +53,7 @@ class WaterGoalDetails extends React.Component {
 
               <ProgressBar style={styles.progress} progress={progress} />
               <Text style={styles.subheading}>
-                Vitamon Status: {goal.usergoal.status}
+                Vitamon Status: {goal.status}
               </Text>
               <DataTable>
                 <DataTable.Header>
@@ -212,13 +211,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapState = (state) => {
-  return {
-    user: state.user,
-    goal: state.goal,
-    goals: state.goals,
-  };
-};
+// const mapState = (state) => {
+//   return {
+//     user: state.user,
+//     goal: state.goal,
+//     goals: state.goals,
+//   };
+// };
 
 const mapDispatch = (dispatch) => {
   return {

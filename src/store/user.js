@@ -76,15 +76,6 @@ export const findUser = (email) => async (dispatch) => {
   }
 }
 
-// export const addFriendThunk = (userId, friendId) => async (dispatch) => {
-//   try {
-//     const {data} = await vitamon.put(`/api/${user.id}/friend/${friendId}`)
-//     dispatch(addFriend(data))
-//   } catch (err) {
-//     console.log(err)
-//   }
-// }
-
 /**
  * REDUCER
  */

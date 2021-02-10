@@ -20,12 +20,12 @@ class SingleGoalScreen extends React.Component {
     const goals = this.props.goals;
     // you can pass down custom params on props using react navigation, which we access as props.route.params.paramName.
     const { id } = this.props.route.params;
-    const singleGoal = goals.find((goal) => goal.usergoal.id === id);
+    const singleGoal = goals.find((goal) => goal.id === id);
     try {
       await this.props.getGoal(singleGoal);
       console.log("THE GOAL TYPE", singleGoal.type)
       const { dateArray, updates } = await setDays(
-        singleGoal.usergoal,
+        singleGoal,
         singleGoal.type
       );
       this.setState({ days: dateArray }, () => {
@@ -43,7 +43,7 @@ class SingleGoalScreen extends React.Component {
   async handleStepsUpdate(num) {
     const { goal } = this.props;
     await this.props.editGoal(goal, {
-      completedDays: (goal.usergoal.completedDays += num),
+      completedDays: (goal.completedDays += num),
     });
 
   }
@@ -52,10 +52,10 @@ class SingleGoalScreen extends React.Component {
     const { goal } = this.props;
     try {
       await this.props.editGoal(goal, {
-        completedDays: (goal.usergoal.completedDays += 1),
+        completedDays: (goal.completedDays += 1),
       });
       const updatedDays = this.state.days.map((day, index) => {
-        day.status = index < goal.usergoal.completedDays;
+        day.status = index < goal.completedDays;
         return day;
       });
       this.setState({ days: updatedDays });
