@@ -21,7 +21,6 @@ class AllGoalsScreen extends React.Component {
     super();
   }
   async componentDidMount() {
-    console.log("USERS IN COMPONENT", this.props.user);
     await this.props.setUserGoals(this.props.user.id);
   }
 

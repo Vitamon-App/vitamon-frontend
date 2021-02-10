@@ -4,19 +4,16 @@ import { connect } from "react-redux";
 import { setGoal, updateGoal } from "../store/goal";
 import WaterGoalDetails from "../components/WaterGoalDetails";
 import StepGoalDetails from "../components/StepGoalDetails";
-import eachDayOfInterval from "date-fns/eachDayOfInterval";
-import add from "date-fns/add";
+import { setDays } from "../lib/goalUtils";
 import { Pedometer } from "expo-sensors";
-import sub from "date-fns/sub";
 
 class SingleGoalScreen extends React.Component {
   constructor() {
     super();
     this.state = { days: [], isPedometerAvailable: false };
-    this.handleUpdate = this.handleUpdate.bind(this);
-    this.setDays = this.setDays.bind(this);
+    this.handleStepsUpdate = this.handleStepsUpdate.bind(this);
     this.checkPedometer = this.checkPedometer.bind(this);
-    // this.getSteps = this.getSteps.bind(this);
+    this.handleWaterUpdate = this.handleWaterUpdate.bind(this);
   }
 
   async componentDidMount() {
@@ -24,55 +21,48 @@ class SingleGoalScreen extends React.Component {
     // you can pass down custom params on props using react navigation, which we access as props.route.params.paramName.
     const { id } = this.props.route.params;
     const singleGoal = goals.find((goal) => goal.usergoal.id === id);
-    await this.props.getGoal(singleGoal);
-    this.setDays();
+    try {
+      await this.props.getGoal(singleGoal);
+      console.log("THE GOAL TYPE", singleGoal.type)
+      const { dateArray, updates } = await setDays(
+        singleGoal.usergoal,
+        singleGoal.type
+      );
+      this.setState({ days: dateArray }, () => {
+        if (updates > 0) {
+          this.handleStepsUpdate(updates);
+        }
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
     this.checkPedometer();
   }
 
-  async setDays() {
-    const { goal } = this.props;
-    const goalDays = goal.usergoal.numberOfDays;
-    const start = new Date(goal.usergoal.createdAt);
-    const end = add(start, { days: goalDays - 1 });
-    const dates = eachDayOfInterval({
-      start,
-      end,
-    });
-    const result = dates.map((date) => {
-      return { date: date, status: false, steps: 0 };
-    });
-
-    const { completedDays } = goal.usergoal;
-    for (let i = 0; i < completedDays; i++) {
-      result[i].status = true;
-    }
-
-    for (let i = 0; i < result.length; i++) {
-      let startDate = new Date(result[i].date);
-      let endDate = new Date(result[i].date);
-      startDate.setDate(endDate.getDate() - 1);
-      try {
-        const { steps } = await Pedometer.getStepCountAsync(startDate, endDate);
-        result[i - 1].steps = steps;
-        if (steps > goal.usergoal.quantity && !result[i].status) {
-          result[i].status = true;
-          this.handleUpdate();
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-
-    this.setState({ days: result });
-  }
-
-  async handleUpdate() {
+  async handleStepsUpdate(num) {
     const { goal } = this.props;
     await this.props.editGoal(goal, {
-      completedDays: (goal.usergoal.completedDays += 1),
+      completedDays: (goal.usergoal.completedDays += num),
     });
-    
-    await this.setDays();
+
+  }
+
+  async handleWaterUpdate() {
+    const { goal } = this.props;
+    try {
+      await this.props.editGoal(goal, {
+        completedDays: (goal.usergoal.completedDays += 1),
+      });
+      const updatedDays = this.state.days.map((day, index) => {
+        day.status = index < goal.usergoal.completedDays;
+        return day;
+      });
+      this.setState({ days: updatedDays });
+    } catch (err) {
+      console.log(err);
+    }
+
   }
 
   async checkPedometer() {
@@ -81,17 +71,14 @@ class SingleGoalScreen extends React.Component {
   }
 
   render() {
-    console.log("DAYS ON STATE", this.state.days);
-
     const { goal } = this.props || {};
-    console.log("THE CURRENT GOAL", goal);
     return (
       <View>
         {goal.type && goal.type === "Water" ? (
           <WaterGoalDetails
             goal={this.props.goal}
             days={this.state.days}
-            handleUpdate={this.handleUpdate}
+            handleUpdate={this.handleWaterUpdate}
           />
         ) : (
           <View></View>

@@ -16,22 +16,22 @@ function AddGoalScreen({ navigation, user, addGoal, setGoals }) {
   const goalTypes = [
     {
       item: "Steps",
-      id: 1,
+      id: 2,
     },
     {
       item: "Water",
-      id: 2,
+      id: 1,
     },
   ];
 
   const goalChanger = () => {
     return (val) => {
-      if (val.id === 1) {
-        setGoalId(1);
+      if (val.id === 2) {
+        setGoalId(2);
         setSelected(val.item);
         setDescriptionOfQty("How many steps do you want to walk daily?");
       } else {
-        setGoalId(2);
+        setGoalId(1);
         setSelected(val.item);
         setDescriptionOfQty(
           "How many water bottles do you want to drink daily?"

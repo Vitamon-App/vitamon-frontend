@@ -34,6 +34,7 @@ export const setGoals = (goals) => {
 export const fetchGoals = (userId) => async (dispatch) => {
   try {
     const { data } = await vitamon.get(`/api/goals/${userId}`);
+
     dispatch(setGoals(data));
   } catch (err) {
     console.log(err);
@@ -45,13 +46,13 @@ export const addGoalToUser = (newGoal) => async (dispatch) => {
     const { data } = await vitamon.post(`/api/goals/add`, newGoal);
     let type;
     if (newGoal.goalId === 1) {
-      type = "Steps";
-    } else if (newGoal.goalId === 2) {
       type = "Water";
+    } else if (newGoal.goalId === 2) {
+      type = "Steps";
     }
     const goal = {
       type: type,
-      id: newGoal.id,
+      id: newGoal.goalId,
       usergoal: data,
     };
     dispatch(addGoal(goal));

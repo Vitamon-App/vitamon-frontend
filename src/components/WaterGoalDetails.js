@@ -17,26 +17,14 @@ const width = Dimensions.get("window").width;
 class WaterGoalDetails extends React.Component {
   constructor() {
     super();
-    // this.handleUpdate = this.handleUpdate.bind(this);
   }
 
-  // async handleUpdate() {
-  //   const { goal } = this.props;
-  //   await this.props.editGoal(goal, {
-  //     completedDays: (goal.usergoal.completedDays += 1),
-  //   });
-  // }
-
   render() {
-    let goalDetails = "";
-    let progress = 0;
-
     const { goal } = this.props || {};
     let dayArray = [];
-    if (goal.type) {
-      progress = goal.usergoal.completedDays / goal.usergoal.numberOfDays;
-      goalDetails = `Drink ${goal.usergoal.quantity} glasses of water a day`;
-    }
+
+    let progress = goal.usergoal.completedDays / goal.usergoal.numberOfDays;
+    let goalDetails = `Drink ${goal.usergoal.quantity} glasses of water a day`;
 
     return (
       <ScrollView style={styles.headlineContainer}>
@@ -71,6 +59,7 @@ class WaterGoalDetails extends React.Component {
               <DataTable>
                 <DataTable.Header>
                   <DataTable.Title>Day</DataTable.Title>
+                  <DataTable.Title>Date</DataTable.Title>
                   <DataTable.Title>Goal Completed?</DataTable.Title>
                   <DataTable.Title></DataTable.Title>
                 </DataTable.Header>
@@ -78,6 +67,9 @@ class WaterGoalDetails extends React.Component {
                   return (
                     <DataTable.Row key={i}>
                       <DataTable.Cell>{i + 1}</DataTable.Cell>
+                      <DataTable.Cell>
+                        {day.date.toLocaleDateString()}
+                      </DataTable.Cell>
                       <DataTable.Cell>
                         {day.status ? "Yes" : "No"}
                       </DataTable.Cell>
