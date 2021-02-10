@@ -11,8 +11,9 @@ class SingleGoalScreen extends React.Component {
   constructor() {
     super();
     this.state = { days: [], isPedometerAvailable: false };
-    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleStepsUpdate = this.handleStepsUpdate.bind(this);
     this.checkPedometer = this.checkPedometer.bind(this);
+    this.handleWaterUpdate = this.handleWaterUpdate.bind(this);
   }
 
   async componentDidMount() {
@@ -22,10 +23,14 @@ class SingleGoalScreen extends React.Component {
     const singleGoal = goals.find((goal) => goal.usergoal.id === id);
     try {
       await this.props.getGoal(singleGoal);
-      const { dateArray, shouldUpdate } = await setDays(singleGoal.usergoal);
+      console.log("THE GOAL TYPE", singleGoal.type)
+      const { dateArray, updates } = await setDays(
+        singleGoal.usergoal,
+        singleGoal.type
+      );
       this.setState({ days: dateArray }, () => {
-        if (shouldUpdate) {
-          this.handleUpdate();
+        if (updates > 0) {
+          this.handleStepsUpdate(updates);
         }
       });
     } catch (err) {
@@ -35,11 +40,27 @@ class SingleGoalScreen extends React.Component {
     this.checkPedometer();
   }
 
-  async handleUpdate() {
+  async handleStepsUpdate(num) {
     const { goal } = this.props;
     await this.props.editGoal(goal, {
-      completedDays: (goal.usergoal.completedDays += 1),
+      completedDays: (goal.usergoal.completedDays += num),
     });
+  }
+
+  async handleWaterUpdate() {
+    const { goal } = this.props;
+    try {
+      await this.props.editGoal(goal, {
+        completedDays: (goal.usergoal.completedDays += 1),
+      });
+      const updatedDays = this.state.days.map((day, index) => {
+        day.status = index < goal.usergoal.completedDays;
+        return day;
+      });
+      this.setState({ days: updatedDays });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async checkPedometer() {
@@ -55,7 +76,7 @@ class SingleGoalScreen extends React.Component {
           <WaterGoalDetails
             goal={this.props.goal}
             days={this.state.days}
-            handleUpdate={this.handleUpdate}
+            handleUpdate={this.handleWaterUpdate}
           />
         ) : (
           <View></View>

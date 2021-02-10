@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { ProgressBar, Colors, DataTable } from "react-native-paper";
-import { Pedometer } from "expo-sensors";
 import { connect } from "react-redux";
 import { updateGoal } from "../store/goal";
 

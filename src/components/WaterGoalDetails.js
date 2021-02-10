@@ -59,6 +59,7 @@ class WaterGoalDetails extends React.Component {
               <DataTable>
                 <DataTable.Header>
                   <DataTable.Title>Day</DataTable.Title>
+                  <DataTable.Title>Date</DataTable.Title>
                   <DataTable.Title>Goal Completed?</DataTable.Title>
                   <DataTable.Title></DataTable.Title>
                 </DataTable.Header>
@@ -66,6 +67,9 @@ class WaterGoalDetails extends React.Component {
                   return (
                     <DataTable.Row key={i}>
                       <DataTable.Cell>{i + 1}</DataTable.Cell>
+                      <DataTable.Cell>
+                        {day.date.toLocaleDateString()}
+                      </DataTable.Cell>
                       <DataTable.Cell>
                         {day.status ? "Yes" : "No"}
                       </DataTable.Cell>
