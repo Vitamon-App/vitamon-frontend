@@ -53,7 +53,7 @@ class SingleGoalScreen extends React.Component {
       startDate.setDate(endDate.getDate() - 1);
       try {
         const { steps } = await Pedometer.getStepCountAsync(startDate, endDate);
-        result[i].steps = steps;
+        result[i - 1].steps = steps;
         if (steps > goal.usergoal.quantity && !result[i].status) {
           result[i].status = true;
           this.handleUpdate();
