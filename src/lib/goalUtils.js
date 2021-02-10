@@ -8,7 +8,6 @@ import startOfDay from "date-fns/startOfDay";
 
 function createDayArray({ completedDays, numberOfDays, createdAt }) {
   const start = new Date(createdAt);
-  console.log("START", createdAt);
   const end = add(start, { days: numberOfDays - 1 });
   const dates = eachDayOfInterval({
     start,

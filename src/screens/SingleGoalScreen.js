@@ -13,7 +13,6 @@ class SingleGoalScreen extends React.Component {
     this.state = { days: [], isPedometerAvailable: false };
     this.handleUpdate = this.handleUpdate.bind(this);
     this.checkPedometer = this.checkPedometer.bind(this);
-    // this.getSteps = this.getSteps.bind(this);
   }
 
   async componentDidMount() {
@@ -23,9 +22,7 @@ class SingleGoalScreen extends React.Component {
     const singleGoal = goals.find((goal) => goal.usergoal.id === id);
     try {
       await this.props.getGoal(singleGoal);
-      console.log("HERE IS THE LOG", singleGoal);
       const { dateArray, shouldUpdate } = await setDays(singleGoal.usergoal);
-      console.log("DATE ARRAY", dateArray, "SHOULD UPDATE", shouldUpdate);
       this.setState({ days: dateArray }, () => {
         if (shouldUpdate) {
           this.handleUpdate();
@@ -37,42 +34,6 @@ class SingleGoalScreen extends React.Component {
 
     this.checkPedometer();
   }
-
-  // async setDays() {
-  //   const { goal } = this.props;
-  //   const goalDays = goal.usergoal.numberOfDays;
-  //   const start = new Date(goal.usergoal.createdAt);
-  //   console.log("START", goal.usergoal.createdAt);
-  //   const end = add(start, { days: goalDays - 1 });
-  //   const dates = eachDayOfInterval({
-  //     start,
-  //     end,
-  //   });
-  //   const result = dates.map((date, index) => {
-  //     return { date: date, status: false, steps: 0 };
-  //   });
-
-  //   const { completedDays } = goal.usergoal;
-  //   for (let i = 0; i < completedDays; i++) {
-  //     result[i].status = true;
-  //   }
-
-  //   for (let i = 0; i < result.length; i++) {
-  //     let startDate = new Date(result[i].date);
-  //     let endDate = new Date(result[i].date);
-  //     startDate.setDate(endDate.getDate() - 1);
-  //     try {
-  //       const { steps } = await Pedometer.getStepCountAsync(startDate, endDate);
-  //       result[i].steps = steps;
-  //       if (steps > goal.usergoal.quantity && !result[i].status) {
-  //         result[i].status = true;
-  //         this.handleUpdate();
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
-  // }
 
   async handleUpdate() {
     const { goal } = this.props;
@@ -87,10 +48,7 @@ class SingleGoalScreen extends React.Component {
   }
 
   render() {
-    // console.log("DAYS ON STATE", this.state.days);
-    console.log("HERE IS STATE", this.state);
     const { goal } = this.props || {};
-    console.log("THE CURRENT GOAL", goal);
     return (
       <View>
         {goal.type && goal.type === "Water" ? (
