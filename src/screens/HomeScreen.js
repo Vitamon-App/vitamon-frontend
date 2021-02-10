@@ -3,17 +3,15 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   TouchableOpacity,
   Keyboard,
   Alert,
-  Image
+  Image,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AuthForm from "../components/AuthForm";
 import { connect } from "react-redux";
 import { auth } from "../store/user";
-
 
 function HomeScreen({ navigation, login, user, error }) {
   const [email, setEmail] = useState("");
@@ -40,13 +38,13 @@ function HomeScreen({ navigation, login, user, error }) {
   };
 
   return (
-
     <View style={styles.container}>
-      <Image source={require('../../assets/Header.png') } style={{top:10}} />
-      <Text style= {styles.subHeader}>The once a day way to achieve your goals.</Text>
-     
+      <Image source={require("../../assets/Header.png")} style={{ top: 10 }} />
+      <Text style={styles.subHeader}>
+        The once a day way to achieve your goals.
+      </Text>
 
-        {!user.id && (
+      {!user.id && (
         <AuthForm
           formType={formType}
           email={email}
@@ -56,42 +54,32 @@ function HomeScreen({ navigation, login, user, error }) {
           onPress={() => onButtonPress()}
         />
       )}
-       <Image style={styles.largeLogo} 
-      source={require('../../assets/icon2.png')} 
-      // resizeMode={'contain'}
+      <Image
+        style={styles.largeLogo}
+        source={require("../../assets/icon2.png")}
       />
-      
 
-    
+      {!user.id && (
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("SignUp");
+          }}
+        >
+          <Text style={styles.buttonText}> Not a User? Sign Up</Text>
+        </TouchableOpacity>
+      )}
 
-      {/* <Button
-        title="Go To Steps Screen"
-        onPress={() => {
-          navigation.navigate("Steps");
-        }}
-      >
-        <Text>Go to steps</Text>
-      </Button> */}
- 
-      {!user.id && 
-      <TouchableOpacity style={styles.button}
-        onPress={() => {
-          navigation.navigate("SignUp");
-        }}
-      >
-        <Text style={styles.buttonText}> Not a User? Sign Up</Text>
-      </TouchableOpacity>
-      }
-
-      {user.id && 
-      <TouchableOpacity style={styles.button}
-      onPress={() => {
-        navigation.navigate("Welcome");
-      }}
-    >
-      <Text style={styles.buttonText}> Back to DashBoard</Text>
-    </TouchableOpacity>
-    }
+      {user.id && (
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("Welcome");
+          }}
+        >
+          <Text style={styles.buttonText}> Back to DashBoard</Text>
+        </TouchableOpacity>
+      )}
       <StatusBar style="auto" />
     </View>
   );
@@ -111,14 +99,12 @@ const styles = StyleSheet.create({
   largeLogo: {
     width: 300,
     height: 300,
-    top:10
+    top: 10,
   },
   subHeader: {
     fontSize: 20,
     fontWeight: "bold",
-    // fontFamily: "Cochin",
     color: "#f114af",
-
   },
   button: {
     marginLeft: 10,
@@ -126,7 +112,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#9F1BEE",
     paddingVertical: 10,
     borderRadius: 10,
-    bottom: 20
+    bottom: 20,
   },
   button: {
     marginLeft: 10,
@@ -134,8 +120,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f114af",
     paddingVertical: 10,
     borderRadius: 10,
-    bottom: 20
-  }, 
+    bottom: 20,
+  },
   buttonText: {
     fontWeight: "600",
     color: "white",
@@ -145,11 +131,9 @@ const styles = StyleSheet.create({
   bottomText: {
     fontSize: 10,
     fontWeight: "bold",
-    // fontFamily: "Cochin",
     color: "red",
-    top:10
-  }
-
+    top: 10,
+  },
 });
 
 const mapState = (state) => {

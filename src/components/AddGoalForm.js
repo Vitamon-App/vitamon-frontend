@@ -9,7 +9,6 @@ import {
 
 const AddGoalForm = ({
   descriptionOfQty,
-  goalId,
   quantity,
   numberOfDays,
   onQuantityChange,
