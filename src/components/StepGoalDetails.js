@@ -4,6 +4,7 @@ import { ProgressBar, Colors, DataTable } from "react-native-paper";
 import { Pedometer } from "expo-sensors";
 import { connect } from "react-redux";
 import { updateGoal } from "../store/goal";
+import Monster from "../components/Monster";
 
 class StepGoalDetails extends React.Component {
   constructor() {
@@ -52,6 +53,7 @@ class StepGoalDetails extends React.Component {
       <View>
         {goal.type ? (
           <View>
+            {/* <Monster monsterType={goals.type} monsterStatus={goals.usergoal.status}/> */}
             <Text>Goal Details:</Text>
             <Text>{goalDetails}</Text>
             <Text>Goal Length: {goal.usergoal.numberOfDays} days</Text>

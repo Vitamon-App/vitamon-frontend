@@ -62,8 +62,10 @@ function AddGoalScreen({ navigation, user, addGoal, setGoals }) {
         return Alert.alert("Invalid Amount for Number Of Days ");
       }
       await addGoal(newGoal);
-      navigation.navigate("Goals");
-      await setGoals(this.props.user.id);
+      // navigation.navigate("Goals");
+      navigation.navigate("Home")
+      return Alert.alert("Goal Added!");
+      await setGoals(this.props.user.id)
     } catch (error) {
       console.log(error);
     }
