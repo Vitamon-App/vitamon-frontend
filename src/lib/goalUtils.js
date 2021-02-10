@@ -6,6 +6,8 @@ import isPast from "date-fns/isPast";
 import endOfDay from "date-fns/endOfDay";
 import startOfDay from "date-fns/startOfDay";
 
+// in order to request step data from the Pedometer for each day of the user's goal, we first need to create an array of dates the length of days in their goal.
+
 export function createDayArray({ completedDays, numberOfDays, createdAt }) {
   const start = new Date(createdAt);
   const end = add(start, { days: numberOfDays - 1 });
@@ -13,11 +15,13 @@ export function createDayArray({ completedDays, numberOfDays, createdAt }) {
     start,
     end,
   });
+
   return dates.map((date, index) => {
     return {
       date: date,
       status: index < completedDays,
       steps: 0,
+      // we don't want to request step data for days in the future because it doesn't exist yet, so we check if a date is in the past or is today.
       collectible: isPast(date) || isToday(date),
     };
   });
