@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { Block, Button, Card, Icon, Input, NavBar } from 'galio-framework';
 import { connect } from "react-redux";
 
 function WelcomeScreen({ navigation}) {
@@ -13,6 +14,7 @@ function WelcomeScreen({ navigation}) {
     <View>
       <Image source={require("../../assets/Welcome.png")} />
       <Text style={styles.subHeader}>Navigate Below</Text>
+     
       <Image source={require("../../assets/blob.png")} />
       <Text> or go to your user settings or profile:</Text>
       <View style={{ flexDirection: "row" }}>
