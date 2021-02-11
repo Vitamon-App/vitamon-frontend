@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { VictoryLine, VictoryChart, VictoryTheme } from "victory-native";
 
 function StepVisualData({ allGoals }) {
@@ -14,13 +14,25 @@ function StepVisualData({ allGoals }) {
         let yValue = amtOfStepsForEachGoal;
 
         const completionObject = {
-          stepGoal: xValue,
+          stepGoal: `goal ${xValue}`,
           totalNumberOfSteps: yValue,
         };
         data.push(completionObject);
       }
     }
+
     return data;
+  };
+  const totalSum = () => {
+    let totalBottles = 0;
+    for (let i = 0; i < allGoals.length; i++) {
+      if (allGoals[i].status === "complete" && allGoals[i].type === "Steps") {
+        const amtOfBottlesForEachGoal =
+          allGoals[i].completedDays * allGoals[i].quantity;
+        totalBottles += amtOfBottlesForEachGoal;
+      }
+    }
+    return totalBottles;
   };
 
   /* const data = [
@@ -29,18 +41,21 @@ function StepVisualData({ allGoals }) {
 
   return (
     <View style={styles.container}>
-      <VictoryChart width={350} theme={VictoryTheme.material}>
+      <Text>{`You have taken ${totalSum()} steps so far`}</Text>
+      <VictoryChart
+        width={350}
+        minDomain={{ y: 0 }}
+        theme={VictoryTheme.material}
+        color="blue"
+      >
         <VictoryLine
           data={completedGoalsData()}
           x="stepGoal"
           y="totalNumberOfSteps"
-          style={{
-            data: {
-              fill: "#7ed9bf",
-            },
-          }}
         />
       </VictoryChart>
+
+      <Text>Step Goals Compeleted</Text>
     </View>
   );
 }
@@ -51,6 +66,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#faecd9",
+    height: 400,
   },
 });
 export default StepVisualData;
