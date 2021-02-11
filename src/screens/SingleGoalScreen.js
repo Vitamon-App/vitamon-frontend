@@ -23,11 +23,8 @@ class SingleGoalScreen extends React.Component {
     const singleGoal = goals.find((goal) => goal.id === id);
     try {
       await this.props.getGoal(singleGoal);
-      console.log("THE GOAL TYPE", singleGoal.type)
-      const { dateArray, updates } = await setDays(
-        singleGoal,
-        singleGoal.type
-      );
+      console.log("THE GOAL TYPE", singleGoal.type);
+      const { dateArray, updates } = await setDays(singleGoal, singleGoal.type);
       this.setState({ days: dateArray }, () => {
         if (updates > 0) {
           this.handleStepsUpdate(updates);
@@ -45,7 +42,6 @@ class SingleGoalScreen extends React.Component {
     await this.props.editGoal(goal, {
       completedDays: (goal.completedDays += num),
     });
-
   }
 
   async handleWaterUpdate() {
@@ -62,7 +58,6 @@ class SingleGoalScreen extends React.Component {
     } catch (err) {
       console.log(err);
     }
-
   }
 
   async checkPedometer() {
