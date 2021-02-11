@@ -18,7 +18,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
 
   useEffect(() => {
     setUserGoals(user.id);
-  }, [goals]);
+  }, []);
 
   const [selected, setSelected] = useState("text");
   const changeSelectedToText = () => {
@@ -27,25 +27,25 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
   const changeSelectedToVisual = () => {
     setSelected("visual");
   };
+
+  // checks if user has any water goals
   const isWater = () => {
     for (let i = 0; i < goals.length; i++) {
       if (goals[i].type === "Water") {
         //Need to return string in order to aviod falsey value
+
         return i.toString();
       }
     }
+
     return false;
   };
 
   const completedWater = () => {
     let sum = 0;
     for (let i = 0; i < goals.length; i++) {
-      if (
-        goals[i].type === "Water" &&
-        goals[i].status === "complete"
-      ) {
-        let total =
-          goals[i].quantity * goals[i].completedDays;
+      if (goals[i].type === "Water" && goals[i].status === "complete") {
+        let total = goals[i].quantity * goals[i].completedDays;
         sum += total;
       }
     }
@@ -64,17 +64,14 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
   const completedSteps = () => {
     let sum = 0;
     for (let i = 0; i < goals.length; i++) {
-      if (
-        goals[i].type === "Steps" &&
-        goals[i].status === "complete"
-      ) {
-        let total =
-          goals[i].quantity * goals[i].completedDays;
+      if (goals[i].type === "Steps" && goals[i].status === "complete") {
+        let total = goals[i].quantity * goals[i].completedDays;
         sum += total;
       }
     }
     return sum;
   };
+
   return (
     <ScrollView>
       {/* <Text style={styles.textStyle}>UserStats</Text> */}
@@ -109,8 +106,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 <Text style={styles.subHead3}>Water Stats</Text>
                 <SimpleLineIcons name="drop" size={15} color={"blue"} />
                 {isWater(user) ? (
-                  user.goals[Number(isWater(user))].status ===
-                  "complete" ? (
+                  completedWater() ? (
                     <Text>
                       By completing your water goal you have dranked{" "}
                       {completedWater()} bottles of water !!!!!
@@ -123,8 +119,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 )}
                 <Text style={styles.subHead3}>Steps Stats</Text>
                 {isSteps(user) ? (
-                  user.goals[Number(isSteps(user))].status ===
-                  "complete" ? (
+                  completedSteps() ? (
                     <Text>
                       By completing your step goals you have walked{" "}
                       {completedSteps()} steps!!!!!
@@ -142,13 +137,8 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 <View style={styles.chartContainer1}>
                   <Text style={styles.subHead3}>Water Stats</Text>
                   {isWater(user) ? (
-                    user.goals[Number(isWater(user))].status ===
-                    "complete" ? (
-                      <WaterVisualData
-                        userWaterData={
-                          user.goals[Number(isWater(user))].numberOfDays
-                        }
-                      />
+                    completedWater() ? (
+                      <WaterVisualData allGoals={goals} />
                     ) : (
                       <Text>No water goals completed yet </Text>
                     )
@@ -159,13 +149,8 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 <View style={styles.chartContainer2}>
                   <Text style={styles.subHead3}>Steps Stats</Text>
                   {isSteps(user) ? (
-                    user.goals[Number(isSteps(user))].status ===
-                    "complete" ? (
-                      <StepVisualData
-                        userStepData={
-                          user.goals[Number(isSteps(user))].numberOfDays
-                        }
-                      />
+                    completedSteps() ? (
+                      <StepVisualData allGoals={goals} />
                     ) : (
                       <Text>No step goals completed yet </Text>
                     )

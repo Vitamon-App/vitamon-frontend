@@ -1,22 +1,39 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
+import { VictoryLine, VictoryChart, VictoryTheme } from "victory-native";
 
-function StepVisualData({ userStepData }) {
-  const data = [
-    { GoalCompleted: 1, LengthOfGoals: userStepData },
-    { GoalCompleted: 2, LengthOfGoals: 2 },
-    { GoalCompleted: 3, LengthOfGoals: 9 },
-    { GoalCompleted: 4, LengthOfGoals: 3 },
-  ];
+function StepVisualData({ allGoals }) {
+  const completedGoalsData = () => {
+    let data = [];
+    let xValue = 0;
+    for (let i = 0; i < allGoals.length; i++) {
+      if (allGoals[i].status === "complete" && allGoals[i].type === "Steps") {
+        const amtOfStepsForEachGoal =
+          allGoals[i].completedDays * allGoals[i].quantity;
+        xValue++;
+        let yValue = amtOfStepsForEachGoal;
+
+        const completionObject = {
+          stepGoal: xValue,
+          totalNumberOfSteps: yValue,
+        };
+        data.push(completionObject);
+      }
+    }
+    return data;
+  };
+
+  /* const data = [
+    { stepGoal: 1, totalNumberOfSteps: 1000},
+  ]; */
 
   return (
     <View style={styles.container}>
       <VictoryChart width={350} theme={VictoryTheme.material}>
-        <VictoryBar
-          data={data}
-          x="GoalCompleted"
-          y="LengthOfGoals"
+        <VictoryLine
+          data={completedGoalsData()}
+          x="stepGoal"
+          y="totalNumberOfSteps"
           style={{
             data: {
               fill: "#7ed9bf",
