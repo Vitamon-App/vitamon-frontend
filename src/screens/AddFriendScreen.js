@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Alert, Dimensions } from "react-native";
+import { View, StyleSheet, Alert, Dimensions, Keyboard } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import SearchBar from "../components/SearchBar";
 import { connect } from "react-redux";
@@ -22,14 +22,17 @@ function AddFriendScreen({
   navigation,
 }) {
   const [searchEmail, setSearchEmail] = useState("");
+  clearText = () => {
+    _textInput.setNativeProps({text: ''});
+ }
 
 
   //searchEmail is on state, set on change when the user types input
   //searchEmail is then passed to the reducer as input on submit
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    Keyboard.dismiss();
     try {
-      searchFriend(searchEmail);
-   
+      await searchFriend(searchEmail);
     } catch (err) {
       console.log(err);
     }
@@ -39,7 +42,7 @@ function AddFriendScreen({
     try {
       const friendId = foundFriend.id;
       await addFriend(user.id, friendId);
-      console.log(foundFriend)
+     
       navigation.navigate("Home");
       return Alert.alert("Friend Added!");
       //  navigation.navigate("Friends")
@@ -101,8 +104,8 @@ function AddFriendScreen({
         </View>
       ) : (
         <>
-          {foundFriend.name !== "nobody" ? (
-            <Text>{foundFriend.name} is already your friend!</Text>
+          {foundFriend.name && foundFriend.name !== "nobody" ? (
+            <Text>{foundFriend.name} is already your friend! Search For someone else to add!</Text>
           ) : (
             <Text></Text>
           )}
