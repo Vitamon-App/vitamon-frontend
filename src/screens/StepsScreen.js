@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput, Keyboard } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Keyboard,
+  Alert,
+} from "react-native";
 import { Pedometer } from "expo-sensors";
 import LottieView from "lottie-react-native";
 
@@ -7,7 +14,7 @@ export default class StepsScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      isPedometerAvailable: false,
+      isPedometerAvailable: true,
       currSteps: 0,
       goalSteps: "1",
       animation: 0,
@@ -54,9 +61,9 @@ export default class StepsScreen extends React.Component {
         {this.state.isPedometerAvailable ? (
           <Text>You're ready to play!</Text>
         ) : (
-          <Text>
-            You need to allow access to your pedometer to play this game
-          </Text>
+          Alert.alert(
+            "You need to allow access to your pedometer to play this game"
+          )
         )}
 
         <Text>Input your quick step goal:</Text>
