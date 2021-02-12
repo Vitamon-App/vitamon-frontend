@@ -1,9 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { ProgressBar, Colors, DataTable } from "react-native-paper";
 import { connect } from "react-redux";
 import { updateGoal } from "../store/goal";
 import Monster from "../components/Monster";
+import { AnimatedCircularProgress } from "react-native-circular-progress";
+import { Entypo } from "@expo/vector-icons";
+import { DataTable } from "react-native-paper";
+import isToday from "date-fns/isToday";
 
 class StepGoalDetails extends React.Component {
   constructor() {
@@ -12,29 +15,30 @@ class StepGoalDetails extends React.Component {
 
   render() {
     const { goal } = this.props || {};
-    let progress = goal.completedDays / goal.numberOfDays;
+    let progress = ((goal.completedDays / goal.numberOfDays) * 100).toFixed(0);
     let goalDetails = `Walk ${goal.quantity} steps a day`;
 
     return (
       <View>
         {goal.type ? (
           <View>
-            <Monster monsterType={goal.type} monsterStatus={goal.status}/>
+            <Monster monsterType={goal.type} monsterStatus={goal.status} />
             <Text>Goal Details:</Text>
             <Text>{goalDetails}</Text>
             <Text>Goal Length: {goal.numberOfDays} days</Text>
             {/* <Text>Your Steps From The Past 24 Hours: {this.state.steps}</Text> */}
             <Text>Days Completed: {goal.completedDays} days</Text>
-            <Text>
-              Completion Status:{" "}
-              {(
-                (goal.completedDays / goal.numberOfDays) *
-                100
-              ).toFixed(0)}
-              %
-            </Text>
+            <Text>Completion Status:</Text>
+            <AnimatedCircularProgress
+              size={200}
+              width={15}
+              fill={progress}
+              backgroundColor="#7E5EC8"
+              tintColor="#2C148B"
+            >
+              {(fill) => <Text>{progress}%</Text>}
+            </AnimatedCircularProgress>
 
-            <ProgressBar style={styles.progress} progress={progress} />
             <Text>Vitamon Status: {goal.status}</Text>
             <DataTable>
               <DataTable.Header>
@@ -42,6 +46,7 @@ class StepGoalDetails extends React.Component {
                 <DataTable.Title>Date</DataTable.Title>
                 <DataTable.Title>Completed?</DataTable.Title>
                 <DataTable.Title>Steps</DataTable.Title>
+
                 <DataTable.Title></DataTable.Title>
               </DataTable.Header>
               {this.props.days.map((day, i) => {
@@ -51,8 +56,26 @@ class StepGoalDetails extends React.Component {
                     <DataTable.Cell>
                       {day.date.toLocaleDateString()}
                     </DataTable.Cell>
-                    <DataTable.Cell>{day.status ? "Yes" : "No"}</DataTable.Cell>
-                    <DataTable.Cell>{day.steps}</DataTable.Cell>
+                    <DataTable.Cell>
+                      {day.status && (
+                        <Entypo name="check" size={24} color="black" />
+                      )}
+                      {!this.props.isPedometerAvailable &&
+                        !day.status &&
+                        isToday(day.date) && (
+                          <TouchableOpacity
+                            onPress={() => {
+                              this.props.handleUpdate();
+                            }}
+                            style={styles.button}
+                          >
+                            <Text style={styles.buttonText}>Complete</Text>
+                          </TouchableOpacity>
+                        )}
+                    </DataTable.Cell>
+                    <DataTable.Cell>
+                      {day.steps > 0 && <Text>{day.steps}</Text>}
+                    </DataTable.Cell>
                   </DataTable.Row>
                 );
               })}

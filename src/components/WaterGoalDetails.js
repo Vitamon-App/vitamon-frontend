@@ -10,8 +10,12 @@ import {
 } from "react-native";
 import Monster from "../components/Monster";
 import { connect } from "react-redux";
-import { ProgressBar, Colors, DataTable } from "react-native-paper";
+import { DataTable } from "react-native-paper";
+import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { setGoal, updateGoal } from "../store/goal";
+import { Entypo } from "@expo/vector-icons";
+import isToday from "date-fns/isToday";
+
 const width = Dimensions.get("window").width;
 
 class WaterGoalDetails extends React.Component {
@@ -21,20 +25,16 @@ class WaterGoalDetails extends React.Component {
 
   render() {
     const { goal } = this.props || {};
-
-    let progress = goal.completedDays / goal.numberOfDays;
+    let progress = ((goal.completedDays / goal.numberOfDays) * 100).toFixed(0);
     let goalDetails = `Drink ${goal.quantity} glasses of water a day`;
 
     return (
       <ScrollView style={styles.headlineContainer}>
         <View>
-          {goal.type ? (
+          {goal.type && (
             <View>
               <Text style={styles.headline}>Goal Details:</Text>
-              <Monster
-                monsterType={goal.type}
-                monsterStatus={goal.status}
-              />
+              <Monster monsterType={goal.type} monsterStatus={goal.status} />
               <Text style={styles.subheading}>{goalDetails}</Text>
               <Text style={styles.subheading}>
                 Goal Length: {goal.numberOfDays} days
@@ -42,19 +42,16 @@ class WaterGoalDetails extends React.Component {
               <Text style={styles.subheading}>
                 Days Completed: {goal.completedDays} days
               </Text>
-              <Text style={styles.subheading}>
-                Completion Status:{" "}
-                {(
-                  (goal.completedDays / goal.numberOfDays) *
-                  100
-                ).toFixed(0)}
-                %
-              </Text>
-
-              <ProgressBar style={styles.progress} progress={progress} />
-              <Text style={styles.subheading}>
-                Vitamon Status: {goal.status}
-              </Text>
+              <Text style={styles.subheading}>Completion Status:</Text>
+              <AnimatedCircularProgress
+                size={200}
+                width={15}
+                fill={progress}
+                tintColor="#7E5EC8"
+                backgroundColor="#2C148B"
+              >
+                {(fill) => <Text>{progress}%</Text>}
+              </AnimatedCircularProgress>
               <DataTable>
                 <DataTable.Header>
                   <DataTable.Title>Day</DataTable.Title>
@@ -70,10 +67,12 @@ class WaterGoalDetails extends React.Component {
                         {day.date.toLocaleDateString()}
                       </DataTable.Cell>
                       <DataTable.Cell>
-                        {day.status ? "Yes" : "No"}
+                        {day.status && (
+                          <Entypo name="check" size={24} color="black" />
+                        )}
                       </DataTable.Cell>
                       <DataTable.Cell>
-                        {!day.status ? (
+                        {!day.status && isToday(day.date) && (
                           <TouchableOpacity
                             onPress={() => {
                               this.props.handleUpdate();
@@ -82,8 +81,6 @@ class WaterGoalDetails extends React.Component {
                           >
                             <Text style={styles.buttonText}>Complete</Text>
                           </TouchableOpacity>
-                        ) : (
-                          <View></View>
                         )}
                       </DataTable.Cell>
                     </DataTable.Row>
@@ -91,8 +88,6 @@ class WaterGoalDetails extends React.Component {
                 })}
               </DataTable>
             </View>
-          ) : (
-            <View></View>
           )}
         </View>
       </ScrollView>
