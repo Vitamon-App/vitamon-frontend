@@ -1,17 +1,25 @@
 import React from "react";
 import {
   StyleSheet,
-  Text,
+  // Text,
   View,
   FlatList,
   Image,
   Dimensions,
   TouchableOpacity,
+  Platform,
   ScrollView,
 } from "react-native";
+
 import { connect } from "react-redux";
 import { fetchFriends } from "../store/friends";
 import GoalsOfFriends from "../components/GoalsOfFriends"
+// Galio components
+import {
+  Text, Card, Block, NavBar, Icon, Button
+} from 'galio-framework';
+import theme from '../theme';
+
 const width = Dimensions.get("window").width;
 
 class AllFriendsScreen extends React.Component {
@@ -21,191 +29,93 @@ class AllFriendsScreen extends React.Component {
 
   render() {
     const friends = this.props.friends || [];
-    //console.log(friends[0].goals)
+    const {navigation} = this.props
+    // console.log(friends)
     return (
-      <ScrollView>
-        <View style={styles.headlineContainer}>
-          {friends.length ? (
-            <View>
-              <Text style={styles.headline}>Friend List:</Text>
-              <Text style={styles.name}>Here are all your friends!</Text>
+      <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
+         <ScrollView contentContainerStyle={styles.cards}>
+         <Block flex space="between">
+         <Text size={theme.SIZES.FONT * 2} bold> Here are all your friends! </Text>
+         {friends.length ? friends.map((friend, id) => (
+          <View>
+              <Card
+                key={`card-${friend.email}`}
+                flex
+                borderless
+                shadowColor={theme.COLORS.BLACK}
+                titleColor={theme.COLORS.WHITE}
+                style={styles.card}
+                title={friend.name}
+                caption={friend.email}
+                location={'goal'}
+                avatar={`https://images.unsplash.com/photo-1571172964276-91faaa704e1f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80`}
+                image={`${friend.imageUrl}`}
+                imageStyle={styles.rounded}
+                imageBlockStyle={[
+                // { padding: theme.SIZES.BASE / 2 },
+               styles.noRadius,
+                ]}
+                footerStyle={ styles.full }
+              >
+              {/* <LinearGradient colors={['transparent', 'rgba(0,0,0, 0.8)']} style={styles.gradient} /> */}
+              </Card>
+              <GoalsOfFriends goals={friend.goals}/>
+              </View>
               
-              <FlatList
-                //   keyExtractor={(friend) => {
-                //     return friend.id.toString();
-                //   }}
-                data={friends}
-                renderItem={({ item }) => {
-                  return (
-                    <View>
-                      {/* <Image source={{ uri: `${item.imageUrl}` }} /> */}
-                      <Text style={styles.subheading}>name: {item.name}</Text>
-                      <Text style={styles.email}>email: {item.email}</Text>
-                      <Text style={styles.subheading}>Goals: </Text><GoalsOfFriends goals={item.goals}/>
-                    </View>
-                  );
-                }}
-              />
-
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  this.props.navigation.navigate("AddFriend");
-                }}
-              >
-                <Text style={styles.buttonText}> Add a New Friend!</Text>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <View>
-              <Text style={styles.headline}>Go to the find friends page!</Text>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  this.props.navigation.navigate("AddFriend");
-                }}
-              >
-                <Text style={styles.buttonText}>
-                  {" "}
-                  Click here to add a friend!
-                </Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        </View>
-      </ScrollView>
-    );
+         ))
+         :
+         <Text style={{ marginVertical: theme.SIZES.FONT / 4 }} h1>You haven't Added Any Friends Yet!</Text> }
+          <Button 
+          style={styles.button} 
+          color="primary" 
+          round
+          onPress={() => navigation.navigate("AddFriend")}>
+                  Add a new friend!
+                </Button>
+              </Block>
+         </ScrollView>
+         </Block>
+    )
   }
 }
 
+
+
 const styles = StyleSheet.create({
-  headlineContainer: {
-    paddingTop: "18%",
-    paddingLeft: 20,
-    paddingRight: 20,
-    backgroundColor: "#8c55fa",
+  cards: {
+    width,
+    backgroundColor: theme.COLORS.WHITE,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
-  headline: {
-    marginTop: 10,
-    color: "white",
-    fontSize: 26,
-    textAlign: "center",
-    marginBottom: 20,
-    fontWeight: "500",
+  card: {
+    backgroundColor: theme.COLORS.WHITE,
+    width: width - theme.SIZES.BASE * 2,
+    marginVertical: theme.SIZES.BASE * 0.875,
+    elevation: theme.SIZES.BASE / 2,
   },
-  subheading: {
-    fontWeight: "700",
-    fontSize: 20,
-    padding: 15,
-    color: "#424347",
+  full: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    left: 0,
   },
-  outerContainer: {
-    display: "flex",
-    flexDirection: "row",
-    backgroundColor: "#FFF",
-    marginHorizontal: "5%",
-    marginVertical: "2%",
-    maxWidth: "95%",
-    justifyContent: "space-between",
+  noRadius: {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
-  leftRequestContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignContent: "center",
-    borderRadius: 5,
-    marginVertical: "2%",
-    marginLeft: 15,
-    backgroundColor: "#FFF",
+  rounded: {
+    borderRadius: theme.SIZES.BASE * 0.1875,
   },
-  rightRequestContainer: {
-    display: "flex",
-    alignSelf: "center",
-    borderRadius: 5,
-  },
-  photo: {
-    height: 60,
-    width: 60,
-    borderRadius: 30,
-    marginRight: "7%",
-    alignSelf: "center",
-    justifyContent: "center",
-  },
-  icon: {
-    color: "#9FC78A",
-    paddingLeft: "2%",
-    marginRight: "2%",
-  },
-  iconNo: {
-    color: "black",
-    paddingLeft: "2%",
-    marginRight: "2%",
-  },
-  iconContainer: {
-    flexDirection: "row",
-  },
-  requestBottom: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  name: {
-    fontSize: 0.045 * width,
-    fontWeight: "700",
-    alignSelf: "center",
-    textAlignVertical: "center",
-    color: "#424347",
-  },
-  email: {
-    fontSize: 20,
-    padding: 10,
-    color: "#424347",
-  },
-  instructions: {
-    alignSelf: "center",
-    margin: 15,
-    maxWidth: "90%",
-    fontSize: 0.045 * width,
-    textAlign: "center",
-    padding: 10,
-    color: "#424347",
-  },
-  input: {
-    height: 48,
-    borderRadius: 5,
-    overflow: "hidden",
-    backgroundColor: "white",
-    fontSize: 20,
-    marginHorizontal: 15,
-    paddingLeft: 10,
-  },
-  sendButton: {
-    fontWeight: "bold",
-    color: "white",
-    fontSize: 18,
-    textAlign: "center",
-    fontFamily: "Avenir",
-  },
-  buttonContainer: {
-    width: "40%",
-    alignSelf: "center",
-    marginHorizontal: 15,
-    marginTop: "4%",
-    backgroundColor: "#9FC78A",
-    paddingVertical: 12,
-    borderRadius: 10,
-  },
-  button: {
-    marginLeft: 10,
-    marginTop: 20,
-    backgroundColor: "#f114af",
-    paddingVertical: 10,
-    borderRadius: 10,
-    bottom: 20,
-  },
-  buttonText: {
-    fontWeight: "600",
-    color: "white",
-    fontSize: 18,
-    textAlign: "center",
+  gradient: {
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 90,
+    position: 'absolute',
+    overflow: 'hidden',
+    borderBottomRightRadius: theme.SIZES.BASE * 0.5,
+    borderBottomLeftRadius: theme.SIZES.BASE * 0.5,
   },
 });
 
