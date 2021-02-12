@@ -15,7 +15,7 @@ function WelcomeScreen({ navigation}) {
       <Image source={require("../../assets/Welcome.png")} />
       <Text style={styles.subHeader}>Navigate Below</Text>
      
-      <Image source={require("../../assets/blob.png")} />
+      {/* <Image source={require("../../assets/waterbaby.gif")} /> */}
       <Text> or go to your user settings or profile:</Text>
       <View style={{ flexDirection: "row" }}>
         <TouchableOpacity

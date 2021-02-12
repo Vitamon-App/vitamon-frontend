@@ -25,10 +25,15 @@ const AuthForm = ({
   formType,
 }) => {
   return (
+    <KeyboardAvoidingView style={styles.container} behavior="height" enabled>
+
     <View>
-      <View style={styles.loginBox}>
+      <View>
+      {/* <View style={styles.loginBox}> */}
       <Text style={styles.loginText}>Please Log In</Text>
-      <TextInput
+      <Input
+         rounded
+         style={{width: width * 0.9}}
         autoCapitalize="none"
         autoCorrect={false}
         value={email}
@@ -36,7 +41,11 @@ const AuthForm = ({
         placeholder="enter email"
         style={styles.input}
       />
-      <TextInput
+      <Input
+       rounded
+       password
+       viewPass
+       style={{width: width * 0.9}}
         autoCapitalize="none"
         autoCorrect={false}
         value={password}
@@ -45,14 +54,16 @@ const AuthForm = ({
         style={styles.input}
       />
       </View>
+     
       <TouchableOpacity
         style={styles.button}
         onPress={() => onPress(email, password, formType)}
       >
         <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
-      <View></View>
+    
     </View>
+    </KeyboardAvoidingView>
   );
 };
 

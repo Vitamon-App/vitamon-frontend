@@ -23,6 +23,10 @@ function SignUp({ navigation, signupUser }) {
     }
   };
 
+  const backToLogin = () => {
+    navigation.navigate("Home")
+  }
+
   return (
     <View>
       <Text style={styles.buttonText}>Sign Up</Text>
@@ -32,6 +36,7 @@ function SignUp({ navigation, signupUser }) {
         onEmailChange={(newEmail) => setEmail(newEmail)}
         onPasswordChange={(newPassword) => setPassword(newPassword)}
         onPress={() => onSignUpButtonPress()}
+        backToLogin ={()=> backToLogin()}
       />
     </View>
   );

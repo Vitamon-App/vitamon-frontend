@@ -6,7 +6,7 @@ import { Block} from 'galio-framework';
     return (
         <Block>
     {monsterStatus === 'start' && 
- <Image source={require('../../assets/waterstart.png')} />}
+ <Image source={require('../../assets/waterbaby2.gif')} />}
       {monsterStatus === 'middle' && 
  <Image source={require('../../assets/watermiddle.png')} />}
       {monsterStatus === 'warning' && 

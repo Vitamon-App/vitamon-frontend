@@ -25,6 +25,7 @@ const SignUpForm = ({
   onEmailChange,
   onPasswordChange,
   onPress,
+  backToLogin,
   navigation
 }) => {
   return (
@@ -68,10 +69,12 @@ const SignUpForm = ({
                 Sign up
               </Button>
     
-          <Button color="transparent" shadowless onPress={() => navigation.navigate('Login')}>
-                <Text center color={theme.COLORS.ERROR} size={theme.SIZES.FONT * 0.75}>
-                  Already have an account? Sign In
-                </Text>
+          <Button color="transparent" 
+          shadowless 
+          onPress={backToLogin}>
+          <Text center color={theme.COLORS.ERROR} size={theme.SIZES.FONT * 0.75}>
+             Already have an account? Sign In
+          </Text>
               </Button>
     
       </View>

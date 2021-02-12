@@ -43,35 +43,19 @@ class AllGoalsScreen extends React.Component {
       <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
       <ScrollView contentContainerStyle={styles.cards}>
       <Block flex space="between">
-      <Text size={theme.SIZES.FONT * 2} bold> Here are all your Vitamons! </Text>
+      <Text size={theme.SIZES.FONT * 2} bold> Feed your Vitamons by achieving your Goals!</Text>
           {!goals.length ? (
             <View>
               <Text h4>
                 You haven't added any goals yet!
               </Text>
-              {/* <Button
-                title="Click Here to Adopt a Vitamon"
-                 onPress={() => {
-                  navigation.navigate("AddGoal");
-                }}
-              ></Button> */}
+        
             </View>
           ) : null}
 
 
           {goals.length ? (
-            //   <ScrollView
-            //   horizontal={true}
-            //   pagingEnabled={true}
-            //   decelerationRate={0}
-            //   scrollEventThrottle={16}
-            //   snapToAlignment="center"
-            //   showsHorizontalScrollIndicator={false}
-            //   snapToInterval={cardWidth + theme.SIZES.BASE * 0.375}
-            //   contentContainerStyle={{
-            //     paddingHorizontal: theme.SIZES.BASE / 2
-            //   }}
-            // 
+      
             goals.map((goal, id)=>(
               <View>
              
@@ -85,30 +69,7 @@ class AllGoalsScreen extends React.Component {
              
                
                 </Block>
-              {/* <Card
-              // key={`card-${goal.id}`}
-              flex
-              borderless
-              shadowColor={theme.COLORS.BLACK}
-              titleColor={theme.COLORS.WHITE}
-              style={styles.card}
-              title={goal.type}
-              caption={goal.status}
-              // location={'goals'}
-              // avatar={`https://images.unsplash.com/photo-1571172964276-91faaa704e1f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80`}
-              // image={  <Monster
-              //   monsterType={goal.type}
-              //   monsterStatus={goal.status}/>
-              // }
-              imageStyle={styles.rounded}
-              imageBlockStyle={[
-              // { padding: theme.SIZES.BASE / 2 },
-             styles.noRadius,
-              ]}
-              footerStyle={ styles.full }
-            >
-            <LinearGradient colors={['transparent', 'rgba(0,0,0, 0.8)']} style={styles.gradient} />
-            </Card> */}
+          
             </View>
             )))
       

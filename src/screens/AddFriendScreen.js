@@ -22,9 +22,8 @@ function AddFriendScreen({
   navigation,
 }) {
   const [searchEmail, setSearchEmail] = useState("");
-  clearText = () => {
-    _textInput.setNativeProps({text: ''});
- }
+  // const [foundFriend, setFoundFriend] = useState("");
+ 
 
 
   //searchEmail is on state, set on change when the user types input
@@ -42,9 +41,11 @@ function AddFriendScreen({
     try {
       const friendId = foundFriend.id;
       await addFriend(user.id, friendId);
-     
+    
       navigation.navigate("Home");
+      // setFoundFriend("")
       return Alert.alert("Friend Added!");
+      
       //  navigation.navigate("Friends")
       //  await setFriends(user.id)
     } catch (error) {

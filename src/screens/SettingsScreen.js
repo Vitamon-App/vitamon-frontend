@@ -1,34 +1,155 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from "react-native";
 import { connect } from "react-redux";
 import { logout } from "../store/user";
-import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
-import { Asset } from 'expo-asset';
+// import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
+// import { Asset } from 'expo-asset';
+import { StyleSheet, Switch, FlatList, Platform, TouchableOpacity, View, Alert } from "react-native";
+import { Block, Text, theme, Icon, Button } from "galio-framework";
 
-function SettingsScreen({ navigation, logout }) {
-  //We must logout in settings inorder to aviod user is undefined  error
-  return (
-    <View>
-      {/* <View style={styles.textContainer}> */}
-      <View>
-        {/* <Text style={styles.textStyle}>Settings</Text> */}
-        <Image source={require('../../assets/Settings.png')} style={{alignSelf:"center"}}/>
-        <SimpleLineIcons name="settings" size={15} color={"blue"} />
-      </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
+// import materialTheme from '../constants/Theme';
+
+ class SettingsScreen extends React.Component {
+  state = {};
+
+  toggleSwitch = switchNumber => this.setState({ [switchNumber]: !this.state[switchNumber] });
+
+
+  renderItem = ({ item }) => {
+    // const {navigate} = this.props.navigation;
+ 
+
+    switch(item.type) {
+      case 'switch': 
+        return (
+          <Block row middle space="between" style={styles.rows}>
+            <Text size={14}>{item.title}</Text>
+            <Switch
+              onValueChange={() => this.toggleSwitch(item.id)}
+              ios_backgroundColor={theme.COLORS.SWITCH_OFF}
+              thumbColor={Platform.OS === 'android' ? theme.COLORS.SWITCH_OFF : null}
+              trackColor={{ false: theme.COLORS.SWITCH_OFF, true: theme.COLORS.SWITCH_ON }}
+              value={this.state[item.id]}
+            />
+          </Block>
+        );
+      case 'button': 
+        return (
+          <Block style={styles.rows}>
+            <TouchableOpacity onPress={() => Alert.alert("Not Set Up")}>
+              <Block row middle space="between" style={{paddingTop:7}}>
+                <Text size={14}>{item.title}</Text>
+                <Icon name="angle-right" family="font-awesome" style={{ paddingRight: 5 }} />
+              </Block>
+            </TouchableOpacity>
+          </Block>);
+      default:
+        break;
+    }
+  }
+
+  render() {
+    const {navigate} = this.props.navigation
+    const {logout} = this.props;
+    const permission = [
+      { title: "Allow App to Access Pedometer Data", id: "pedometer", type: "switch" },
+      { title: "Stay Signed In", id: "autosign", type: "switch" },
+      { title: "Notifications", id: "Notifications", type: "button" },
+    ];
+
+    const account = [
+      { title: "Edit Your Name", id: "name", type: "button" },
+      { title: "Change your email", id: "email", type: "button" },
+      { title: "Change your password", id: "password", type: "button" },
+    ];
+    
+    const privacy = [
+      { title: "User Agreement", id: "Agreement", type: "button" },
+      { title: "Privacy", id: "Privacy", type: "button" },
+      { title: "About", id: "About", type: "button" },
+    ];
+
+    return (
+    
+      <View
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.settings}>
+        <FlatList
+          data={permission}
+          keyExtractor={(item, index) => item.id}
+          renderItem={this.renderItem}
+          ListHeaderComponent={
+            <Block style={styles.title}>
+              <Text bold center size={theme.SIZES.BASE} style={{ paddingBottom: 5 }}>
+                Permission Settings
+              </Text>
+              <Text center muted size={12}>
+                The app works best when you allow us to see your steps
+              </Text>
+            </Block>
+          }
+        />
+        <Block style={styles.title}>
+          <Text bold center size={theme.SIZES.BASE} style={{ paddingBottom: 5 }}>
+          Account Settings
+          </Text>
+          <Text center muted size={12}>
+          Edit your info
+          </Text>
+        </Block>
+        <FlatList
+          data={account}
+          keyExtractor={(item, index) => item.id}
+          renderItem={this.renderItem}
+        />
+        <Block style={styles.title}>
+          <Text bold center size={theme.SIZES.BASE} style={{ paddingBottom: 5 }}>
+          Privacy Settings
+          </Text>
+          <Text center muted size={12}>
+          We never sell your data
+          </Text>
+        </Block>
+        <FlatList
+          data={privacy}
+          keyExtractor={(item, index) => item.id}
+          renderItem={this.renderItem}
+        />
+  
+      <Button 
+          style={styles.button} 
+          color="primary" 
+          round
+          iconSize={theme.SIZES.BASE * 1}
+          icon="logout"
+          iconFamily="FontAwesome"
           onPress={() => {
-            logout();
-            navigation.navigate("Home");
+            logout()
+            navigate("Home")
           }}
         >
-          <SimpleLineIcons name="logout" size={12} color={"blue"} />
-          <Text style={styles.buttonText}>Logout</Text>
-        </TouchableOpacity>
+                  Log Out
+                </Button>
+        <Button 
+          style={styles.button} 
+          color="primary" 
+          round
+          // iconSize={theme.SIZES.BASE * 1}
+          // icon="monster"
+          // iconFamily="FontAwesome"
+          onPress={() => {
+            navigate("Goals");
+          }}
+        >
+                  Back to Vitamons
+                </Button>
       </View>
-    </View>
-  );
+      
+      
+      
+    );
+  }
 }
+
 
 const mapState = (state) => {
   return {
@@ -97,6 +218,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
   },
+  settings: {
+    paddingVertical: theme.SIZES.BASE / 3,
+  },
+  title: {
+    paddingTop: theme.SIZES.BASE,
+    paddingBottom: theme.SIZES.BASE / 2,
+  },
+  rows: {
+    height: theme.SIZES.BASE * 2,
+    paddingHorizontal: theme.SIZES.BASE,
+    marginBottom: theme.SIZES.BASE / 2,
+  }
 });
 
 export default connect(mapState, mapDispatch)(SettingsScreen);
