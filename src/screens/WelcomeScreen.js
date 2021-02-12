@@ -5,6 +5,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  ImageBackground
 } from "react-native";
 import { Block, Button, Card, Icon, Input, NavBar } from 'galio-framework';
 import { connect } from "react-redux";

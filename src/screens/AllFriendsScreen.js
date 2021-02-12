@@ -45,7 +45,10 @@ class AllFriendsScreen extends React.Component {
                 style={styles.card}
                 title={friend.name}
                 caption={friend.email}
-                location={'goals'}
+                location={<Button
+                  onPress={()=> this.props.navigation.navigate('Home')}>
+                    GOALS
+                </Button>}
                 avatar={`https://images.unsplash.com/photo-1571172964276-91faaa704e1f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80`}
                 image={`${friend.imageUrl}`}
                 imageStyle={styles.rounded}

@@ -60,14 +60,12 @@ class AllGoalsScreen extends React.Component {
               <View>
              
                  <Block safe >
-              
-               
                  <Monster
                 monsterType={goal.type}
                 monsterStatus={goal.status}
-                goalId={goal.id}/>
-             
-               
+                goalId={goal.id}
+                style={styles.test}/>
+          
                 </Block>
           
             </View>
@@ -125,6 +123,10 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: theme.SIZES.BASE * 0.5,
     borderBottomLeftRadius: theme.SIZES.BASE * 0.5,
   },
+  test: {
+    backgroundColor: 'black',
+    width: width,
+  }
 });
 
 const mapState = (state) => {

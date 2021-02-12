@@ -3,7 +3,7 @@ import { View, StyleSheet, Alert, Dimensions, Keyboard } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import SearchBar from "../components/SearchBar";
 import { connect } from "react-redux";
-import { findFriend } from "../store/friend";
+import { findFriend, clearFriend } from "../store/friend";
 import { addFriendThunk, fetchFriends } from "../store/friends";
 
 import {
@@ -20,10 +20,15 @@ function AddFriendScreen({
   friends,
   addFriend,
   navigation,
+  clearFoundFriend
 }) {
   const [searchEmail, setSearchEmail] = useState("");
-  // const [foundFriend, setFoundFriend] = useState("");
- 
+  
+ useEffect(()=> {
+   if(foundFriend.name) {
+     clearFoundFriend()
+   }
+ }, [])
 
 
   //searchEmail is on state, set on change when the user types input
@@ -32,6 +37,7 @@ function AddFriendScreen({
     Keyboard.dismiss();
     try {
       await searchFriend(searchEmail);
+      setSearchEmail("")
     } catch (err) {
       console.log(err);
     }
@@ -41,10 +47,12 @@ function AddFriendScreen({
     try {
       const friendId = foundFriend.id;
       await addFriend(user.id, friendId);
+   
     
       navigation.navigate("Home");
-      // setFoundFriend("")
-      return Alert.alert("Friend Added!");
+     
+      Alert.alert("Friend Added!");
+     
       
       //  navigation.navigate("Friends")
       //  await setFriends(user.id)
@@ -176,6 +184,9 @@ const mapDispatch = (dispatch) => {
     setFriends: (userId) => {
       dispatch(fetchFriends(userId));
     },
+    clearFoundFriend: () => {
+      dispatch(clearFriend())
+    }
   };
 };
 

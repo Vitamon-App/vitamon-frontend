@@ -4,6 +4,7 @@ import vitamon from "../api/vitamon";
  * ACTION TYPES
  */
 const GET_FRIEND = "GET_FRIEND";
+const CLEAR_FRIEND ="CLEAR_FRIEND"
 
 
 /**
@@ -15,6 +16,7 @@ const defaultFriend = {};
  * ACTION CREATORS
  */
 const getFriend = (foundFriend) => ({ type: GET_FRIEND, foundFriend });
+export const clearFriend =() => ({type: CLEAR_FRIEND})
 
 
 /**
@@ -41,6 +43,8 @@ export default function (state = defaultFriend, action) {
   switch (action.type) {
     case GET_FRIEND:
       return action.foundFriend;
+    case CLEAR_FRIEND:
+      return {}
     default:
       return state;
   }
