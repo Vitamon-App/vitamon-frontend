@@ -16,6 +16,8 @@ import AllFriendsScreen from "./src/screens/AllFriendsScreen";
 import UserStatsScreen from "./src/screens/UserStatsScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
 import AddGoalScreen from "./src/screens/AddGoalScreen";
+import GalioApp from './routes';
+import { View, StatusBar } from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -75,7 +77,9 @@ function NavTabs({ navigation }) {
 
 function App() {
   return (
+    <View style={{ flex: 1 }}>
     <Provider store={store}>
+      <StatusBar hidden={false}/>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} />
@@ -90,6 +94,7 @@ function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
+    </View>
   );
 }
 
