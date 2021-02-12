@@ -13,7 +13,7 @@ class SingleGoalScreen extends React.Component {
     this.state = { days: [], isPedometerAvailable: false };
     this.handleStepsUpdate = this.handleStepsUpdate.bind(this);
     this.checkPedometer = this.checkPedometer.bind(this);
-    this.handleWaterUpdate = this.handleWaterUpdate.bind(this);
+    this.handleSingleUpdate = this.handleSingleUpdate.bind(this);
   }
 
   async componentDidMount() {
@@ -23,7 +23,6 @@ class SingleGoalScreen extends React.Component {
     const singleGoal = goals.find((goal) => goal.id === id);
     try {
       await this.props.getGoal(singleGoal);
-      console.log("THE GOAL TYPE", singleGoal.type);
       const { dateArray, updates } = await setDays(singleGoal, singleGoal.type);
       this.setState({ days: dateArray }, () => {
         if (updates > 0) {
@@ -44,7 +43,7 @@ class SingleGoalScreen extends React.Component {
     });
   }
 
-  async handleWaterUpdate() {
+  async handleSingleUpdate() {
     const { goal } = this.props;
     try {
       await this.props.editGoal(goal, {
@@ -69,19 +68,20 @@ class SingleGoalScreen extends React.Component {
     const { goal } = this.props || {};
     return (
       <View>
-        {goal.type && goal.type === "Water" ? (
+        {goal.type && goal.type === "Water" && (
           <WaterGoalDetails
             goal={this.props.goal}
             days={this.state.days}
-            handleUpdate={this.handleWaterUpdate}
+            handleUpdate={this.handleSingleUpdate}
           />
-        ) : (
-          <View></View>
         )}
-        {goal.type && goal.type === "Steps" ? (
-          <StepGoalDetails goal={this.props.goal} days={this.state.days} />
-        ) : (
-          <View></View>
+        {goal.type && goal.type === "Steps" && (
+          <StepGoalDetails
+            goal={this.props.goal}
+            days={this.state.days}
+            isPedometerAvailable={this.state.isPedometerAvailable}
+            handleUpdate={this.handleSingleUpdate}
+          />
         )}
       </View>
     );

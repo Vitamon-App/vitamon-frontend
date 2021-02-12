@@ -7,19 +7,28 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-
 /**
  * COMPONENT
  */
 const SignUpForm = ({
+  name,
   email,
   password,
+  onNameChange,
   onEmailChange,
   onPasswordChange,
   onPress,
 }) => {
   return (
     <View>
+      <TextInput
+        style={styles.input}
+        autoCapitalize="none"
+        autoCorrect={false}
+        value={name}
+        onChangeText={onNameChange}
+        placeholder="enter first name"
+      />
       <TextInput
         style={styles.input}
         autoCapitalize="none"
@@ -38,10 +47,7 @@ const SignUpForm = ({
       />
       <View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            
-            onPress={() => onPress(email, password)}
-          >
+          <TouchableOpacity onPress={() => onPress(name, email, password)}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
         </View>

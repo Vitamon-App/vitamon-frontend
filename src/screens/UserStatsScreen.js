@@ -14,7 +14,7 @@ import StepVisualData from "../components/StepVisualData";
 
 import { fetchGoals } from "../store/allTheUsersGoals";
 function UserStatsScreen({ user, goals, setUserGoals }) {
-  //console.log("user.goals: ", user.goals);
+  console.log("user.goals: ", goals);
 
   useEffect(() => {
     setUserGoals(user.id);
@@ -41,6 +41,20 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
     return false;
   };
 
+  const isLengthOfWaterGoalsMoreThenOne = () => {
+    let lengthOfCompleted = 0;
+    for (let i = 0; i < goals.length; i++) {
+      if (goals[i].type === "Water" && goals[i].status === "complete") {
+        lengthOfCompleted++;
+      }
+    }
+    if (lengthOfCompleted === 1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const completedWater = () => {
     let sum = 0;
     for (let i = 0; i < goals.length; i++) {
@@ -61,6 +75,19 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
     return false;
   };
 
+  const isLengthOfStepsGoalsMoreThenOne = () => {
+    let lengthOfCompleted = 0;
+    for (let i = 0; i < goals.length; i++) {
+      if (goals[i].type === "Steps" && goals[i].status === "complete") {
+        lengthOfCompleted++;
+      }
+    }
+    if (lengthOfCompleted === 1) {
+      return false;
+    } else {
+      return true;
+    }
+  };
   const completedSteps = () => {
     let sum = 0;
     for (let i = 0; i < goals.length; i++) {
@@ -79,7 +106,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
         source={require("../../assets/profile2.png")}
         style={{ alignSelf: "center" }}
       />
-      {user.goals.length ? (
+      {goals.length ? (
         <View>
           <View>
             <Text style={styles.subHead1}>Current Stats</Text>
@@ -105,7 +132,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 {}
                 <Text style={styles.subHead3}>Water Stats</Text>
                 <SimpleLineIcons name="drop" size={15} color={"blue"} />
-                {isWater(user) ? (
+                {isWater() ? (
                   completedWater() ? (
                     <Text>
                       By completing your water goal you have dranked{" "}
@@ -118,7 +145,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                   <Text>You dont have any water goals !!</Text>
                 )}
                 <Text style={styles.subHead3}>Steps Stats</Text>
-                {isSteps(user) ? (
+                {isSteps() ? (
                   completedSteps() ? (
                     <Text>
                       By completing your step goals you have walked{" "}
@@ -136,9 +163,13 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 <Text style={styles.subHead2}>Visual stuff</Text>
                 <View style={styles.chartContainer1}>
                   <Text style={styles.subHead3}>Water Stats</Text>
-                  {isWater(user) ? (
+                  {isWater() ? (
                     completedWater() ? (
-                      <WaterVisualData allGoals={goals} />
+                      isLengthOfWaterGoalsMoreThenOne() ? (
+                        <WaterVisualData allGoals={goals} />
+                      ) : (
+                        <Text> You only completed one water goal so far.</Text>
+                      )
                     ) : (
                       <Text>No water goals completed yet </Text>
                     )
@@ -148,9 +179,13 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 </View>
                 <View style={styles.chartContainer2}>
                   <Text style={styles.subHead3}>Steps Stats</Text>
-                  {isSteps(user) ? (
+                  {isSteps() ? (
                     completedSteps() ? (
-                      <StepVisualData allGoals={goals} />
+                      isLengthOfStepsGoalsMoreThenOne() ? (
+                        <StepVisualData allGoals={goals} />
+                      ) : (
+                        <Text>You only completed one step goal so far.</Text>
+                      )
                     ) : (
                       <Text>No step goals completed yet </Text>
                     )
