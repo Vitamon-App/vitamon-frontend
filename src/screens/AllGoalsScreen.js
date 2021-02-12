@@ -1,20 +1,31 @@
 import React from "react";
 import {
   StyleSheet,
-  Text,
+  // Text,
   View,
   TextInput,
   FlatList,
-  Button,
+  // Button,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Image,
   Dimensions,
+  Platform,
   ScrollView,
 } from "react-native";
 import Monster from "../components/Monster";
 import { Pedometer } from "expo-sensors";
+import { withNavigation } from '@react-navigation/compat';
 import { connect } from "react-redux";
 import { fetchGoals } from "../store/allTheUsersGoals";
+// Galio components
+import {
+  Text, Card, Block, NavBar, Icon, Button,  DeckSwiper
+} from 'galio-framework';
+import { LinearGradient } from 'expo-linear-gradient';
+import theme from '../theme';
 const width = Dimensions.get("window").width;
+const cardWidth = width - theme.SIZES.BASE * 2;
 
 class AllGoalsScreen extends React.Component {
   constructor() {
@@ -27,65 +38,42 @@ class AllGoalsScreen extends React.Component {
   render() {
     const goals = this.props.goals;
     const { navigation } = this.props;
+
     return (
-      <ScrollView>
-        <View style={styles.headlineContainer}>
+      <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
+      <ScrollView contentContainerStyle={styles.cards}>
+      <Block flex space="between">
+      <Text size={theme.SIZES.FONT * 2} bold> Feed your Vitamons by achieving your Goals!</Text>
           {!goals.length ? (
             <View>
-              <Text style={styles.headline}>
+              <Text h4>
                 You haven't added any goals yet!
               </Text>
-              {/* <Button
-                title="Click Here to Adopt a Vitamon"
-                 onPress={() => {
-                  navigation.navigate("AddGoal");
-                }}
-              ></Button> */}
+        
             </View>
           ) : null}
 
+
           {goals.length ? (
-            <View>
-              <Text style={styles.headline}>Goals:</Text>
-              <FlatList
-                keyExtractor={(goal) => {
-                  return goal.id.toString();
-                }}
-                data={goals}
-                renderItem={({ item }) => {
-                  return (
-                    <View>
-                      <Text style={styles.subheading}>Goals:</Text>
-                      <Monster
-                        monsterType={item.type}
-                        monsterStatus={item.status}
-                      />
-                      <Text style={styles.subheading}>
-                        status: {item.status}
-                      </Text>
-                      <Text style={styles.subheading}>
-                        number of days: {item.numberOfDays}
-                      </Text>
-                      <Text style={styles.subheading}>
-                        completed days: {item.completedDays}
-                      </Text>
-                      <Text style={styles.subheading}>type: {item.type} </Text>
-                      <TouchableOpacity
-                        style={styles.buttonTwo}
-                        onPress={() => {
-                          navigation.navigate("SingleGoal", {
-                            id: item.id,
-                          });
-                        }}
-                      >
-                        <Text style={styles.buttonText}> Go to Details</Text>
-                      </TouchableOpacity>
-                    </View>
-                  );
-                }}
-              />
+      
+            goals.map((goal, id)=>(
+              <View>
+             
+                 <Block safe >
+              
+               
+                 <Monster
+                monsterType={goal.type}
+                monsterStatus={goal.status}
+                goalId={goal.id}/>
+             
+               
+                </Block>
+          
             </View>
-          ) : null}
+            )))
+      
+           : null}
 
           <TouchableOpacity
             style={styles.button}
@@ -95,149 +83,47 @@ class AllGoalsScreen extends React.Component {
           >
             <Text style={styles.buttonText}>Add A New Goal</Text>
           </TouchableOpacity>
-        </View>
+        </Block>
       </ScrollView>
+      </Block>
     );
   }
 }
 const styles = StyleSheet.create({
-  headlineContainer: {
-    paddingTop: "18%",
-    paddingLeft: 20,
-    paddingRight: 20,
-    backgroundColor: "#8c55fa",
+  cards: {
+    width,
+    backgroundColor: theme.COLORS.WHITE,
+    // alignItems: 'center',
+    justifyContent: 'flex-end',
   },
-  headline: {
-    marginTop: 10,
-    color: "white",
-    fontSize: 26,
-    textAlign: "center",
-    marginBottom: 20,
-    fontWeight: "500",
+  card: {
+    backgroundColor: theme.COLORS.WHITE,
+    width: width - theme.SIZES.BASE * 2,
+    marginVertical: theme.SIZES.BASE * 0.875,
+    elevation: theme.SIZES.BASE / 2,
   },
-  subheading: {
-    fontWeight: "700",
-    fontSize: 20,
-    padding: 15,
-    color: "#424347",
+  full: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    left: 0,
   },
-  outerContainer: {
-    display: "flex",
-    flexDirection: "row",
-    backgroundColor: "#FFF",
-    marginHorizontal: "5%",
-    marginVertical: "2%",
-    maxWidth: "95%",
-    justifyContent: "space-between",
+  noRadius: {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
   },
-  leftRequestContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignContent: "center",
-    borderRadius: 5,
-    marginVertical: "2%",
-    marginLeft: 15,
-    backgroundColor: "#FFF",
+  rounded: {
+    borderRadius: theme.SIZES.BASE * 0.1875,
   },
-  rightRequestContainer: {
-    display: "flex",
-    alignSelf: "center",
-    borderRadius: 5,
-  },
-  photo: {
-    height: 60,
-    width: 60,
-    borderRadius: 30,
-    marginRight: "7%",
-    alignSelf: "center",
-    justifyContent: "center",
-  },
-  icon: {
-    color: "#9FC78A",
-    paddingLeft: "2%",
-    marginRight: "2%",
-  },
-  iconNo: {
-    color: "black",
-    paddingLeft: "2%",
-    marginRight: "2%",
-  },
-  iconContainer: {
-    flexDirection: "row",
-  },
-  requestBottom: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  name: {
-    fontSize: 0.045 * width,
-    fontWeight: "700",
-    alignSelf: "center",
-    textAlignVertical: "center",
-    color: "#424347",
-  },
-  email: {
-    fontSize: 20,
-    padding: 10,
-    color: "#424347",
-  },
-  instructions: {
-    alignSelf: "center",
-    margin: 15,
-    maxWidth: "90%",
-    fontSize: 0.045 * width,
-    textAlign: "center",
-    padding: 10,
-    color: "#424347",
-  },
-  input: {
-    height: 48,
-    borderRadius: 5,
-    overflow: "hidden",
-    backgroundColor: "white",
-    fontSize: 20,
-    marginHorizontal: 15,
-    paddingLeft: 10,
-  },
-  sendButton: {
-    fontWeight: "bold",
-    color: "white",
-    fontSize: 18,
-    textAlign: "center",
-    fontFamily: "Avenir",
-  },
-  buttonContainer: {
-    width: "40%",
-    alignSelf: "center",
-    marginHorizontal: 15,
-    marginTop: "4%",
-    backgroundColor: "#9FC78A",
-    paddingVertical: 12,
-    borderRadius: 10,
-  },
-  button: {
-    marginLeft: 10,
-    marginTop: 20,
-    backgroundColor: "#f114af",
-    paddingVertical: 10,
-    borderRadius: 10,
-    bottom: 20,
-  },
-  buttonTwo: {
-    marginLeft: 10,
-    marginTop: 20,
-    alignSelf: "flex-end",
-    backgroundColor: "#f114af",
-    paddingVertical: 10,
-    borderRadius: 10,
-    bottom: 20,
-  },
-
-  buttonText: {
-    fontWeight: "600",
-    color: "white",
-    fontSize: 18,
-    textAlign: "center",
+  gradient: {
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 90,
+    position: 'absolute',
+    overflow: 'hidden',
+    borderBottomRightRadius: theme.SIZES.BASE * 0.5,
+    borderBottomLeftRadius: theme.SIZES.BASE * 0.5,
   },
 });
 

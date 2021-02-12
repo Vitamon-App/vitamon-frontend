@@ -1,38 +1,57 @@
 import React from 'react'
-import { View, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet, Image, Dimensions, TouchableWithoutFeedback } from 'react-native'
+import { withNavigation } from '@react-navigation/compat';
+import PropTypes from 'prop-types';
+import { Block, Text, theme } from 'galio-framework';
 
 
+import { render } from 'react-dom';
+import WaterMonster from './WaterMonster';
+import StepsMonster from './StepsMonster';
+
+const { width } = Dimensions.get('screen');
 
 
-function Monster({monsterType, monsterStatus}) {
+class Monster extends React.Component {
+render() {
+    const {monsterType, monsterStatus, navigation, goalId, product, horizontal, full, style, priceColor, ctaColor, item, imageStyle } = this.props;
+    const imageStyles = [
+        full ? styles.fullImage : styles.horizontalImage,
+        imageStyle
+      ];
+      const cardContainer = [styles.card, styles.shadow, style];
+      const imgContainer = [styles.imageContainer,
+        horizontal ? styles.horizontalStyles : styles.verticalStyles,
+        styles.shadow
+      ];
     return (
-        <View style={styles.backgroundStyle}>
-            {monsterType === 'Water' && monsterStatus === 'start' ? 
-            <Image source={require('../../assets/waterstart.png')} style={styles.mediumLogo}/> :<View></View> }
-             {monsterType === 'Water' && monsterStatus === 'middle' ? 
-             <Image source={require('../../assets/watermiddle.png')} style={styles.mediumLogo}/> :<View></View> }
-            {monsterType === 'Water' && monsterStatus === 'warning' ? 
-            <Image source={require('../../assets/waterwarning.png')} style={styles.mediumLogo}/> :<View></View> }
-            {monsterType === 'Water' && monsterStatus === 'complete' ? 
-           <Image source={require('../../assets/watercomplete.png')} style={styles.mediumLogo}/> :<View></View> }
-            {monsterType === 'Water' && monsterStatus === 'fail' ? 
-             <Image source={require('../../assets/waterfail.png')} style={styles.mediumLogo}/> :<View></View> }
-            
-            {monsterType === 'Steps' && monsterStatus === 'start' ? 
-            <Image source={require('../../assets/stepsstart.png')} style={styles.mediumLogo}/> :<View></View> }
-             {monsterType === 'Steps' && monsterStatus === 'middle' ? 
-        <Image source={require('../../assets/stepsmiddle.png')} style={styles.mediumLogo}/> :<View></View> }
-            {monsterType === 'Steps' && monsterStatus === 'warning' ? 
-            <Image source={require('../../assets/stepswarning.png')} style={styles.mediumLogo}/> :<View></View> }
-            {monsterType === 'Steps' && monsterStatus === 'complete' ? 
-            <Image source={require('../../assets/stepscomplete.png')} style={styles.mediumLogo}/> :<View></View> }
-            {monsterType === 'Steps' && monsterStatus === 'fail' ? 
-           <Image source={require('../../assets/stepsfail.png')} style={styles.mediumLogo}/> :<View></View> }
 
-
+        <View>
+        <Block row={horizontal} card flex style={cardContainer}>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('SingleGoal', {id: goalId} )}>
+          <Block flex style={imgContainer}>
+         {monsterType === 'Water' && <WaterMonster monsterStatus={monsterStatus}/>}
+         {monsterType === 'Steps' && <StepsMonster monsterStatus={monsterStatus}/>}
+         </Block>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
+          <Block flex space="between" style={styles.cardDescription}>
+            <Text size={14} style={styles.cardTitle}>{monsterType}</Text>
+            <Text size={12} muted={!ctaColor} color={ctaColor || theme.COLORS.ACTIVE} bold>{monsterStatus}</Text>
+          </Block>
+        </TouchableWithoutFeedback>
+        </Block>
         </View>
     )
 }
+}
+Monster.propTypes = {
+    item: PropTypes.object,
+    horizontal: PropTypes.bool,
+    full: PropTypes.bool,
+    ctaColor: PropTypes.string,
+    imageStyle: PropTypes.any,
+  }
 
 const styles = StyleSheet.create({
     backgroundStyle: {
@@ -56,8 +75,56 @@ const styles = StyleSheet.create({
           width: 100,
           height: 100,
           alignSelf: 'center'
-        }
+        },
+        product: {
+            backgroundColor: theme.COLORS.WHITE,
+            marginVertical: theme.SIZES.BASE,
+            borderWidth: 0,
+            minHeight: 114,
+            marginBottom: 16
+          },
+          productTitle: {
+            flex: 1,
+            flexWrap: 'wrap',
+            paddingBottom: 6,
+          },
+          productDescription: {
+            padding: theme.SIZES.BASE / 2,
+          },
+          imageContainer: {
+            borderRadius: 3,
+            elevation: 1,
+            overflow: 'hidden',
+          },
+          image: {
+            // borderRadius: 3,
+            // marginHorizontal: theme.SIZES.BASE / 2,
+            // marginTop: -16,
+          },
+          horizontalImage: {
+            height: 122,
+            width: 'auto',
+          },
+          horizontalStyles: {
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 0,
+          },
+          verticalStyles: {
+            borderBottomRightRadius: 0,
+            borderBottomLeftRadius: 0
+          },
+          fullImage: {
+            height: 215,
+            // width: width - theme.SIZES.BASE * 3,
+          },
+          shadow: {
+            shadowColor: theme.COLORS.BLACK,
+            shadowOffset: { width: 0, height: 2 },
+            shadowRadius: 4,
+            shadowOpacity: 0.1,
+            elevation: 2,
+          },
 })
 
-export default Monster
+export default withNavigation(Monster)
 
