@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   TouchableOpacity,
   Keyboard,
   Alert,
@@ -38,50 +39,55 @@ function HomeScreen({ navigation, login, user, error }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Image source={require("../../assets/Header.png")} style={{ top: 10 }} />
-      <Text style={styles.subHeader}>
-        The once a day way to achieve your goals.
-      </Text>
-
-      {!user.id && (
-        <AuthForm
-          formType={formType}
-          email={email}
-          password={password}
-          onEmailChange={(newEmail) => setEmail(newEmail)}
-          onPasswordChange={(newPassword) => setPassword(newPassword)}
-          onPress={() => onButtonPress()}
+    <ScrollView>
+      <View style={styles.container}>
+        <Image
+          source={require("../../assets/Header.png")}
+          style={{ top: 10 }}
         />
-      )}
-      <Image
-        style={styles.largeLogo}
-        source={require("../../assets/icon2.png")}
-      />
+        <Text style={styles.subHeader}>
+          The once a day way to achieve your goals.
+        </Text>
 
-      {!user.id && (
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("SignUp");
-          }}
-        >
-          <Text style={styles.buttonText}> Not a User? Sign Up</Text>
-        </TouchableOpacity>
-      )}
+        {!user.id && (
+          <AuthForm
+            formType={formType}
+            email={email}
+            password={password}
+            onEmailChange={(newEmail) => setEmail(newEmail)}
+            onPasswordChange={(newPassword) => setPassword(newPassword)}
+            onPress={() => onButtonPress()}
+          />
+        )}
+        <Image
+          style={styles.largeLogo}
+          source={require("../../assets/icon2.png")}
+        />
 
-      {user.id && (
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("Welcome");
-          }}
-        >
-          <Text style={styles.buttonText}> Back to DashBoard</Text>
-        </TouchableOpacity>
-      )}
-      <StatusBar style="auto" />
-    </View>
+        {!user.id && (
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate("SignUp");
+            }}
+          >
+            <Text style={styles.buttonText}> Not a User? Sign Up</Text>
+          </TouchableOpacity>
+        )}
+
+        {user.id && (
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate("Welcome");
+            }}
+          >
+            <Text style={styles.buttonText}> Back to DashBoard</Text>
+          </TouchableOpacity>
+        )}
+        <StatusBar style="auto" />
+      </View>
+    </ScrollView>
   );
 }
 
