@@ -6,7 +6,7 @@ import Monster from "../components/Monster";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { Entypo } from "@expo/vector-icons";
 import { DataTable } from "react-native-paper";
-import isToday from "date-fns/isToday";
+import { isFuture } from "date-fns";
 
 class StepGoalDetails extends React.Component {
   constructor() {
@@ -62,7 +62,7 @@ class StepGoalDetails extends React.Component {
                       )}
                       {!this.props.isPedometerAvailable &&
                         !day.status &&
-                        isToday(day.date) && (
+                        !isFuture(day.date) && (
                           <TouchableOpacity
                             onPress={() => {
                               this.props.handleUpdate();

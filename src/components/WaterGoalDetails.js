@@ -14,7 +14,8 @@ import { DataTable } from "react-native-paper";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { setGoal, updateGoal } from "../store/goal";
 import { Entypo } from "@expo/vector-icons";
-import isToday from "date-fns/isToday";
+
+import { isFuture } from "date-fns";
 
 const width = Dimensions.get("window").width;
 
@@ -72,7 +73,7 @@ class WaterGoalDetails extends React.Component {
                         )}
                       </DataTable.Cell>
                       <DataTable.Cell>
-                        {!day.status && isToday(day.date) && (
+                        {!day.status && !isFuture(day.date) && (
                           <TouchableOpacity
                             onPress={() => {
                               this.props.handleUpdate();
