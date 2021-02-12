@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { fetchFriends } from "../store/friends";
+import GoalsOfFriends from "../components/GoalsOfFriends"
 const width = Dimensions.get("window").width;
 
 class AllFriendsScreen extends React.Component {
@@ -20,6 +21,7 @@ class AllFriendsScreen extends React.Component {
 
   render() {
     const friends = this.props.friends || [];
+    //console.log(friends[0].goals)
     return (
       <ScrollView>
         <View style={styles.headlineContainer}>
@@ -27,6 +29,7 @@ class AllFriendsScreen extends React.Component {
             <View>
               <Text style={styles.headline}>Friend List:</Text>
               <Text style={styles.name}>Here are all your friends!</Text>
+              
               <FlatList
                 //   keyExtractor={(friend) => {
                 //     return friend.id.toString();
@@ -38,6 +41,7 @@ class AllFriendsScreen extends React.Component {
                       {/* <Image source={{ uri: `${item.imageUrl}` }} /> */}
                       <Text style={styles.subheading}>name: {item.name}</Text>
                       <Text style={styles.email}>email: {item.email}</Text>
+                      <Text style={styles.subheading}>Goals: </Text><GoalsOfFriends goals={item.goals}/>
                     </View>
                   );
                 }}

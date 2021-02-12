@@ -12,7 +12,10 @@ function SettingsScreen({ navigation, logout }) {
       {/* <View style={styles.textContainer}> */}
       <View>
         {/* <Text style={styles.textStyle}>Settings</Text> */}
-        <Image source={require('../../assets/Settings.png')} style={{alignSelf:"center"}}/>
+        <Image source={require('../../assets/Settings.png')}
+     
+          style={{ alignSelf: "center" }}
+        />
         <SimpleLineIcons name="settings" size={15} color={"blue"} />
       </View>
       <View style={styles.buttonContainer}>

@@ -80,6 +80,10 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
       {/* <Text style={styles.textStyle}>UserStats</Text> */}
       <Image
         source={require("../../assets/profile2.png")}
+        // source={{
+        //   uri:
+        //     '../public/images/anonymous-avatar-sm.jpg',
+        // }}
         style={{ alignSelf: "center" }}
       />
       {user.goals.length ? (
@@ -109,8 +113,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 <Text style={styles.subHead3}>Water Stats</Text>
                 <SimpleLineIcons name="drop" size={15} color={"blue"} />
                 {isWater(user) ? (
-                  user.goals[Number(isWater(user))].status ===
-                  "complete" ? (
+                  user.goals[Number(isWater(user))].status === "complete" ? (
                     <Text>
                       By completing your water goal you have dranked{" "}
                       {completedWater()} bottles of water !!!!!
@@ -123,8 +126,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 )}
                 <Text style={styles.subHead3}>Steps Stats</Text>
                 {isSteps(user) ? (
-                  user.goals[Number(isSteps(user))].status ===
-                  "complete" ? (
+                  user.goals[Number(isSteps(user))].status === "complete" ? (
                     <Text>
                       By completing your step goals you have walked{" "}
                       {completedSteps()} steps!!!!!
@@ -142,8 +144,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 <View style={styles.chartContainer1}>
                   <Text style={styles.subHead3}>Water Stats</Text>
                   {isWater(user) ? (
-                    user.goals[Number(isWater(user))].status ===
-                    "complete" ? (
+                    user.goals[Number(isWater(user))].status === "complete" ? (
                       <WaterVisualData
                         userWaterData={
                           user.goals[Number(isWater(user))].numberOfDays
@@ -159,8 +160,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                 <View style={styles.chartContainer2}>
                   <Text style={styles.subHead3}>Steps Stats</Text>
                   {isSteps(user) ? (
-                    user.goals[Number(isSteps(user))].status ===
-                    "complete" ? (
+                    user.goals[Number(isSteps(user))].status === "complete" ? (
                       <StepVisualData
                         userStepData={
                           user.goals[Number(isSteps(user))].numberOfDays
