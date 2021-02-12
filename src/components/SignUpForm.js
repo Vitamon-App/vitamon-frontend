@@ -38,27 +38,20 @@ const SignUpForm = ({
         style={{width: width * 0.9}}
         autoCapitalize="none"
         autoCorrect={false}
-        // value={name}
-        // onChangeText={onNameChange}
-        placeholder="first name"
+        value={name}
+        onChangeText={onNameChange}
+        placeholder="enter first name"
       />
       <Input
       rounded
         style={{width: width * 0.9}}
         autoCapitalize="none"
         autoCorrect={false}
-        value={name}
-        onChangeText={onNameChange}
-        placeholder="enter first name"
-      />
-      <TextInput
-        style={styles.input}
-        autoCapitalize="none"
-        autoCorrect={false}
         value={email}
         onChangeText={onEmailChange}
         placeholder="enter email"
       />
+
       <Input
       rounded
       password
