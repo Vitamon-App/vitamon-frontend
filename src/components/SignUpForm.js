@@ -20,8 +20,10 @@ const { width, height } = Dimensions.get("screen");
  * COMPONENT
  */
 const SignUpForm = ({
+  name,
   email,
   password,
+  onNameChange,
   onEmailChange,
   onPasswordChange,
   onPress,
@@ -45,6 +47,14 @@ const SignUpForm = ({
         style={{width: width * 0.9}}
         autoCapitalize="none"
         autoCorrect={false}
+        value={name}
+        onChangeText={onNameChange}
+        placeholder="enter first name"
+      />
+      <TextInput
+        style={styles.input}
+        autoCapitalize="none"
+        autoCorrect={false}
         value={email}
         onChangeText={onEmailChange}
         placeholder="enter email"
@@ -64,7 +74,7 @@ const SignUpForm = ({
       <Button
        round
       color="primary"
-    onPress={() => onPress(email, password)}
+    onPress={() => onPress(name, email, password)}
               >
                 Sign up
               </Button>

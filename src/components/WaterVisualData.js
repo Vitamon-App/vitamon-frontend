@@ -1,30 +1,60 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
+import { StyleSheet, View, Text } from "react-native";
+import { VictoryLine, VictoryChart, VictoryTheme } from "victory-native";
 
+function WaterVisualData({ allGoals }) {
+  //console.log("&&&ALLGOALS: ", allGoals);
 
-function WaterVisualData({ userWaterData }) {
-  const data = [
-    { GoalCompleted: 1, LengthOfGoals: userWaterData },
-    { GoalCompleted: 2, LengthOfGoals: 5 },
-    { GoalCompleted: 3, LengthOfGoals: 14 },
-    { GoalCompleted: 4, LengthOfGoals: 2 },
-  ];
+  const completedGoalsData = () => {
+    let data = [];
+    let xValue = 0;
+    for (let i = 0; i < allGoals.length; i++) {
+      if (allGoals[i].status === "complete" && allGoals[i].type === "Water") {
+        const amtOfBottlesForEachGoal =
+          allGoals[i].completedDays * allGoals[i].quantity;
+        xValue++;
+        let yValue = amtOfBottlesForEachGoal;
+
+        const completionObject = {
+          waterGoal: `goal ${xValue}`,
+          totalNumberOfWaterBottles: yValue,
+        };
+        data.push(completionObject);
+      }
+    }
+    return data;
+  };
+  const totalSum = () => {
+    let totalBottles = 0;
+    for (let i = 0; i < allGoals.length; i++) {
+      if (allGoals[i].status === "complete" && allGoals[i].type === "Water") {
+        const amtOfBottlesForEachGoal =
+          allGoals[i].completedDays * allGoals[i].quantity;
+        totalBottles += amtOfBottlesForEachGoal;
+      }
+    }
+    return totalBottles;
+  };
+  /* const data = [
+    { waterGoal: 1, totalNumberOfWaterBottles: 5 },
+  ]; */
 
   return (
     <View style={styles.container}>
-      <VictoryChart width={350} theme={VictoryTheme.material}>
-        <VictoryBar
-          data={data}
-          x="GoalCompleted"
-          y="LengthOfGoals"
-          style={{
-            data: {
-              fill: "#7ed9bf",
-            },
-          }}
+      <Text>{`You have dranked ${totalSum()} bottles of water so far `}</Text>
+      <VictoryChart
+        width={350}
+        minDomain={{ y: 0 }}
+        theme={VictoryTheme.material}
+      >
+        <VictoryLine
+          data={completedGoalsData()}
+          x="waterGoal"
+          y="totalNumberOfWaterBottles"
         />
       </VictoryChart>
+
+      <Text>Water Goals Compeleted</Text>
     </View>
   );
 }
@@ -35,6 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#dff6f9",
+    height: 400,
   },
 });
 export default WaterVisualData;

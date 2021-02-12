@@ -1,77 +1,98 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text, View, TextInput, Keyboard } from "react-native";
 import { Pedometer } from "expo-sensors";
+import LottieView from "lottie-react-native";
 
 export default class StepsScreen extends React.Component {
-  state = {
-    isPedometerAvailable: false,
-    steps: 0,
-    currSteps: 0,
-    goalSteps: "1",
-  };
+  constructor() {
+    super();
+    this.state = {
+      isPedometerAvailable: false,
+      currSteps: 0,
+      goalSteps: "1",
+      animation: 0,
+    };
+
+    this.watchSteps = this.watchSteps.bind(this);
+    this.checkPedometer = this.checkPedometer.bind(this);
+  }
+
   componentDidMount() {
     this.checkPedometer();
-    this.getSteps();
     this.watchSteps();
+    this.animation.play(0, 0);
+  }
+
+  resetAnimation = () => {
+    this.animation.reset();
+    this.animation.play();
+  };
+
+  componentWillUnmount() {
+    this._unsubscribe();
   }
 
   async watchSteps() {
-    await Pedometer.watchStepCount((result) => {
+    this._subscription = await Pedometer.watchStepCount((result) => {
       this.setState({ currSteps: result.steps });
     });
   }
+
+  _unsubscribe = () => {
+    this._subscription && this._subscription.remove();
+    this._subscription = null;
+  };
 
   async checkPedometer() {
     const result = await Pedometer.isAvailableAsync();
     this.setState({ isPedometerAvailable: result });
   }
-  async getSteps() {
-    const end = new Date();
-    const start = new Date();
-    start.setDate(end.getDate() - 1);
-    const { steps } = await Pedometer.getStepCountAsync(start, end);
-    this.setState({ steps });
-  }
 
   render() {
-    // console.log(this.state);
     return (
       <View style={styles.container}>
-        <Text>
-          Is pedometer available? {this.state.isPedometerAvailable.toString()}
-        </Text>
-        <Text>Steps taken in the last 24 hours: {this.state.steps}</Text>
-        <Text>Live Steps: {this.state.currSteps}</Text>
+        {this.state.isPedometerAvailable ? (
+          <Text>You're ready to play!</Text>
+        ) : (
+          <Text>
+            You need to allow access to your pedometer to play this game
+          </Text>
+        )}
 
-        <Text>Input your step goal:</Text>
+        <Text>Input your quick step goal:</Text>
         <TextInput
           style={styles.input}
           autoCapitalize="none"
           autoCorrect={false}
           value={this.state.goalSteps}
           onChangeText={(newValue) => this.setState({ goalSteps: newValue })}
+          onEndEditing={() => {
+            Keyboard.dismiss();
+          }}
         />
-        <Text>Walk {this.state.goalSteps} steps to get to the next phase:</Text>
-        {this.state.currSteps < Number(this.state.goalSteps) &&
-        this.state.goalSteps ? (
-          <Text>Start</Text>
-        ) : (
-          <Text>GOAL COMPLETED!!</Text>
+        {Number(this.state.goalSteps) > 1 && (
+          <Text>
+            Walk {this.state.goalSteps} steps to get the Vitamon to dance!
+          </Text>
         )}
+        <Text>Progress: {this.state.currSteps}</Text>
         {this.state.currSteps < Number(this.state.goalSteps) &&
-        this.state.goalSteps ? (
-          <View
-            style={{
-              height: 100,
-              width: 100,
-              backgroundColor: "rgb(255,0,255)",
-            }}
-          />
-        ) : (
-          <View
-            style={{ height: 100, width: 100, backgroundColor: "rgb(0,255,0)" }}
-          />
-        )}
+        this.state.goalSteps
+          ? null
+          : this.resetAnimation()}
+        <LottieView
+          isStopped={this.state.isStopped}
+          ref={(animation) => {
+            this.animation = animation;
+          }}
+          loop={true}
+          style={{
+            width: 400,
+            height: 400,
+            backgroundColor: "#eee",
+          }}
+          source={require("../../assets/40864-the-awkward-monster.json")}
+        />
       </View>
     );
   }
@@ -87,5 +108,18 @@ const styles = StyleSheet.create({
     margin: 15,
     borderColor: "black",
     borderWidth: 1,
+  },
+  button: {
+    marginLeft: 10,
+    marginTop: 20,
+    backgroundColor: "#9F1BEE",
+    paddingVertical: 12,
+    borderRadius: 10,
+  },
+  buttonText: {
+    fontWeight: "600",
+    color: "white",
+    fontSize: 18,
+    textAlign: "center",
   },
 });

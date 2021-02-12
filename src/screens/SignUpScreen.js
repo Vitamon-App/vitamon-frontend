@@ -4,15 +4,17 @@ import SignUpForm from "../components/SignUpForm";
 import { connect } from "react-redux";
 import { signup } from "../store/user";
 
-
 function SignUp({ navigation, signupUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
   console.log("email: ", email);
   console.log("password: ", password);
   const onSignUpButtonPress = async () => {
     try {
       let newUser = {
+        name: name,
         email: email,
         password: password,
       };
@@ -31,10 +33,12 @@ function SignUp({ navigation, signupUser }) {
     <View>
       <Text style={styles.buttonText}>Sign Up</Text>
       <SignUpForm
+        name={name}
         email={email}
         password={password}
         onEmailChange={(newEmail) => setEmail(newEmail)}
         onPasswordChange={(newPassword) => setPassword(newPassword)}
+        onNameChange={(newName) => setName(newName)}
         onPress={() => onSignUpButtonPress()}
         backToLogin ={()=> backToLogin()}
       />
