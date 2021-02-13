@@ -1,12 +1,21 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { connect } from "react-redux";
-import { updateGoal } from "../store/goal";
+import {   
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import Monster from "../components/Monster";
+import { connect } from "react-redux";
+import { DataTable } from "react-native-paper";
+import { updateGoal } from "../store/goal";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { Entypo } from "@expo/vector-icons";
-import { DataTable } from "react-native-paper";
 import { isFuture } from "date-fns";
+
+const width = Dimensions.get("window").width;
 
 class StepGoalDetails extends React.Component {
   constructor() {
@@ -19,6 +28,7 @@ class StepGoalDetails extends React.Component {
     let goalDetails = `Walk ${goal.quantity} steps a day`;
 
     return (
+      <ScrollView style={styles.headlineContainer} >
       <View>
         {goal.type ? (
           <View>
@@ -85,6 +95,7 @@ class StepGoalDetails extends React.Component {
           <View></View>
         )}
       </View>
+      </ScrollView>
     );
   }
 }
@@ -105,6 +116,97 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "white",
     fontSize: 11,
+    textAlign: "center",
+  },
+  headlineContainer: {
+    paddingTop: "18%",
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: "#8c55fa",
+  },
+  headline: {
+    marginTop: 10,
+    color: "white",
+    fontSize: 26,
+    textAlign: "center",
+    marginBottom: 20,
+    fontWeight: "500",
+  },
+  subheading: {
+    fontWeight: "700",
+    fontSize: 20,
+    padding: 15,
+    color: "#424347",
+  },
+
+  name: {
+    fontSize: 0.045 * width,
+    fontWeight: "700",
+    alignSelf: "center",
+    textAlignVertical: "center",
+    color: "#424347",
+  },
+  email: {
+    fontSize: 20,
+    padding: 10,
+    color: "#424347",
+  },
+  instructions: {
+    alignSelf: "center",
+    margin: 15,
+    maxWidth: "90%",
+    fontSize: 0.045 * width,
+    textAlign: "center",
+    padding: 10,
+    color: "#424347",
+  },
+  input: {
+    height: 48,
+    borderRadius: 5,
+    overflow: "hidden",
+    backgroundColor: "white",
+    fontSize: 20,
+    marginHorizontal: 15,
+    paddingLeft: 10,
+  },
+  sendButton: {
+    fontWeight: "bold",
+    color: "white",
+    fontSize: 18,
+    textAlign: "center",
+    fontFamily: "Avenir",
+  },
+  buttonContainer: {
+    width: "40%",
+    alignSelf: "center",
+    marginHorizontal: 15,
+    marginTop: "4%",
+    backgroundColor: "#9FC78A",
+    paddingVertical: 12,
+    borderRadius: 10,
+  },
+  button: {
+    marginLeft: 10,
+    marginTop: 20,
+    backgroundColor: "#f114af",
+    // paddingVertical: 10,
+    borderRadius: 10,
+    bottom: 20,
+  },
+  buttonTwo: {
+    marginLeft: 10,
+    marginTop: 20,
+    alignSelf: "flex-end",
+    backgroundColor: "#f114af",
+    paddingVertical: 10,
+    borderRadius: 10,
+    bottom: 20,
+  },
+
+  buttonText: {
+    fontWeight: "600",
+    color: "white",
+    fontSize: 18,
     textAlign: "center",
   },
 });
