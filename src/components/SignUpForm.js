@@ -12,8 +12,8 @@ import {
   Platform,
   Alert,
 } from "react-native";
-import { Block, Checkbox, Text, theme, Button, NavBar, Icon, Input, Image} from "galio-framework";
-
+import { Block, Checkbox, Text, Button, NavBar, Icon, Input, Image} from "galio-framework";
+import theme from '../theme.js'
 const { width, height } = Dimensions.get("screen");
 
 /**
@@ -35,7 +35,7 @@ const SignUpForm = ({
     <View>
        <Input
        rounded
-        style={{width: width * 0.9}}
+        style={{width: width * 0.75}}
         autoCapitalize="none"
         autoCorrect={false}
         value={name}
@@ -44,7 +44,7 @@ const SignUpForm = ({
       />
       <Input
       rounded
-        style={{width: width * 0.9}}
+        style={{width: width * 0.75}}
         autoCapitalize="none"
         autoCorrect={false}
         value={email}
@@ -56,7 +56,7 @@ const SignUpForm = ({
       rounded
       password
       viewPass
-        style={{width: width * 0.9}}
+        style={{width: width * 0.75}}
         autoCapitalize="none"
         autoCorrect={false}
         value={password}
@@ -64,21 +64,14 @@ const SignUpForm = ({
         placeholder="enter password"
       />
       <View>
-      <Button
+      {/* <Button
        round
-      color="primary"
+      color={theme.COLORS.PRIMARY}
     onPress={() => onPress(name, email, password)}
               >
                 Sign up
-              </Button>
+              </Button> */}
     
-          <Button color="transparent" 
-          shadowless 
-          onPress={backToLogin}>
-          <Text center color={theme.COLORS.ERROR} size={theme.SIZES.FONT * 0.75}>
-             Already have an account? Sign In
-          </Text>
-              </Button>
     
       </View>
     </View>

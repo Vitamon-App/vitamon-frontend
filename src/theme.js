@@ -1,9 +1,9 @@
 const COLORS = {
-  WHITE: '#FFFFFF',
+  WHITE: '#f5f4f6',
   BLACK: '#000000',
   GREY: '#898989',
-  THEME: '#B23AFC',
-  PRIMARY: '#B23AFC',
+  THEME: '#5539AA',
+  PRIMARY: '#5539AA',
   INFO: '#1232FF',
   ERROR: '#FE2472',
   WARNING: '#FF9C09',
