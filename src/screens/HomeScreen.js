@@ -5,6 +5,8 @@ import {
   Keyboard,
   Alert,
   Image,
+  TouchableOpacity,
+  Linking
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AuthForm from "../components/AuthForm";
@@ -12,7 +14,7 @@ import { connect } from "react-redux";
 import { auth } from "../store/user";
 // galio component
 import {
-  Block, Button, Input, NavBar, Text,
+  Block, Button, Input, NavBar, Text, Icon
 } from 'galio-framework';
 import theme from '../theme';
 
@@ -45,33 +47,29 @@ function HomeScreen({ navigation, login, user, error }) {
 
   return (
     <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
-  
-    <NavBar
-      title="Sign In"
-      onLeftPress={() => navigation.openDrawer()}
-      style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
-    />
+
+    
     <KeyboardAvoidingView style={styles.container} behavior="height" enabled>
       <Block flex center style={{ marginTop: theme.SIZES.BASE * 2.875, marginBottom: height * 0.1, color: theme.COLORS.PRIMARY}}>
-        <Text>Loading...</Text>
+       
         <Block row center space="between" style={{ marginVertical: theme.SIZES.BASE * 0.5 }}>
           <Block flex middle right>
           
           </Block>
           <Block flex middle center>
-         
-              <Image
+          <Image  style={styles.largeLogo} source={require('../../assets/Vitamontransparent-2.png')}/>
+              {/* <Image
           style={styles.largeLogo}
           source={require("../../assets/icon2.png")}
-        />
+        /> */}
           </Block>
           <Block flex middle left>
          
           </Block>
         </Block>
-        <Text muted center size={theme.SIZES.FONT * 0.875} color={theme.COLORS.PRIMARY}>
+        {/* <Text muted center size={theme.SIZES.FONT * 0.875} color={theme.COLORS.PRIMARY}>
           The once a day way to achieve your goals
-        </Text>
+        </Text> */}
       </Block>
 
       <Block flex={2} center space="evenly">
@@ -114,6 +112,12 @@ function HomeScreen({ navigation, login, user, error }) {
           >
             <Text style={styles.buttonText}> Back to DashBoard</Text>
           </Button>
+          <Button color="transparent" shadowless onPress={() => navigation.navigate('Settings')}>
+            <Text center color={theme.COLORS.PRIMARY} size={theme.SIZES.FONT * 0.75}>
+              {"Settings"}
+            </Text>
+          </Button>
+       
       </Block>
     </KeyboardAvoidingView>
   </Block>
@@ -132,8 +136,8 @@ const styles = StyleSheet.create({
     height: 100,
   },
   largeLogo: {
-    width: 300,
-    height: 300,
+    width: 375,
+    height: 375,
     top: 10,
   },
   subHeader: {
