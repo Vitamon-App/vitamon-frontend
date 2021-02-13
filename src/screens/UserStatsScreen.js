@@ -225,7 +225,8 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
         </Block>
       ) : (
         <View>
-          <Text>No Stats Available</Text>
+          <Text style={styles.subHead1}>{user.name}'s Profile</Text>
+          <Text style={styles.subHeadNoProflie}>Sorry No Stats Available</Text>
         </View>
       )}
     </ScrollView>
@@ -276,6 +277,14 @@ const styles = StyleSheet.create({
   },
   subHead3: {
     fontSize: 28,
+    textAlign: "center",
+    color: "#2C148B",
+    fontWeight: "bold",
+    // marginTop: 5,
+  },
+  subHeadNoProflie: {
+    fontSize: 18,
+    marginTop: 19,
     textAlign: "center",
     color: "#2C148B",
     fontWeight: "bold",
