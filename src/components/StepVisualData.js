@@ -41,11 +41,13 @@ function StepVisualData({ allGoals }) {
 
   return (
     <View style={styles.container}>
-      <Text>{`You have taken ${totalSum()} steps so far`}</Text>
+      <Text
+        style={styles.subHead}
+      >{`You have taken ${totalSum()} steps so far`}</Text>
       <VictoryChart
         width={350}
         minDomain={{ y: 0 }}
-        theme={VictoryTheme.material}
+        //theme={VictoryTheme.material}
         color="blue"
       >
         <VictoryLine
@@ -55,7 +57,7 @@ function StepVisualData({ allGoals }) {
         />
       </VictoryChart>
 
-      <Text>Step Goals Compeleted</Text>
+      <Text style={styles.textStyle}>Step Goals Compeleted</Text>
     </View>
   );
 }
@@ -65,8 +67,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#faecd9",
+    backgroundColor: "#7E5EC8",
     height: 400,
+  },
+  textStyle: {
+    color: "#F5F4F6",
+  },
+  subHead: {
+    color: "#F5F4F6",
+    fontWeight: "bold",
+    fontSize: 15,
   },
 });
 export default StepVisualData;

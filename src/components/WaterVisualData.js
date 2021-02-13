@@ -1,7 +1,8 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import { VictoryLine, VictoryChart, VictoryTheme } from "victory-native";
-
+import { Text, Card, Block, Icon, Button } from "galio-framework";
+const width = Dimensions.get("window").width;
 function WaterVisualData({ allGoals }) {
   //console.log("&&&ALLGOALS: ", allGoals);
 
@@ -41,11 +42,15 @@ function WaterVisualData({ allGoals }) {
 
   return (
     <View style={styles.container}>
-      <Text>{`You have dranked ${totalSum()} bottles of water so far `}</Text>
+      <Text
+        style={styles.subHead}
+      >{`You have dranked ${totalSum()} bottles of water so far `}</Text>
       <VictoryChart
         width={350}
         minDomain={{ y: 0 }}
-        theme={VictoryTheme.material}
+        color='"#F5F4F6"'
+        /*  style={{ data: { stroke: "#F5F4F6", strokeWidth: 15, strokeLinecap: "round" }  */
+        //theme={VictoryTheme.material}
       >
         <VictoryLine
           data={completedGoalsData()}
@@ -54,7 +59,7 @@ function WaterVisualData({ allGoals }) {
         />
       </VictoryChart>
 
-      <Text>Water Goals Compeleted</Text>
+      <Text style={styles.textStyle}>Water Goals Compeleted</Text>
     </View>
   );
 }
@@ -64,8 +69,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#dff6f9",
+    backgroundColor: "#7E5EC8",
     height: 400,
+  },
+  subHead: {
+    color: "#F5F4F6",
+    fontWeight: "bold",
+    fontSize: 15,
+  },
+  textStyle: {
+    color: "#F5F4F6",
+  },
+  cards: {
+    width,
+    backgroundColor: "#2C148B",
+    alignItems: "center",
+    justifyContent: "flex-start",
   },
 });
 export default WaterVisualData;
