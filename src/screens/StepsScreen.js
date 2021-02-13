@@ -1,13 +1,10 @@
 import React from "react";
 import { StyleSheet, Dimensions, View, Keyboard, Alert } from "react-native";
-import { Text, Input, Card, Block, Icon, Button } from "galio-framework";
+import { Text, Input, Button } from "galio-framework";
 import { Pedometer } from "expo-sensors";
 import LottieView from "lottie-react-native";
 import theme from "../theme";
-import {
-  ScrollView,
-  TouchableWithoutFeedback,
-} from "react-native-gesture-handler";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 const width = Dimensions.get("window").width;
 
 const initialState = {
@@ -122,29 +119,33 @@ export default class StepsScreen extends React.Component {
               Walk {this.state.goalSteps} steps to get the Vitamon to dance!
             </Text>
           )}
-          <View style={styles.lottieContainer}>
-            <LottieView
-              autoPlay={this.state.autoPlay}
-              speed={this.state.speed}
-              ref={(animation) => {
-                this.animation = animation;
-              }}
-              style={{
-                width: 400,
-                height: 400,
-                backgroundColor: "#eee",
-              }}
-              source={require("../../assets/40864-the-awkward-monster.json")}
-            />
-          </View>
+
+          <LottieView
+            autoPlay={this.state.autoPlay}
+            speed={this.state.speed}
+            ref={(animation) => {
+              this.animation = animation;
+            }}
+            style={{
+              width: 400,
+              height: 400,
+              backgroundColor: "#eee",
+            }}
+            source={require("../../assets/40864-the-awkward-monster.json")}
+          />
           <Text p>Progress:</Text>
           <Text p> {this.state.currSteps} steps</Text>
-          {this.state.autoPlay && (
-            <Button onPress={this.handlePress} style={styles.button}>
-              Play Again!
-            </Button>
-          )}
         </DismissKeyboard>
+        {this.state.autoPlay && (
+          <Button
+            round
+            shadowless={true}
+            onPress={this.handlePress}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>Play Again!</Text>
+          </Button>
+        )}
       </View>
     );
   }
@@ -171,5 +172,11 @@ const styles = StyleSheet.create({
     borderColor: theme.COLORS.PRIMARY,
     width: width * 0.4,
     backgroundColor: "#F2F2F2",
+  },
+  buttonText: {
+    fontWeight: "600",
+    color: "white",
+    fontSize: 18,
+    textAlign: "center",
   },
 });

@@ -1,29 +1,26 @@
 import React from "react";
 import {
   StyleSheet,
-  // Text,
   View,
-  TextInput,
-  FlatList,
-  // Button,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  Image,
   Dimensions,
-  Platform,
   ScrollView,
 } from "react-native";
 import Monster from "../components/Monster";
-import { Pedometer } from "expo-sensors";
-import { withNavigation } from '@react-navigation/compat';
 import { connect } from "react-redux";
 import { fetchGoals } from "../store/allTheUsersGoals";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 // Galio components
 import {
-  Text, Card, Block, NavBar, Icon, Button,  DeckSwiper
-} from 'galio-framework';
-import { LinearGradient } from 'expo-linear-gradient';
-import theme from '../theme';
+  Block,
+  Card,
+  NavBar,
+  Text,
+  Icon,
+  Button,
+  DeckSwiper,
+} from "galio-framework";
+import theme from "../theme";
 const width = Dimensions.get("window").width;
 const cardWidth = width - theme.SIZES.BASE * 2;
 
@@ -40,51 +37,59 @@ class AllGoalsScreen extends React.Component {
     const { navigation } = this.props;
 
     return (
-      <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
-      <ScrollView contentContainerStyle={styles.cards}>
-      <Block flex space="between">
-      <Text size={theme.SIZES.FONT * 2} bold> Feed your Vitamons by achieving your Goals!</Text>
-          {!goals.length ? (
-            <View>
-              <Text h4>
-                You haven't added any goals yet!
-              </Text>
-        
-            </View>
-          ) : null}
-
-
-          {goals.length ? (
-      
-            goals.map((goal, id)=>(
+      <Block safe flex style={{ backgroundColor: theme.COLORS.CULTURED }}>
+        <ScrollView contentContainerStyle={styles.cards}>
+          <Block flex space="between">
+            <Text h5 bold>
+              {"\n"}
+              Feed your Vitamons by achieving your goals!{"\n"}
+            </Text>
+            <Text p bold>
+              Click a goal to see your progress
+            </Text>
+            {!goals.length ? (
               <View>
-             
-                 <Block safe >
-              
-               
-                 <Monster
-                monsterType={goal.type}
-                monsterStatus={goal.status}
-                goalId={goal.id}/>
-             
-               
-                </Block>
-          
-            </View>
-            )))
-      
-           : null}
+                <Text h4>You haven't added any goals yet!</Text>
+              </View>
+            ) : null}
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              navigation.navigate("AddGoal");
-            }}
-          >
-            <Text style={styles.buttonText}>Add A New Goal</Text>
-          </TouchableOpacity>
-        </Block>
-      </ScrollView>
+            {goals.length
+              ? goals.map((goal, index, id) => (
+                  <View style={styles.goalContainer} key={index}>
+                    <TouchableWithoutFeedback
+                      onPress={() =>
+                        navigation.navigate("SingleGoal", { id: goal.id })
+                      }
+                    >
+                      <Block safe>
+                        <Text p>Goal {index + 1}</Text>
+                        <Text p>Type: {goal.type}</Text>
+                        <Block style={styles.container}>
+                          <Monster
+                            style={styles.vitamon}
+                            monsterType={goal.type}
+                            monsterStatus={goal.status}
+                            goalId={goal.id}
+                          />
+                        </Block>
+                      </Block>
+                    </TouchableWithoutFeedback>
+                  </View>
+                ))
+              : null}
+            <Block style={styles.container}>
+              <Button
+                shadowless={true}
+                style={styles.button}
+                onPress={() => {
+                  navigation.navigate("AddGoal");
+                }}
+              >
+                <Text style={styles.buttonText}>Add A New Goal</Text>
+              </Button>
+            </Block>
+          </Block>
+        </ScrollView>
       </Block>
     );
   }
@@ -92,38 +97,38 @@ class AllGoalsScreen extends React.Component {
 const styles = StyleSheet.create({
   cards: {
     width,
-    backgroundColor: theme.COLORS.WHITE,
+    backgroundColor: theme.COLORS.CULTURED,
     // alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
+  },
+  button: {
+    marginLeft: 10,
+    marginTop: 20,
+    backgroundColor: "#7E5EC8",
+    paddingVertical: 12,
+    borderRadius: 10,
+  },
+  buttonText: {
+    fontWeight: "600",
+    color: "white",
+    fontSize: 18,
+    textAlign: "center",
   },
   card: {
-    backgroundColor: theme.COLORS.WHITE,
+    backgroundColor: theme.COLORS.CULTURED,
     width: width - theme.SIZES.BASE * 2,
     marginVertical: theme.SIZES.BASE * 0.875,
     elevation: theme.SIZES.BASE / 2,
   },
-  full: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    left: 0,
+  container: {
+    flex: 1,
+    backgroundColor: "#F5F4F6",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  noRadius: {
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-  },
-  rounded: {
-    borderRadius: theme.SIZES.BASE * 0.1875,
-  },
-  gradient: {
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 90,
-    position: 'absolute',
-    overflow: 'hidden',
-    borderBottomRightRadius: theme.SIZES.BASE * 0.5,
-    borderBottomLeftRadius: theme.SIZES.BASE * 0.5,
+  goalContainer: {
+    borderColor: "black",
+    padding: 20,
   },
 });
 
