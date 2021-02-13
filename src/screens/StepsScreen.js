@@ -14,7 +14,7 @@ export default class StepsScreen extends React.Component {
       isPedometerAvailable: false,
       currSteps: 0,
       goalSteps: "",
-      animate: false,
+      autoPlay: false,
     };
 
     this.watchSteps = this.watchSteps.bind(this);
@@ -24,16 +24,15 @@ export default class StepsScreen extends React.Component {
   componentDidMount() {
     this.checkPedometer();
     this.watchSteps();
-    this.play.animation(0, 0);
   }
   componentDidUpdate() {
     if (
-      this.state.currSteps >= Number(this.state.goalSteps) &&
+      this.state.currSteps > Number(this.state.goalSteps) &&
       Number(this.state.goalSteps) > 0 &&
-      !this.state.animate
+      !this.state.autoPlay
     ) {
-      this.setState({ animate: true });
-      this.animation.play(0, 160);
+      this.setState({ autoPlay: true });
+      this.animation.play(0, 150);
     }
   }
 
@@ -58,6 +57,7 @@ export default class StepsScreen extends React.Component {
   }
 
   render() {
+    console.log("DOES ANIMATION SWITCH", this.state.autoPlay);
     return (
       <View style={styles.container}>
         {this.state.isPedometerAvailable ? (
@@ -67,7 +67,6 @@ export default class StepsScreen extends React.Component {
             "You need to allow access to your pedometer to play this game"
           )
         )}
-
         <Text p>Set your quick step goal:</Text>
         <Input
           style={styles.input}
@@ -86,7 +85,7 @@ export default class StepsScreen extends React.Component {
           </Text>
         )}
         <LottieView
-          autoPlay={false}
+          autoPlay={this.state.autoPlay}
           ref={(animation) => {
             this.animation = animation;
           }}
@@ -98,7 +97,7 @@ export default class StepsScreen extends React.Component {
           }}
           source={require("../../assets/40864-the-awkward-monster.json")}
         />
-        <Text h5>Progress:</Text>
+        <Text p>Progress:</Text>
         <Text p> {this.state.currSteps} steps</Text>
       </View>
     );
