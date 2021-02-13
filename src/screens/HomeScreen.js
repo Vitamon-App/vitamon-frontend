@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
+  Dimensions, KeyboardAvoidingView, Platform,
   Keyboard,
   Alert,
   Image,
@@ -13,6 +10,13 @@ import { StatusBar } from "expo-status-bar";
 import AuthForm from "../components/AuthForm";
 import { connect } from "react-redux";
 import { auth } from "../store/user";
+// galio component
+import {
+  Block, Button, Input, NavBar, Text,
+} from 'galio-framework';
+import theme from '../theme';
+
+const { height, width } = Dimensions.get('window');
 
 function HomeScreen({ navigation, login, user, error }) {
   const [email, setEmail] = useState("");
@@ -33,22 +37,45 @@ function HomeScreen({ navigation, login, user, error }) {
       await login(email, password, "login");
       setEmail("");
       setPassword("");
+    
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Image
-          source={require("../../assets/Header.png")}
-          style={{ top: 10 }}
+    <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
+  
+    <NavBar
+      title="Sign In"
+      onLeftPress={() => navigation.openDrawer()}
+      style={Platform.OS === 'android' ? { marginTop: theme.SIZES.BASE } : null}
+    />
+    <KeyboardAvoidingView style={styles.container} behavior="height" enabled>
+      <Block flex center style={{ marginTop: theme.SIZES.BASE * 2.875, marginBottom: height * 0.1, color: theme.COLORS.PRIMARY}}>
+        <Text>Loading...</Text>
+        <Block row center space="between" style={{ marginVertical: theme.SIZES.BASE * 0.5 }}>
+          <Block flex middle right>
+          
+          </Block>
+          <Block flex middle center>
+         
+              <Image
+          style={styles.largeLogo}
+          source={require("../../assets/icon2.png")}
         />
-        <Text style={styles.subHeader}>
-          The once a day way to achieve your goals.
+          </Block>
+          <Block flex middle left>
+         
+          </Block>
+        </Block>
+        <Text muted center size={theme.SIZES.FONT * 0.875} color={theme.COLORS.PRIMARY}>
+          The once a day way to achieve your goals
         </Text>
+      </Block>
 
+      <Block flex={2} center space="evenly">
+        <Block flex={2}>
         {!user.id && (
           <AuthForm
             formType={formType}
@@ -57,37 +84,39 @@ function HomeScreen({ navigation, login, user, error }) {
             onEmailChange={(newEmail) => setEmail(newEmail)}
             onPasswordChange={(newPassword) => setPassword(newPassword)}
             onPress={() => onButtonPress()}
-          />
-        )}
-        <Image
-          style={styles.largeLogo}
-          source={require("../../assets/icon2.png")}
-        />
-
-        {!user.id && (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              navigation.navigate("SignUp");
-            }}
-          >
-            <Text style={styles.buttonText}> Not a User? Sign Up</Text>
-          </TouchableOpacity>
-        )}
-
+          />)}
+        
+        
+        </Block>
+        {!user.id && (<Block flex middle>
+        <Button color="transparent" shadowless onPress={() => navigation.navigate('SignUp')}>
+            <Text center color={theme.COLORS.PRIMARY} size={theme.SIZES.FONT * 0.75}>
+              {"Don't have an account? Sign Up"}
+            </Text>
+          </Button>
+        </Block> )}
         {user.id && (
-          <TouchableOpacity
-            style={styles.button}
+          <Button
+            color={theme.COLORS.PRIMARY}
             onPress={() => {
               navigation.navigate("Welcome");
             }}
           >
             <Text style={styles.buttonText}> Back to DashBoard</Text>
-          </TouchableOpacity>
+          </Button>
         )}
-        <StatusBar style="auto" />
-      </View>
-    </ScrollView>
+         <Button
+         round
+            color={theme.COLORS.PRIMARY}
+            onPress={() => {
+              navigation.navigate("Welcome");
+            }}
+          >
+            <Text style={styles.buttonText}> Back to DashBoard</Text>
+          </Button>
+      </Block>
+    </KeyboardAvoidingView>
+  </Block>
   );
 }
 
