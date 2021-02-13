@@ -1,23 +1,20 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Keyboard,
-  Alert,
-} from "react-native";
+import { StyleSheet, Dimensions, View, Keyboard, Alert } from "react-native";
+
+import { Text, Input, Card, Block, Icon, Button } from "galio-framework";
 import { Pedometer } from "expo-sensors";
 import LottieView from "lottie-react-native";
+import theme from "../theme";
+const width = Dimensions.get("window").width;
 
 export default class StepsScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      isPedometerAvailable: true,
+      isPedometerAvailable: false,
       currSteps: 0,
-      goalSteps: "1",
-      animation: 0,
+      goalSteps: "",
+      animate: false,
     };
 
     this.watchSteps = this.watchSteps.bind(this);
@@ -27,13 +24,18 @@ export default class StepsScreen extends React.Component {
   componentDidMount() {
     this.checkPedometer();
     this.watchSteps();
-    this.animation.play(0, 0);
+    this.play.animation(0, 0);
   }
-
-  resetAnimation = () => {
-    this.animation.reset();
-    this.animation.play();
-  };
+  componentDidUpdate() {
+    if (
+      this.state.currSteps >= Number(this.state.goalSteps) &&
+      Number(this.state.goalSteps) > 0 &&
+      !this.state.animate
+    ) {
+      this.setState({ animate: true });
+      this.animation.play(0, 160);
+    }
+  }
 
   componentWillUnmount() {
     this._unsubscribe();
@@ -59,17 +61,18 @@ export default class StepsScreen extends React.Component {
     return (
       <View style={styles.container}>
         {this.state.isPedometerAvailable ? (
-          <Text>You're ready to play!</Text>
+          <Text p>You're ready to play!</Text>
         ) : (
           Alert.alert(
             "You need to allow access to your pedometer to play this game"
           )
         )}
 
-        <Text>Input your quick step goal:</Text>
-        <TextInput
+        <Text p>Set your quick step goal:</Text>
+        <Input
           style={styles.input}
           autoCapitalize="none"
+          placeholder="enter step goal"
           autoCorrect={false}
           value={this.state.goalSteps}
           onChangeText={(newValue) => this.setState({ goalSteps: newValue })}
@@ -78,17 +81,12 @@ export default class StepsScreen extends React.Component {
           }}
         />
         {Number(this.state.goalSteps) > 1 && (
-          <Text>
+          <Text p>
             Walk {this.state.goalSteps} steps to get the Vitamon to dance!
           </Text>
         )}
-        <Text>Progress: {this.state.currSteps}</Text>
-        {this.state.currSteps < Number(this.state.goalSteps) &&
-        this.state.goalSteps
-          ? null
-          : this.resetAnimation()}
         <LottieView
-          isStopped={this.state.isStopped}
+          autoPlay={false}
           ref={(animation) => {
             this.animation = animation;
           }}
@@ -100,6 +98,8 @@ export default class StepsScreen extends React.Component {
           }}
           source={require("../../assets/40864-the-awkward-monster.json")}
         />
+        <Text h5>Progress:</Text>
+        <Text p> {this.state.currSteps} steps</Text>
       </View>
     );
   }
@@ -107,7 +107,7 @@ export default class StepsScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#F5F4F6",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -128,5 +128,10 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     textAlign: "center",
+  },
+  input: {
+    borderColor: theme.COLORS.PRIMARY,
+    width: width * 0.4,
+    backgroundColor: "#F2F2F2",
   },
 });
