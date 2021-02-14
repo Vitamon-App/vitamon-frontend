@@ -5,8 +5,7 @@ import { connect } from "react-redux";
 import { fetchGoals } from "../store/allTheUsersGoals";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 // Galio components
-import { Block, Text, Icon, Button } from "galio-framework";
-import { LinearGradient } from "expo-linear-gradient";
+import { Block, Text, Button } from "galio-framework";
 import theme from "../theme";
 const width = Dimensions.get("window").width;
 const cardWidth = width - theme.SIZES.BASE * 2;
@@ -92,7 +91,6 @@ const styles = StyleSheet.create({
   cards: {
     width,
     backgroundColor: theme.COLORS.CULTURED,
-    // alignItems: 'center',
     justifyContent: "flex-end",
   },
   button: {
@@ -115,27 +113,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
-
-  card: {
-    backgroundColor: theme.COLORS.CULTURED,
-    width: width - theme.SIZES.BASE * 2,
-    marginVertical: theme.SIZES.BASE * 0.875,
-    elevation: theme.SIZES.BASE / 2,
-  },
   container: {
     flex: 1,
     backgroundColor: theme.COLORS.CULTURED,
     alignItems: "center",
     justifyContent: "center",
-    // borderRadius: 50,
     color: "white",
-    // borderColor: "transparent",
   },
   goalContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    // padding: 20,
     backgroundColor: "white",
     borderRadius: 8,
     margin: 20,
