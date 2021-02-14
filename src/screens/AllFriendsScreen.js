@@ -93,7 +93,7 @@ class AllFriendsScreen extends React.Component {
                         round
                         size="small"
                         color="#5539AA"
-                        onPress={() => this.props.navigation.navigate("Home")}
+                        onPress={() => this.props.navigation.navigate("FriendsGoals", {friend: friend})}
                       >
                         GOALS
                       </Button>
@@ -175,6 +175,9 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderBottomRightRadius: theme.SIZES.BASE * 0.5,
     borderBottomLeftRadius: theme.SIZES.BASE * 0.5,
+  },
+  primary: {
+    backgroundColor: theme.COLORS.primary
   },
 
   buttonContainer: {

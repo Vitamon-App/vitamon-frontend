@@ -4,8 +4,8 @@ import { logout } from "../store/user";
 // import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
 // import { Asset } from 'expo-asset';
 import { StyleSheet, Switch, FlatList, Platform, TouchableOpacity, View, Alert } from "react-native";
-import { Block, Text, theme, Icon, Button } from "galio-framework";
-
+import { Block, Text, Icon, Button } from "galio-framework";
+import theme from '../theme.js'
 // import materialTheme from '../constants/Theme';
 
  class SettingsScreen extends React.Component {
@@ -27,7 +27,7 @@ import { Block, Text, theme, Icon, Button } from "galio-framework";
               onValueChange={() => this.toggleSwitch(item.id)}
               ios_backgroundColor={theme.COLORS.SWITCH_OFF}
               thumbColor={Platform.OS === 'android' ? theme.COLORS.SWITCH_OFF : null}
-              trackColor={{ false: theme.COLORS.SWITCH_OFF, true: theme.COLORS.SWITCH_ON }}
+              trackColor={{ false: theme.COLORS.SWITCH_OFF, true: theme.COLORS.PRIMARY }}
               value={this.state[item.id]}
             />
           </Block>
@@ -117,7 +117,7 @@ import { Block, Text, theme, Icon, Button } from "galio-framework";
   
       <Button 
           style={styles.button} 
-          color="primary" 
+          color={theme.COLORS.PRIMARY}
           round
           iconSize={theme.SIZES.BASE * 1}
           icon="logout"
@@ -131,7 +131,7 @@ import { Block, Text, theme, Icon, Button } from "galio-framework";
                 </Button>
         <Button 
           style={styles.button} 
-          color="primary" 
+          color={theme.COLORS.PRIMARY} 
           round
           // iconSize={theme.SIZES.BASE * 1}
           // icon="monster"

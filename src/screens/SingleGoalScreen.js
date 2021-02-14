@@ -80,8 +80,9 @@ class SingleGoalScreen extends React.Component {
           <StepGoalDetails
             goal={this.props.goal}
             days={this.state.days}
-            isPedometerAvailable={this.state.isPedometerAvailable}
             handleUpdate={this.handleSingleUpdate}
+            isPedometerAvailable={this.state.isPedometerAvailable}
+           
           />
         )}
       </View>

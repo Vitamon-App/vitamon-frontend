@@ -1,23 +1,35 @@
 import React from "react";
-
 import {
   StyleSheet,
-  Text,
+  // Text,
+  StatusBar,
+  // Image,
   View,
   TouchableOpacity,
   Dimensions,
   ScrollView,
 } from "react-native";
+import GifMonster from './GifMonster'
+import Constants from 'expo-constants';
+
+const { statusBarHeight } = Constants;
+// galio components
+import {
+  Block, Card, Text, Icon, NavBar, Image, Button
+} from 'galio-framework';
+import theme from '../theme';
 import Monster from "../components/Monster";
 import { connect } from "react-redux";
 import { DataTable } from "react-native-paper";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { setGoal, updateGoal } from "../store/goal";
 import { Entypo } from "@expo/vector-icons";
+// import DataTable from './DataTableForm'
+
 
 import { isFuture } from "date-fns";
 
-const width = Dimensions.get("window").width;
+const { width, height } = Dimensions.get('screen');
 
 class WaterGoalDetails extends React.Component {
   constructor() {
@@ -27,24 +39,55 @@ class WaterGoalDetails extends React.Component {
   render() {
     const { goal } = this.props || {};
     let progress = ((goal.completedDays / goal.numberOfDays) * 100).toFixed(0);
-    let goalDetails = `Drink ${goal.quantity} glasses of water a day`;
+    let goalDetails = `drink ${goal.quantity} bottles of water a day`;
 
     return (
-      <ScrollView style={styles.headlineContainer}>
-        <View>
+      <Block>
+      <StatusBar barStyle="light-content" />
+     
+  <GifMonster monsterStatus={goal.status} monsterType={goal.type}/>
+      <Block center >
+        <Block flex style={styles.header}>
+          <Block>
+          <ScrollView
+  // horizontal={true}
+  // // contentContainerStyle={{ width: `${100 * intervals}%` }}
+  // showsHorizontalScrollIndicator={false}
+  // scrollEventThrottle={200}
+  // decelerationRate="fast"
+  // pagingEnabled
+>
+  <ScrollView>
+          <Block >
+  
           {goal.type && (
             <View>
-              <Text style={styles.headline}>Goal Details:</Text>
-              <Monster monsterType={goal.type} monsterStatus={goal.status} />
-              <Text style={styles.subheading}>{goalDetails}</Text>
-              <Text style={styles.subheading}>
+              {(goal.status === 'start') && 
+              <Text style={styles.headline}> What will your little egg hatch into? Keep feeding your Vitamon by completing your goals to find out!</Text> }
+                       {(goal.status === 'middle') && 
+              <Text style={styles.instructions}> Your Vitamon is growing from being fed by your healthy habits! </Text> }
+                                 {(goal.status === 'warning') && 
+              <Text style={styles.instructions}> Seems like you've missed a day or two, get back on track to get your Vitamon healthy again. </Text> }
+                                           {(goal.status === 'fail') && 
+              <Text style={styles.instructions}> Unfortunetly, you've missed too many days. Your Vitamon can not recover. </Text> }
+                                                      {(goal.status === 'complete') && 
+              <Text style={styles.instructions}> Congratulations! You completed your goal! Your Vitamon is full grown! </Text> }
+              <Text style={styles.text}>You said you'd {goalDetails} for {goal.numberOfDays} days</Text>
+              {/* <Text>
                 Goal Length: {goal.numberOfDays} days
+              </Text> */}
+              <Text >
+                So far, you've completed {goal.completedDays} out of {goal.numberOfDays} days!
               </Text>
-              <Text style={styles.subheading}>
-                Days Completed: {goal.completedDays} days
-              </Text>
-              <Text style={styles.subheading}>Completion Status:</Text>
-              <AnimatedCircularProgress
+              <Text
+                      p
+                      color={theme.COLORS.MUTED}
+                      size={theme.SIZES.FONT * 0.875}
+                      style={{ marginLeft: theme.SIZES.BASE * 0.25 }}
+                    >Completion Status:</Text>
+                    <Block>
+                    <Block flex left>
+                    <AnimatedCircularProgress
                 size={200}
                 width={15}
                 fill={progress}
@@ -53,6 +96,25 @@ class WaterGoalDetails extends React.Component {
               >
                 {(fill) => <Text>{progress}%</Text>}
               </AnimatedCircularProgress>
+              </Block>
+              <Block flex right>
+          
+                   <Button
+            color={theme.COLORS.PRIMARY}
+            shadowColor={theme.COLORS.DRIBBBLE}
+            onPress={() => {
+              this.props.navigation.navigate("Welcome");
+            }}
+          >
+            <Text style={styles.buttonText}> Log Your Progress > </Text>
+          </Button>
+              </Block>
+              <Block flex middle left>
+             
+              </Block>
+            
+              </Block>
+         
               <DataTable>
                 <DataTable.Header>
                   <DataTable.Title>Day</DataTable.Title>
@@ -88,10 +150,24 @@ class WaterGoalDetails extends React.Component {
                   );
                 })}
               </DataTable>
+              {/* <View style={{width: width, height: 300, color: 'white'}}></View> */}
+      
+   
             </View>
           )}
-        </View>
+          </Block>
+        {/* </View> */}
+        {/* <Image source={{uri: bgImage}} /> */}
+        </ScrollView>
       </ScrollView>
+
+          </Block>
+  
+        
+         
+        </Block>
+      </Block>
+    </Block>
     );
   }
 }
@@ -118,15 +194,15 @@ const styles = StyleSheet.create({
     paddingTop: "18%",
     paddingLeft: 20,
     paddingRight: 20,
-    backgroundColor: "#8c55fa",
+    backgroundColor: theme.COLORS.WHITE,
   },
   headline: {
     marginTop: 10,
-    color: "white",
-    fontSize: 26,
+    color: theme.COLORS.OCEANBLUE,
+    fontSize: 20,
     textAlign: "center",
-    marginBottom: 20,
-    fontWeight: "500",
+    marginBottom: 5,
+    fontWeight: "600",
   },
   subheading: {
     fontWeight: "700",
@@ -154,13 +230,24 @@ const styles = StyleSheet.create({
     fontSize: 0.045 * width,
     textAlign: "center",
     padding: 10,
-    color: "#424347",
+    color: theme.COLORS.BLUEVIOLET,
+    fontWeight: "500",
+
+  },
+  text : {
+    alignSelf: "center",
+    // margin: 5,
+    fontSize: 0.035 * width,
+    textAlign: "center",
+    padding: 5,
+    color: theme.COLORS.BLUEVIOLET,
+    fontWeight: "500",
   },
   input: {
-    height: 48,
+    height: 55,
     borderRadius: 5,
-    overflow: "hidden",
-    backgroundColor: "white",
+    // overflow: "hidden",
+    backgroundColor: theme.COLORS.WHITE,
     fontSize: 20,
     marginHorizontal: 15,
     paddingLeft: 10,

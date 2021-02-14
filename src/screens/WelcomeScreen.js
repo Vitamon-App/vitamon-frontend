@@ -5,84 +5,135 @@ import {
   View,
   Image,
   TouchableOpacity,
+  ImageBackground,
+  Platform,
+  Dimensions, 
+  Alert
 } from "react-native";
 import { Block, Button, Card, Icon, Input, NavBar } from 'galio-framework';
+
 import { connect } from "react-redux";
+import AppIntroSlider from 'react-native-app-intro-slider';
+import theme from '../theme';
+const { height, width } = Dimensions.get('window');
 
-function WelcomeScreen({ navigation}) {
-  return (
-    <View>
-      <Image source={require("../../assets/Welcome.png")} />
-      <Text style={styles.subHeader}>Navigate Below</Text>
+const slides = [
+  {
+    key: 1,
+    title: 'Welcome to Vitamon',
+    text: 'Swipe to get Started',
+    image: require('../../assets/slide1.png'),
+    backgroundColor: '#59b2ab',
+  },
+  {
+    key: 2,
+    title: 'Start A Goal',
+    text: 'Your Vitamon Depends On You',
+    image: require('../../assets/slide2.png'),
+    backgroundColor: '#febe29',
+  },
+  {
+    key: 3,
+    title: 'Stay On Task',
+    text: 'Keep You and Your Vitamon Healthy',
+    image: require('../../assets/slide3.png'),
+    backgroundColor: '#22bcb5',
+  },
+  {
+    key: 3,
+    title: 'Add Friends',
+    text: 'Your Friends Hold You Accountable',
+    image: require('../../assets/slide4.png'),
+    backgroundColor: '#22bcb5',
+  },
+  {
+  key: 3,
+  title: 'Try The Quick Game',
+  text: 'Instant Satisfaction between Long Term Goals',
+  image: require('../../assets/slide5.png'),
+  backgroundColor: '#00000'}
+];
+ 
+ class WelcomeScreen extends React.Component {
+  state = {
+    showRealApp: false
+  }
+  _renderItem = ({ item }) => {
+    return (
      
-      {/* <Image source={require("../../assets/waterbaby.gif")} /> */}
-      <Text> or go to your user settings or profile:</Text>
-      <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity
-          style={styles.buttonOne}
-          onPress={() => {
-            navigation.navigate("Settings");
-          }}
-        >
-          <Text style={styles.buttonText}>Settings</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.buttonTwo}
-          onPress={() => {
-            navigation.navigate("UserStats");
-          }}
-        >
-          <Text style={styles.buttonText}>Profile</Text>
-        </TouchableOpacity>
+      
+  
+      <View style={styles.slide2}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Image source={item.image} />
+        <Text style={styles.text}>{item.text}</Text>
       </View>
-    </View>
-  );
+      
+   
+    );
+  }
+  _onDone = () => {
+    // User finished the introduction. Show real app through
+    // navigation or simply by controlling state
+    this.setState({ showRealApp: false });
+    Alert.alert('Feed Your Vitamons Go to Goals Below!')
+  }
+  render() {
+    if (this.state.showRealApp) {
+      return <App />;
+    } else {
+      return <AppIntroSlider renderItem={this._renderItem} data={slides} onDone={this._onDone}/>;
+    }
+  }
 }
-
 const styles = StyleSheet.create({
-  subHeader: {
-    fontSize: 20,
-    fontWeight: "bold",
-    
-    color: "red",
+  buttonCircle: {
+    // width: 40,
+    // height: 40,
+    backgroundColor: 'rgba(0, 0, 0, .2)',
+    // borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  mediumLogo: {
-    width: 100,
-    height: 100,
-    alignSelf: "center",
+  slide: {
+    // width: 200,
+    // height: 200,
+    resizeMode: 'contain'
   },
-  buttonOne: {
-    marginLeft: 10,
-    marginTop: 20,
-    backgroundColor: "#9F1BEE",
-    paddingVertical: 12,
-    borderRadius: 10,
-    alignSelf: "flex-start",
+  text: {
+    paddingTop: 25,
+    paddingBottom: 10,
+    fontSize: 23,
+    fontWeight: 'bold',
+    color: theme.COLORS.BLUEVIOLET,
+    alignSelf: 'center'
   },
-  buttonTwo: {
-    marginLeft: 10,
-    marginTop: 20,
-    backgroundColor: "#9F1BEE",
-    paddingVertical: 12,
-    borderRadius: 10,
-    alignSelf: "flex-end",
+  title: {
+    fontSize: 26,
+    color: theme.COLORS.PRIMARY,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    // marginTop: 20,
   },
-  buttonText: {
-    fontWeight: "600",
-    color: "white",
-    fontSize: 18,
-    textAlign: "center",
-  },
-});
-
-const mapState = (state) => {
-  return {
-    user: state.user,
-    //friends: state.friends,
-  };
-};
+  slide2: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // padding: 20
+    resizeMode: 'contain'
+  }
+})
 
 
+// const mapState = (state) => {
+//   return {
+//     user: state.user,
+//     //friends: state.friends,
+//   };
+// };
 
-export default connect(mapState)(WelcomeScreen);
+
+
+// export default connect(mapState)(WelcomeScreen);
+export default WelcomeScreen
+

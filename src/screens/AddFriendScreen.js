@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Alert, Dimensions, Keyboard } from "react-native";
+import { View, StyleSheet, Alert, Dimensions, Keyboard, Image } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import SearchBar from "../components/SearchBar";
 import { connect } from "react-redux";
-import { findFriend } from "../store/friend";
+import { findFriend, clearFriend } from "../store/friend";
 import { addFriendThunk, fetchFriends } from "../store/friends";
 
 import {
@@ -20,10 +20,15 @@ function AddFriendScreen({
   friends,
   addFriend,
   navigation,
+  clearFoundFriend
 }) {
   const [searchEmail, setSearchEmail] = useState("");
-  // const [foundFriend, setFoundFriend] = useState("");
- 
+  
+ useEffect(()=> {
+   if(foundFriend.name) {
+     clearFoundFriend()
+   }
+ }, [])
 
 
   //searchEmail is on state, set on change when the user types input
@@ -32,6 +37,7 @@ function AddFriendScreen({
     Keyboard.dismiss();
     try {
       await searchFriend(searchEmail);
+      setSearchEmail("")
     } catch (err) {
       console.log(err);
     }
@@ -41,10 +47,12 @@ function AddFriendScreen({
     try {
       const friendId = foundFriend.id;
       await addFriend(user.id, friendId);
+   
     
       navigation.navigate("Home");
-      // setFoundFriend("")
-      return Alert.alert("Friend Added!");
+     
+      Alert.alert("Friend Added!");
+     
       
       //  navigation.navigate("Friends")
       //  await setFriends(user.id)
@@ -56,7 +64,7 @@ function AddFriendScreen({
   // useEffect(()=> {
 
   // }, )
-
+console.log(foundFriend)
   return (
     <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
      <Text size={theme.SIZES.FONT * 2} bold>Search for a friend by email!</Text>
@@ -78,6 +86,7 @@ function AddFriendScreen({
       !friends.map((friend) => friend.email).includes(foundFriend.email) ? (
         <View>
            <Text h3> Add {foundFriend.name} as a friend!</Text>
+           <Image source={{uri: `${foundFriend.imageUrl}`}}/>
           <Card
                 flex
                 borderless
@@ -176,6 +185,9 @@ const mapDispatch = (dispatch) => {
     setFriends: (userId) => {
       dispatch(fetchFriends(userId));
     },
+    clearFoundFriend: () => {
+      dispatch(clearFriend())
+    }
   };
 };
 
