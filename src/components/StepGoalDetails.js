@@ -20,10 +20,10 @@ class StepGoalDetails extends React.Component {
 
     return (
       <View>
-        {goal.type ? (
+        {goal.type && (
           <View>
-            <Monster monsterType={goal.type} monsterStatus={goal.status} />
             <Text>Goal Details:</Text>
+            <Monster monsterType={goal.type} monsterStatus={goal.status} />
             <Text>{goalDetails}</Text>
             <Text>Goal Length: {goal.numberOfDays} days</Text>
             {/* <Text>Your Steps From The Past 24 Hours: {this.state.steps}</Text> */}
@@ -81,8 +81,6 @@ class StepGoalDetails extends React.Component {
               })}
             </DataTable>
           </View>
-        ) : (
-          <View></View>
         )}
       </View>
     );
