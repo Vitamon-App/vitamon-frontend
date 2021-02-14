@@ -44,7 +44,7 @@ class StepGoalDetails extends React.Component {
            <Block flex style={styles.header}>
 
       <View>
-        {goal.type ? (
+        {goal.type && (
           <View>
               {/* <Text>Goal Details:</Text>
             <Monster monsterType={goal.type} monsterStatus={goal.status} /> */}
@@ -55,7 +55,7 @@ class StepGoalDetails extends React.Component {
                                  {(goal.status === 'warning') && 
               <Text style={styles.instructions}> Seems like you've missed a day or two, get back on track to get your Vitamon healthy again. </Text> }
                                            {(goal.status === 'fail') && 
-              <Text style={styles.instructions}> Unfortunetly, you've missed too many days. Your Vitamon can not recover. </Text> }
+              <Text style={styles.instructions}> Unfortunately, you've missed too many days. Your Vitamon can not recover. </Text> }
                                                       {(goal.status === 'complete') && 
               <Text style={styles.instructions}> Congratulations! You completed your goal! Your Vitamon is full grown! </Text> }
               <Text style={styles.text}>You said you'd {goalDetails} for {goal.numberOfDays} days</Text>
@@ -125,8 +125,6 @@ class StepGoalDetails extends React.Component {
               })}
             </DataTable>
           </View>
-        ) : (
-          <View></View>
         )}
       </View>
       </Block>

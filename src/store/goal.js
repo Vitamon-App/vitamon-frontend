@@ -34,10 +34,7 @@ export const editGoal = (goal) => {
 
 export const updateGoal = (goal, update) => async (dispatch) => {
   try {
-    const { data } = await vitamon.put(
-      `/api/goals/${goal.id}`,
-      update
-    );
+    const { data } = await vitamon.put(`/api/goals/${goal.id}`, update);
     dispatch(editGoal(data));
   } catch (err) {
     console.log("There was a problem updating the goal", err);
@@ -53,14 +50,6 @@ export default function goalReducer(state = initialState, action) {
       return action.goal;
     case EDIT_GOAL:
       return action.goal;
-    // return {
-    //   ...state,
-    //   usergoal: {
-    //     ...state.usergoal,
-    //     completedDays: action.goal.completedDays,
-    //     status: action.goal.status,
-    //   },
-    // };
     default:
       return state;
   }

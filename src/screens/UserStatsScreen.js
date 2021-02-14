@@ -1,18 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   StyleSheet,
   Image,
-  Text,
+  Dimensions,
+  //Text,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { Text, Card, Block, Icon, Button } from "galio-framework";
+import theme from "../theme";
 import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import WaterVisualData from "../components/WaterVisualData";
 import StepVisualData from "../components/StepVisualData";
 
 import { fetchGoals } from "../store/allTheUsersGoals";
+import LottieView from "lottie-react-native";
+import animationData from "../../assets/38463-error.json";
+
+const width = Dimensions.get("window").width;
 function UserStatsScreen({ user, goals, setUserGoals }) {
   console.log("user.goals: ", goals);
 
@@ -100,67 +107,128 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
   };
 
   return (
+    // <Block>
     <ScrollView>
       {/* <Text style={styles.textStyle}>UserStats</Text> */}
-      <Image
+      {/* <Image
         source={require("../../assets/profile2.png")}
+        // source={{
+        //   uri:
+        //     '../public/images/anonymous-avatar-sm.jpg',
+        // }}
         style={{ alignSelf: "center" }}
-      />
+      /> */}
       {goals.length ? (
-        <View>
-          <View>
-            <Text style={styles.subHead1}>Current Stats</Text>
+        <Block>
+          <View style={styles.header}>
+            <Image
+              style={{ width: 50, height: 50, borderRadius: 400 / 2 }}
+              source={{ uri: user.imageUrl }}
+              //resizeMode={"cover"}
+            />
+            <Text style={styles.subHead1}> {user.name}'s Profile</Text>
           </View>
 
           <View style={styles.buttonWrapper}>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity onPress={() => changeSelectedToText()}>
+              <Button
+                small
+                round
+                size="small"
+                style={styles.button}
+                color="#2C148B"
+                onPress={() => changeSelectedToText()}
+              >
                 <Text style={styles.buttonText}>Text</Text>
-              </TouchableOpacity>
+              </Button>
             </View>
-
+            <Text> {"     "}</Text>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity onPress={() => changeSelectedToVisual()}>
+              <Button
+                small
+                round
+                size="small"
+                style={styles.button}
+                color="#2C148B"
+                onPress={() => changeSelectedToVisual()}
+              >
                 <Text style={styles.buttonText}>Visual</Text>
-              </TouchableOpacity>
+              </Button>
             </View>
           </View>
           <View>
             {selected === "text" ? (
               <View>
-                <Text style={styles.subHead2}>Text stuff</Text>
-                {}
-                <Text style={styles.subHead3}>Water Stats</Text>
-                <SimpleLineIcons name="drop" size={15} color={"blue"} />
-                {isWater() ? (
-                  completedWater() ? (
-                    <Text>
-                      By completing your water goal you have dranked{" "}
-                      {completedWater()} bottles of water !!!!!
-                    </Text>
+                <Card
+                  style={styles.cards}
+                  shadowColor={theme.COLORS.BLACK}
+                  style={styles.card}
+                  flex
+                  borderless
+                >
+                  <Text style={styles.subHead3}>Water Stats</Text>
+                  {/*  <SimpleLineIcons name="drop" size={15} color={"blue"} /> */}
+                  {isWater() ? (
+                    completedWater() ? (
+                      <View>
+                        <View style={styles.lottieImage}>
+                          <LottieView
+                            autoPlay
+                            loop
+                            style={{
+                              width: 100,
+                              height: 100,
+                              backgroundColor: "#eee",
+                              alignItems: "center",
+                              shadowColor: "#F5F4F6",
+                            }}
+                            source={require("../../assets/lf30_editor_twphuvjm.json")}
+                          />
+                          <Text style={styles.textStyle}>
+                            By completing your water goal you have dranked{" "}
+                            {completedWater()} bottles of water !
+                          </Text>
+                        </View>
+                      </View>
+                    ) : (
+                      <Text>No water goals completed yet </Text>
+                    )
                   ) : (
-                    <Text>No water goals completed yet </Text>
-                  )
-                ) : (
-                  <Text>You dont have any water goals !!</Text>
-                )}
-                <Text style={styles.subHead3}>Steps Stats</Text>
-                {isSteps() ? (
-                  completedSteps() ? (
-                    <Text>
-                      By completing your step goals you have walked{" "}
-                      {completedSteps()} steps!!!!!
-                    </Text>
+                    <Text>You dont have any water goals !!</Text>
+                  )}
+                </Card>
+                <Card borderless>
+                  <Text style={styles.subHead3}>Step Stats</Text>
+                  {isSteps() ? (
+                    completedSteps() ? (
+                      <View style={styles.lottieImage}>
+                        <LottieView
+                          autoPlay
+                          loop
+                          style={{
+                            width: 200,
+                            height: 200,
+                            backgroundColor: "#eee",
+                            alignItems: "center",
+                            shadowColor: "#F5F4F6",
+                          }}
+                          source={require("../../assets/lf20_foxtV6.json")}
+                        />
+                        <Text style={styles.textStyle}>
+                          By completing your step goals you have walked{" "}
+                          {completedSteps()} steps!
+                        </Text>
+                      </View>
+                    ) : (
+                      <Text>No step goals completed yet </Text>
+                    )
                   ) : (
-                    <Text>No step goals completed yet </Text>
-                  )
-                ) : (
-                  <Text>You dont have any step goals !!</Text>
-                )}
+                    <Text>You dont have any step goals !</Text>
+                  )}
+                </Card>
               </View>
             ) : (
               <View>
-                <Text style={styles.subHead2}>Visual stuff</Text>
                 <View style={styles.chartContainer1}>
                   <Text style={styles.subHead3}>Water Stats</Text>
                   {isWater() ? (
@@ -174,7 +242,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                       <Text>No water goals completed yet </Text>
                     )
                   ) : (
-                    <Text>You dont have any water goals!!</Text>
+                    <Text>You dont have any water goals!</Text>
                   )}
                 </View>
                 <View style={styles.chartContainer2}>
@@ -190,19 +258,50 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                       <Text>No step goals completed yet </Text>
                     )
                   ) : (
-                    <Text>You dont have any step goals!!</Text>
+                    <Text>You dont have any step goals!</Text>
                   )}
                 </View>
               </View>
             )}
           </View>
-        </View>
+        </Block>
       ) : (
         <View>
-          <Text>No Stats Available</Text>
+          <View>
+            <View style={styles.header}>
+              <Image
+                style={{ width: 50, height: 50, borderRadius: 400 / 2 }}
+                source={{ uri: user.imageUrl }}
+                //resizeMode={"cover"}
+              />
+
+              <Text style={styles.subHead1}>{user.name}'s Profile</Text>
+            </View>
+            <Text style={styles.subHeadNoProflie}>
+              Sorry No Stats Available
+            </Text>
+          </View>
+          <View style={styles.lottieImage}>
+            <LottieView
+              autoPlay
+              loop
+              style={{
+                width: 200,
+                height: 200,
+                backgroundColor: "#eee",
+                alignItems: "center",
+              }}
+              source={require("../../assets/38463-error.json")}
+            />
+          </View>
+          <Text style={styles.subHeadNoProflie}>
+            Stats Will Be Available Once
+          </Text>
+          <Text style={styles.subHeadNoProflie}>You Have Complete A Goal</Text>
         </View>
       )}
     </ScrollView>
+    // </Block>
   );
 }
 const mapState = (state) => {
@@ -220,18 +319,27 @@ const mapDispatch = (dispatch) => {
   };
 };
 const styles = StyleSheet.create({
+  cards: {
+    width,
+    backgroundColor: "#2C148B",
+    alignItems: "center",
+    justifyContent: "flex-start",
+  },
   textStyle: {
     color: "#f5f5f5",
-    fontSize: 30,
+    fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
     marginTop: 10,
+    marginBottom: 20,
     // width: 200,
-    backgroundColor: "#9c9aff",
+    backgroundColor: "#5539AA",
   },
   subHead1: {
-    fontSize: 22,
-    color: "#B46CF7",
+    fontSize: 38,
+    textAlign: "center",
+    color: "#2C148B",
+    fontWeight: "bold",
   },
   subHead2: {
     fontSize: 22,
@@ -239,16 +347,26 @@ const styles = StyleSheet.create({
     marginTop: 19,
   },
   subHead3: {
+    fontSize: 28,
+    textAlign: "center",
+    color: "#2C148B",
+    fontWeight: "bold",
+    // marginTop: 5,
+  },
+  subHeadNoProflie: {
     fontSize: 18,
-    color: "#7a77d9",
     marginTop: 19,
+    textAlign: "center",
+    color: "#2C148B",
+    fontWeight: "bold",
+    // marginTop: 5,
   },
   buttonContainer: {
     height: 40,
     width: 90,
     marginTop: 19,
     marginHorizontal: 10,
-    backgroundColor: "#97A5E9",
+    backgroundColor: "#5539AA",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -257,15 +375,38 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   buttonWrapper: {
+    marginTop: 19,
     flexWrap: "wrap",
     alignItems: "flex-start",
     flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
   },
   chartContainer1: {
     marginTop: 10,
   },
   chartContainer2: {
     marginTop: 10,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  lottieImage: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    //padding: 15,
+    //backgroundColor: "#F5F4F6",
+    shadowColor: "#F5F4F6",
+    shadowOpacity: 0.0,
+  },
+  header: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
   },
 });
 
