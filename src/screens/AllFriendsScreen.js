@@ -13,11 +13,15 @@ import {
 
 import { connect } from "react-redux";
 import { fetchFriends } from "../store/friends";
+import GoalsOfFriends from "../components/GoalsOfFriends"
 // Galio components
 import { Text, Card, Block, NavBar, Icon, Button } from "galio-framework";
 import theme from "../theme";
 
 const width = Dimensions.get("window").width;
+
+
+
 
 class AllFriendsScreen extends React.Component {
   async componentDidMount() {
@@ -25,16 +29,50 @@ class AllFriendsScreen extends React.Component {
   }
 
   render() {
+    const user = this.props.user
     const friends = this.props.friends || [];
-    const { navigation } = this.props;
-    // console.log(friends)
+
+    console.log(friends)
+    friends.push(this.props.user)
+    const {navigation} = this.props
+    let leaderBoard = {}
+    friends.forEach((friend) => {
+       leaderBoard[`${friend.name}`] = 0
+        friend.goals.forEach(goal =>{
+          if(goal.status === "complete"){
+          leaderBoard[`${friend.name}`]++
+          }} )
+         
+       })
+       //console.log("leaderBoard", leaderBoard)
+       friends.pop()
+    let ranking = Object.entries(leaderBoard)
+    let highest = []
+    //console.log("ranking", ranking.sort())
+    ranking.forEach(rank => {
+      if(rank[1] > 0){
+        highest = rank
+      }
+    if (highest[1] < rank[1]){
+        highest = rank
+      }
+    })
+    if(highest[0] === user.name){
+      highest[0] = "You are"
+    }
+    
     return (
-      <Block safe flex style={{ backgroundColor: "#F5F4F6" }}>
+      <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
         <ScrollView contentContainerStyle={styles.cards}>
           <Block flex space="between">
-            <Text size={theme.SIZES.FONT * 2} bold color="#2C148B">
+            <Text size={theme.SIZES.FONT * 2} bold>
               {" "}
               Here are all your friends!{" "}
+            </Text>
+            <Text style={styles.goalLeader}>
+              {highest.length === 0
+                ? "None of your friends have completed goals to be" :
+                 `${highest[0]} is`} the goal leader
             </Text>
             {friends.length ? (
               friends.map((friend, id) => (
@@ -44,6 +82,7 @@ class AllFriendsScreen extends React.Component {
                   borderless
                   shadowColor={theme.COLORS.BLACK}
                   titleColor={theme.COLORS.WHITE}
+
                   captionColor={theme.COLORS.WHITE}
                   style={styles.card}
                   //title={friend.name}
@@ -63,22 +102,26 @@ class AllFriendsScreen extends React.Component {
                   //avatar={`https://images.unsplash.com/photo-1571172964276-91faaa704e1f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80`}
                   image={`${friend.imageUrl}`}
                   imageStyle={styles.cardImageRadius}
+
                   imageStyle={styles.rounded}
                   imageBlockStyle={[
                     // { padding: theme.SIZES.BASE / 2 },
                     styles.noRadius,
                   ]}
                   footerStyle={styles.full}
+
                 >
-                  {/* <LinearGradient colors={['transparent', 'rgba(0,0,0, 0.8)']} style={styles.gradient} /> */}
+                 
                   <Text style={styles.textStyle}>{friend.name}</Text>
                 </Card>
+
               ))
             ) : (
               <Text style={{ marginVertical: theme.SIZES.FONT / 4 }} h1>
                 You haven't Added Any Friends Yet!
               </Text>
             )}
+
             <View style={styles.buttonContainer2}>
               <Button
                 style={styles.button}
@@ -89,6 +132,7 @@ class AllFriendsScreen extends React.Component {
                 Add a new friend!
               </Button>
             </View>
+
           </Block>
         </ScrollView>
       </Block>
@@ -132,6 +176,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: theme.SIZES.BASE * 0.5,
     borderBottomLeftRadius: theme.SIZES.BASE * 0.5,
   },
+
   buttonContainer: {
     height: 40,
     width: 5,
@@ -163,6 +208,12 @@ const styles = StyleSheet.create({
     //width: 200,
     backgroundColor: "#5539AA",
   },
+
+  goalLeader : {
+    fontSize: 18,
+    textAlign: "center"
+  }
+
 });
 
 const mapState = (state) => {
