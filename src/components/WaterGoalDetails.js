@@ -9,15 +9,21 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import GifMonster from './GifMonster'
-import Constants from 'expo-constants';
+import GifMonster from "./GifMonster";
+import Constants from "expo-constants";
 
 const { statusBarHeight } = Constants;
 // galio components
 import {
-  Block, Card, Text, Icon, NavBar, Image, Button
-} from 'galio-framework';
-import theme from '../theme';
+  Block,
+  Card,
+  Text,
+  Icon,
+  NavBar,
+  Image,
+  Button,
+} from "galio-framework";
+import theme from "../theme";
 import Monster from "../components/Monster";
 import { connect } from "react-redux";
 import { DataTable } from "react-native-paper";
@@ -26,10 +32,9 @@ import { setGoal, updateGoal } from "../store/goal";
 import { Entypo } from "@expo/vector-icons";
 // import DataTable from './DataTableForm'
 
-
 import { isFuture } from "date-fns";
 
-const { width, height } = Dimensions.get('screen');
+const { width, height } = Dimensions.get("screen");
 
 class WaterGoalDetails extends React.Component {
   constructor() {
@@ -43,131 +48,147 @@ class WaterGoalDetails extends React.Component {
 
     return (
       <Block>
-      <StatusBar barStyle="light-content" />
-     
-  <GifMonster monsterStatus={goal.status} monsterType={goal.type}/>
-      <Block center >
-        <Block flex style={styles.header}>
-          <Block>
-          <ScrollView
-  // horizontal={true}
-  // // contentContainerStyle={{ width: `${100 * intervals}%` }}
-  // showsHorizontalScrollIndicator={false}
-  // scrollEventThrottle={200}
-  // decelerationRate="fast"
-  // pagingEnabled
->
-  <ScrollView>
-          <Block >
-  
-          {goal.type && (
-            <View>
-              {(goal.status === 'start') && 
-              <Text style={styles.headline}> What will your little egg hatch into? Keep feeding your Vitamon by completing your goals to find out!</Text> }
-                       {(goal.status === 'middle') && 
-              <Text style={styles.instructions}> Your Vitamon is growing from being fed by your healthy habits! </Text> }
-                                 {(goal.status === 'warning') && 
-              <Text style={styles.instructions}> Seems like you've missed a day or two, get back on track to get your Vitamon healthy again. </Text> }
-                                           {(goal.status === 'fail') && 
-              <Text style={styles.instructions}> Unfortunetly, you've missed too many days. Your Vitamon can not recover. </Text> }
-                                                      {(goal.status === 'complete') && 
-              <Text style={styles.instructions}> Congratulations! You completed your goal! Your Vitamon is full grown! </Text> }
-              <Text style={styles.text}>You said you'd {goalDetails} for {goal.numberOfDays} days</Text>
-              {/* <Text>
+        <ScrollView>
+          <StatusBar barStyle="light-content" />
+          <GifMonster monsterStatus={goal.status} monsterType={goal.type} />
+          <Block center>
+            <Block flex style={styles.header}>
+              <Block>
+                <Block>
+                  {goal.type && (
+                    <View>
+                      {goal.status === "start" && (
+                        <Text style={styles.headline}>
+                          {" "}
+                          What will your little egg hatch into? Keep feeding
+                          your Vitamon by completing your goals to find out!
+                        </Text>
+                      )}
+                      {goal.status === "middle" && (
+                        <Text style={styles.instructions}>
+                          {" "}
+                          Your Vitamon is growing from being fed by your healthy
+                          habits!{" "}
+                        </Text>
+                      )}
+                      {goal.status === "warning" && (
+                        <Text style={styles.instructions}>
+                          {" "}
+                          Seems like you've missed a day or two, get back on
+                          track to get your Vitamon healthy again.{" "}
+                        </Text>
+                      )}
+                      {goal.status === "fail" && (
+                        <Text style={styles.instructions}>
+                          {" "}
+                          Unfortunetly, you've missed too many days. Your
+                          Vitamon can not recover.{" "}
+                        </Text>
+                      )}
+                      {goal.status === "complete" && (
+                        <Text style={styles.instructions}>
+                          {" "}
+                          Congratulations! You completed your goal! Your Vitamon
+                          is full grown!{" "}
+                        </Text>
+                      )}
+                      <Text style={styles.text}>
+                        You said you'd {goalDetails} for {goal.numberOfDays}{" "}
+                        days
+                      </Text>
+                      {/* <Text>
                 Goal Length: {goal.numberOfDays} days
               </Text> */}
-              <Text >
-                So far, you've completed {goal.completedDays} out of {goal.numberOfDays} days!
-              </Text>
-              <Text
-                      p
-                      color={theme.COLORS.MUTED}
-                      size={theme.SIZES.FONT * 0.875}
-                      style={{ marginLeft: theme.SIZES.BASE * 0.25 }}
-                    >Completion Status:</Text>
-                    <Block>
-                    <Block flex left>
-                    <AnimatedCircularProgress
-                size={200}
-                width={15}
-                fill={progress}
-                tintColor="#7E5EC8"
-                backgroundColor="#2C148B"
-              >
-                {(fill) => <Text>{progress}%</Text>}
-              </AnimatedCircularProgress>
-              </Block>
-              <Block flex right>
-          
-                   <Button
-            color={theme.COLORS.PRIMARY}
-            shadowColor={theme.COLORS.DRIBBBLE}
-            onPress={() => {
-              this.props.navigation.navigate("Welcome");
-            }}
-          >
-            <Text style={styles.buttonText}> Log Your Progress > </Text>
-          </Button>
-              </Block>
-              <Block flex middle left>
-             
-              </Block>
-            
-              </Block>
-         
-              <DataTable>
-                <DataTable.Header>
-                  <DataTable.Title>Day</DataTable.Title>
-                  <DataTable.Title>Date</DataTable.Title>
-                  <DataTable.Title>Goal Completed?</DataTable.Title>
-                  <DataTable.Title></DataTable.Title>
-                </DataTable.Header>
-                {this.props.days.map((day, i) => {
-                  return (
-                    <DataTable.Row key={i}>
-                      <DataTable.Cell>{i + 1}</DataTable.Cell>
-                      <DataTable.Cell>
-                        {day.date.toLocaleDateString()}
-                      </DataTable.Cell>
-                      <DataTable.Cell>
-                        {day.status && (
-                          <Entypo name="check" size={24} color="black" />
-                        )}
-                      </DataTable.Cell>
-                      <DataTable.Cell>
-                        {!day.status && !isFuture(day.date) && (
-                          <TouchableOpacity
-                            onPress={() => {
-                              this.props.handleUpdate();
-                            }}
-                            style={styles.button}
+                      <Text>
+                        So far, you've completed {goal.completedDays} out of{" "}
+                        {goal.numberOfDays} days!
+                      </Text>
+                      <Text
+                        p
+                        color={theme.COLORS.MUTED}
+                        size={theme.SIZES.FONT * 0.875}
+                        style={{ marginLeft: theme.SIZES.BASE * 0.25 }}
+                      >
+                        Completion Status:
+                      </Text>
+                      <Block>
+                        <Block flex left>
+                          <AnimatedCircularProgress
+                            size={200}
+                            width={15}
+                            fill={progress}
+                            tintColor="#7E5EC8"
+                            backgroundColor="#2C148B"
                           >
-                            <Text style={styles.buttonText}>Complete</Text>
-                          </TouchableOpacity>
-                        )}
-                      </DataTable.Cell>
-                    </DataTable.Row>
-                  );
-                })}
-              </DataTable>
-              {/* <View style={{width: width, height: 300, color: 'white'}}></View> */}
-      
-   
-            </View>
-          )}
-          </Block>
-        {/* </View> */}
-        {/* <Image source={{uri: bgImage}} /> */}
-        </ScrollView>
-      </ScrollView>
+                            {(fill) => <Text>{progress}%</Text>}
+                          </AnimatedCircularProgress>
+                        </Block>
+                        <Block flex right>
+                          <Button
+                            color={theme.COLORS.PRIMARY}
+                            shadowColor={theme.COLORS.DRIBBBLE}
+                            onPress={() => {
+                              this.props.navigation.navigate("Welcome");
+                            }}
+                          >
+                            <Text style={styles.buttonText}>
+                              {" "}
+                              Log Your Progress >{" "}
+                            </Text>
+                          </Button>
+                        </Block>
+                        <Block flex middle left></Block>
+                      </Block>
 
+                      <DataTable>
+                        <DataTable.Header>
+                          <DataTable.Title>Day</DataTable.Title>
+                          <DataTable.Title>Date</DataTable.Title>
+                          <DataTable.Title>Goal Completed?</DataTable.Title>
+                          <DataTable.Title></DataTable.Title>
+                        </DataTable.Header>
+                        {this.props.days.map((day, i) => {
+                          return (
+                            <DataTable.Row key={i}>
+                              <DataTable.Cell>{i + 1}</DataTable.Cell>
+                              <DataTable.Cell>
+                                {day.date.toLocaleDateString()}
+                              </DataTable.Cell>
+                              <DataTable.Cell>
+                                {day.status && (
+                                  <Entypo
+                                    name="check"
+                                    size={24}
+                                    color="black"
+                                  />
+                                )}
+                              </DataTable.Cell>
+                              <DataTable.Cell>
+                                {!day.status && !isFuture(day.date) && (
+                                  <TouchableOpacity
+                                    onPress={() => {
+                                      this.props.handleUpdate();
+                                    }}
+                                    style={styles.button}
+                                  >
+                                    <Text style={styles.buttonText}>
+                                      Complete
+                                    </Text>
+                                  </TouchableOpacity>
+                                )}
+                              </DataTable.Cell>
+                            </DataTable.Row>
+                          );
+                        })}
+                      </DataTable>
+                    </View>
+                  )}
+                </Block>
+              </Block>
+            </Block>
           </Block>
-  
-        
-         
-        </Block>
+        </ScrollView>
       </Block>
-    </Block>
     );
   }
 }
@@ -232,9 +253,8 @@ const styles = StyleSheet.create({
     padding: 10,
     color: theme.COLORS.BLUEVIOLET,
     fontWeight: "500",
-
   },
-  text : {
+  text: {
     alignSelf: "center",
     // margin: 5,
     fontSize: 0.035 * width,
