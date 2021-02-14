@@ -104,6 +104,10 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
       {/* <Text style={styles.textStyle}>UserStats</Text> */}
       <Image
         source={require("../../assets/profile2.png")}
+        // source={{
+        //   uri:
+        //     '../public/images/anonymous-avatar-sm.jpg',
+        // }}
         style={{ alignSelf: "center" }}
       />
       {goals.length ? (

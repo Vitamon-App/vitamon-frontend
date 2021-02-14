@@ -1,9 +1,18 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Alert } from "react-native";
+import { StyleSheet, Text, View, Alert, Dimensions } from "react-native";
 import AddGoalForm from "../components/AddGoalForm";
 import { connect } from "react-redux";
 import { addGoalToUser, fetchGoals } from "../store/allTheUsersGoals";
 import SelectBox from "react-native-multi-selectbox";
+import { Entypo, Fontisto } from "@expo/vector-icons";
+// Galio components
+import {
+  Input, Card, Block, NavBar, Icon, Button
+} from 'galio-framework';
+import theme from '../theme';
+
+const width = Dimensions.get("window").width;
+
 
 function AddGoalScreen({ navigation, user, addGoal, setGoals }) {
   const [type, setType] = useState("Steps");
@@ -79,6 +88,8 @@ function AddGoalScreen({ navigation, user, addGoal, setGoals }) {
         <Text style={{ fontSize: 20, paddingBottom: 10 }}>
           Select Your Goal
         </Text>
+       <Input placeholder="TestInputComponent" icon="water" right family="Entypo"/>
+       
         <SelectBox
           label={selected}
           options={goalTypes}
