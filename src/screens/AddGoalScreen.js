@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import { StyleSheet, View, Alert } from "react-native";
-import { Text, Card, Block, Icon, Button } from "galio-framework";
+import { StyleSheet, View, Alert, Dimensions} from "react-native";
+import { Text, Card, Block, Icon, Button, Input } from "galio-framework";
 
 import AddGoalForm from "../components/AddGoalForm";
 import { connect } from "react-redux";
@@ -9,9 +9,7 @@ import { addGoalToUser, fetchGoals } from "../store/allTheUsersGoals";
 import SelectBox from "react-native-multi-selectbox";
 import { Entypo, Fontisto } from "@expo/vector-icons";
 // Galio components
-import {
-  Input, Card, Block, NavBar, Icon, Button
-} from 'galio-framework';
+
 import theme from '../theme';
 
 const width = Dimensions.get("window").width;
