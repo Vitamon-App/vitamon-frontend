@@ -6,6 +6,7 @@ import WaterGoalDetails from "../components/WaterGoalDetails";
 import StepGoalDetails from "../components/StepGoalDetails";
 import { setDays } from "../lib/goalUtils";
 import { Pedometer } from "expo-sensors";
+import { fetchGoals } from "../store/allTheUsersGoals";
 
 class SingleGoalScreen extends React.Component {
   constructor() {
@@ -123,6 +124,9 @@ const mapDispatch = (dispatch) => {
     },
     editGoal: (goal, update) => {
       dispatch(updateGoal(goal, update));
+    },
+    setUserGoals: (userId) => {
+      dispatch(fetchGoals(userId));
     },
   };
 };
