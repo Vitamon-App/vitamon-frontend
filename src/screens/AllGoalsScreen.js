@@ -37,7 +37,7 @@ class AllGoalsScreen extends React.Component {
     const { navigation } = this.props;
 
     return (
-      <Block safe flex style={{ backgroundColor: theme.COLORS.CULTURED }}>
+      <Block safe flex style={{ backgroundColor: theme.COLORS.YALEBLUE }}>
         <ScrollView contentContainerStyle={styles.cards}>
           <Block flex space="between">
             <Text h5 bold>
@@ -61,9 +61,7 @@ class AllGoalsScreen extends React.Component {
                         navigation.navigate("SingleGoal", { id: goal.id })
                       }
                     >
-                      <Block safe>
-                        <Text p>Goal {index + 1}</Text>
-                        <Text p>Type: {goal.type}</Text>
+                      <Block style={styles.container}>
                         <Block style={styles.container}>
                           <Monster
                             style={styles.vitamon}
@@ -72,6 +70,15 @@ class AllGoalsScreen extends React.Component {
                             goalId={goal.id}
                           />
                         </Block>
+                        <Text style={styles.goalText} p>
+                          Type: {goal.type}
+                        </Text>
+                        <Text style={styles.goalText} p>
+                          Status:{" "}
+                          {goal.status === "Completed"
+                            ? "Complete"
+                            : "In progress"}
+                        </Text>
                       </Block>
                     </TouchableWithoutFeedback>
                   </View>
@@ -114,6 +121,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
   },
+
+  goalText: {
+    fontWeight: "600",
+    color: "white",
+    fontSize: 16,
+    textAlign: "center",
+  },
+
   card: {
     backgroundColor: theme.COLORS.CULTURED,
     width: width - theme.SIZES.BASE * 2,
@@ -122,9 +137,11 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: "#F5F4F6",
+    backgroundColor: theme.COLORS.PERSIANINDIGO,
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 20,
+    color: "white",
   },
   goalContainer: {
     borderColor: "black",
