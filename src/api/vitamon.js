@@ -1,8 +1,6 @@
 import axios from "axios";
 
-
-const ip = "192.168.1.243";
-
+const ip = "192.168.4.222";
 
 //daniel "192.168.1.165"
 //veronica 192.168.1.4
@@ -12,5 +10,5 @@ const ip = "192.168.1.243";
 export default axios.create({
   //baseURL: `http://${ip}:8080`,
 
-   baseURL: `https://vitamonapp.herokuapp.com`,
+  baseURL: `https://vitamonapp.herokuapp.com`,
 });
