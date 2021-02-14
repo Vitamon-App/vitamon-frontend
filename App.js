@@ -16,9 +16,11 @@ import AllFriendsScreen from "./src/screens/AllFriendsScreen";
 import UserStatsScreen from "./src/screens/UserStatsScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
 import AddGoalScreen from "./src/screens/AddGoalScreen";
+
 import GoalsOfFriends from './src/components/GoalsOfFriends'
 import GalioApp from './routes';
 import { View, StatusBar } from 'react-native';
+
 
 const Stack = createStackNavigator();
 
@@ -42,7 +44,7 @@ function NavTabs({ navigation }) {
         name="Steps"
         component={StepsScreen}
         options={{
-          tabBarLabel: "Steps",
+          tabBarLabel: "Quick Goal",
           //tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="shoe-prints" size={24} color="purple" />
@@ -92,7 +94,9 @@ function App() {
             <Stack.Screen name="UserStats" component={UserStatsScreen} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
             <Stack.Screen name="AddGoal" component={AddGoalScreen} />
+
             <Stack.Screen name="FriendsGoals" component={GoalsOfFriends} />
+
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
