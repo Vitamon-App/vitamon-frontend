@@ -16,8 +16,14 @@ import AllFriendsScreen from "./src/screens/AllFriendsScreen";
 import UserStatsScreen from "./src/screens/UserStatsScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
 import AddGoalScreen from "./src/screens/AddGoalScreen";
-import GalioApp from "./routes";
-import { View, StatusBar } from "react-native";
+
+import GoalsOfFriends from './src/components/GoalsOfFriends'
+import GalioApp from './routes';
+import { View, StatusBar } from 'react-native';
+import theme from './src/theme.js'
+import { DataTable } from "react-native-paper";
+
+
 
 const Stack = createStackNavigator();
 
@@ -31,9 +37,9 @@ function NavTabs({ navigation }) {
         component={WelcomeScreen}
         options={{
           tabBarLabel: "Home",
-          //tabBarColor: "#2F004C",
+          tabBarColor: "#00000",
           tabBarIcon: ({ color }) => (
-            <SimpleLineIcons name="home" size={24} color="purple" />
+            <SimpleLineIcons name="home" size={24} color={theme.COLORS.PRIMARY} />
           ),
         }}
       />
@@ -44,7 +50,7 @@ function NavTabs({ navigation }) {
           tabBarLabel: "Quick Goal",
           //tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="shoe-prints" size={24} color="purple" />
+            <FontAwesome5 name="shoe-prints" size={24} color={theme.COLORS.PRIMARY} />
           ),
         }}
       />
@@ -55,7 +61,7 @@ function NavTabs({ navigation }) {
           tabBarLabel: "Friends",
           //tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="group" size={24} color="purple" />
+            <FontAwesome name="group" size={24} color={theme.COLORS.PRIMARY} />
           ),
         }}
       />
@@ -65,9 +71,9 @@ function NavTabs({ navigation }) {
         component={AllGoalsScreen}
         options={{
           tabBarLabel: "Goals",
-          //tabBarColor: "#2F004C",
+          tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="optin-monster" size={24} color="purple" />
+            <FontAwesome5 name="optin-monster" size={24} color={theme.COLORS.PRIMARY} />
           ),
         }}
       />
@@ -107,6 +113,9 @@ function App() {
             />
             <Stack.Screen name="Settings" component={SettingsScreen} />
             <Stack.Screen name="AddGoal" component={AddGoalScreen} />
+
+            <Stack.Screen name="FriendsGoals" component={GoalsOfFriends} />
+
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

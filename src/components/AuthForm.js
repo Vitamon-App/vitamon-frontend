@@ -10,8 +10,8 @@ import {
   StatusBar,
   KeyboardAvoidingView
 } from "react-native";
-import { Block, Checkbox, Text, theme, Button, Icon, Input, Image} from "galio-framework";
-
+import { Block, Checkbox, Text, Button, Icon, Input, Image} from "galio-framework";
+import theme from '../theme';
 const { width, height } = Dimensions.get("screen");
 /**
  * COMPONENT
@@ -23,14 +23,16 @@ const AuthForm = ({
   onPasswordChange,
   onPress,
   formType,
+  navigation
 }) => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior="height" enabled>
 
-    <View>
-      <View>
+  
       {/* <View style={styles.loginBox}> */}
-      <Text style={styles.loginText}>Please Log In</Text>
+      {/* <Text style={styles.loginText}>Please Log In</Text> */}
+      <Block flex={2} center space="evenly">
+        <Block flex={2}>
       <Input
          rounded
          style={{width: width * 0.9}}
@@ -39,7 +41,7 @@ const AuthForm = ({
         value={email}
         onChangeText={onEmailChange}
         placeholder="enter email"
-        style={styles.input}
+        // style={styles.input}
       />
       <Input
        rounded
@@ -51,18 +53,28 @@ const AuthForm = ({
         value={password}
         onChangeText={onPasswordChange}
         placeholder="enter password"
-        style={styles.input}
+        // style={styles.input}
       />
-      </View>
-     
-      <TouchableOpacity
+        </Block>
+  
+      <Block flex middle>
+          <Button
+            round
+            color={theme.COLORS.PRIMARY}
+            onPress={() => onPress(email, password, formType)}
+          >
+            Sign in
+          </Button>
+        
+          </Block>
+      {/* <TouchableOpacity
         style={styles.button}
         onPress={() => onPress(email, password, formType)}
       >
         <Text style={styles.buttonText}>Log In</Text>
-      </TouchableOpacity>
-    
-    </View>
+      </TouchableOpacity> */}
+    </Block>
+  
     </KeyboardAvoidingView>
   );
 };

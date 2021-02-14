@@ -135,6 +135,10 @@ const styles = StyleSheet.create({
     width: 373,
     alignItems: "center",
   },
+  test: {
+    backgroundColor: 'black',
+    width: width,
+  }
 });
 
 const mapState = (state) => {

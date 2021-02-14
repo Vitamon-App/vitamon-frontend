@@ -12,8 +12,8 @@ import {
   Platform,
   Alert,
 } from "react-native";
-import { Block, Checkbox, Text, theme, Button, NavBar, Icon, Input, Image} from "galio-framework";
-
+import { Block, Checkbox, Text, Button, NavBar, Icon, Input, Image} from "galio-framework";
+import theme from '../theme.js'
 const { width, height } = Dimensions.get("screen");
 
 /**
@@ -28,14 +28,13 @@ const SignUpForm = ({
   onPasswordChange,
   onPress,
   backToLogin,
-  navigation
+  navigation,
 }) => {
   return (
-    
     <View>
        <Input
        rounded
-        style={{width: width * 0.9}}
+        style={{width: width * 0.75}}
         autoCapitalize="none"
         autoCorrect={false}
         value={name}
@@ -44,7 +43,7 @@ const SignUpForm = ({
       />
       <Input
       rounded
-        style={{width: width * 0.9}}
+        style={{width: width * 0.75}}
         autoCapitalize="none"
         autoCorrect={false}
         value={email}
@@ -56,7 +55,7 @@ const SignUpForm = ({
       rounded
       password
       viewPass
-        style={{width: width * 0.9}}
+        style={{width: width * 0.75}}
         autoCapitalize="none"
         autoCorrect={false}
         value={password}
@@ -64,22 +63,32 @@ const SignUpForm = ({
         placeholder="enter password"
       />
       <View>
-      <Button
+      {/* <Button
        round
-      color="primary"
+      color={theme.COLORS.PRIMARY}
     onPress={() => onPress(name, email, password)}
               >
                 Sign up
-              </Button>
+              </Button> */}
     
-          <Button color="transparent" 
-          shadowless 
-          onPress={backToLogin}>
-          <Text center color={theme.COLORS.ERROR} size={theme.SIZES.FONT * 0.75}>
-             Already have an account? Sign In
+    
+        <Button
+          round
+          color="primary"
+          onPress={() => onPress(name, email, password)}
+        >
+          Sign up
+        </Button>
+
+        <Button color="transparent" shadowless onPress={backToLogin}>
+          <Text
+            center
+            color={theme.COLORS.ERROR}
+            size={theme.SIZES.FONT * 0.75}
+          >
+            Already have an account? Sign In
           </Text>
-              </Button>
-    
+        </Button>
       </View>
     </View>
   );
@@ -117,17 +126,17 @@ const styles = StyleSheet.create({
     shadowColor: theme.COLORS.BLACK,
     shadowOffset: {
       width: 0,
-      height: 4
+      height: 4,
     },
     shadowRadius: 8,
     shadowOpacity: 0.1,
     elevation: 1,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   socialConnect: {
     backgroundColor: theme.COLORS.WHITE,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: "#8898AA"
+    borderColor: "#8898AA",
   },
   socialButtons: {
     width: 120,
@@ -136,33 +145,33 @@ const styles = StyleSheet.create({
     shadowColor: theme.COLORS.BLACK,
     shadowOffset: {
       width: 0,
-      height: 4
+      height: 4,
     },
     shadowRadius: 8,
     shadowOpacity: 0.1,
-    elevation: 1
+    elevation: 1,
   },
   socialTextButtons: {
     color: theme.COLORS.PRIMARY,
     fontWeight: "800",
-    fontSize: 14
+    fontSize: 14,
   },
   inputIcons: {
-    marginRight: 12
+    marginRight: 12,
   },
   passwordCheck: {
     paddingLeft: 15,
     paddingTop: 13,
-    paddingBottom: 30
+    paddingBottom: 30,
   },
   createButton: {
     width: width * 0.5,
-    marginTop: 25
+    marginTop: 25,
   },
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    alignItems: "center",
+    justifyContent: "space-around",
     paddingTop: theme.SIZES.BASE * 0.3,
     paddingHorizontal: theme.SIZES.BASE,
     backgroundColor: theme.COLORS.WHITE,
@@ -171,7 +180,7 @@ const styles = StyleSheet.create({
     width: theme.SIZES.BASE * 3.5,
     height: theme.SIZES.BASE * 3.5,
     borderRadius: theme.SIZES.BASE * 1.75,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
 });
 
