@@ -9,8 +9,8 @@ function SignUp({ navigation, signupUser }) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  console.log("email: ", email);
-  console.log("password: ", password);
+ // console.log("email: ", email);
+  //console.log("password: ", password);
   const onSignUpButtonPress = async () => {
     try {
       let newUser = {

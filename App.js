@@ -16,6 +16,7 @@ import AllFriendsScreen from "./src/screens/AllFriendsScreen";
 import UserStatsScreen from "./src/screens/UserStatsScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
 import AddGoalScreen from "./src/screens/AddGoalScreen";
+import GoalsOfFriends from './src/components/GoalsOfFriends'
 import GalioApp from './routes';
 import { View, StatusBar } from 'react-native';
 
@@ -78,22 +79,23 @@ function NavTabs({ navigation }) {
 function App() {
   return (
     <View style={{ flex: 1 }}>
-    <Provider store={store}>
-      <StatusBar hidden={false}/>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Welcome" component={NavTabs} />
-          <Stack.Screen name="Steps" component={StepsScreen} />
-          <Stack.Screen name="AddFriend" component={AddFriendScreen} />
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
-          <Stack.Screen name="SingleGoal" component={SingleGoalScreen} />
-          <Stack.Screen name="UserStats" component={UserStatsScreen} />
-          <Stack.Screen name="Settings" component={SettingsScreen} />
-          <Stack.Screen name="AddGoal" component={AddGoalScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
+      <Provider store={store}>
+        <StatusBar hidden={false} />
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Welcome" component={NavTabs} />
+            <Stack.Screen name="Steps" component={StepsScreen} />
+            <Stack.Screen name="AddFriend" component={AddFriendScreen} />
+            <Stack.Screen name="SignUp" component={SignUpScreen} />
+            <Stack.Screen name="SingleGoal" component={SingleGoalScreen} />
+            <Stack.Screen name="UserStats" component={UserStatsScreen} />
+            <Stack.Screen name="Settings" component={SettingsScreen} />
+            <Stack.Screen name="AddGoal" component={AddGoalScreen} />
+            <Stack.Screen name="FriendsGoals" component={GoalsOfFriends} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </Provider>
     </View>
   );
 }
