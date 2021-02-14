@@ -13,7 +13,7 @@ function StepsMonster({ monsterStatus }) {
       )}
       {monsterStatus === "middle" && (
         <Image
-          style={styles.middelImage}
+          style={styles.middleImage}
           source={require("../../assets/stepsmiddle.png")}
         />
       )}
@@ -34,9 +34,9 @@ function StepsMonster({ monsterStatus }) {
 }
 
 const styles = StyleSheet.create({
-  startImage: { flex: 1, height: 200, width: 200 },
-  middleImage: { flex: 1, height: 275, width: 275 },
-  completeImage: { flex: 1, height: 300, width: 300 },
+  startImage: { flex: 1, height: 100, width: 100 },
+  middleImage: { flex: 1, height: 150, width: 150 },
+  completeImage: { flex: 1, height: 200, width: 200 },
 });
 
 export default StepsMonster;

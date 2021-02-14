@@ -8,7 +8,7 @@ function WaterMonster({ monsterStatus }) {
       {monsterStatus === "start" && (
         <Image
           style={styles.startImage}
-          source={require("../../assets/waterbaby2.gif")}
+          source={require("../../assets/waterstart.png")}
         />
       )}
       {monsterStatus === "middle" && (
@@ -19,7 +19,7 @@ function WaterMonster({ monsterStatus }) {
       )}
       {monsterStatus === "warning" && (
         <Image
-          styles={style.middleImage}
+          styles={styles.middleImage}
           source={require("../../assets/waterwarning.png")}
         />
       )}
@@ -34,9 +34,9 @@ function WaterMonster({ monsterStatus }) {
 }
 
 const styles = StyleSheet.create({
-  startImage: { flex: 1, height: 200, width: 200 },
-  middleImage: { flex: 1, height: 275, width: 275 },
-  completeImage: { flex: 1, height: 300, width: 300 },
+  startImage: { flex: 1, height: 100, width: 100 },
+  middleImage: { flex: 1, height: 150, width: 150 },
+  completeImage: { flex: 1, height: 200, width: 200 },
 });
 
 export default WaterMonster;
