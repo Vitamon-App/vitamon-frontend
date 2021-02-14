@@ -74,7 +74,7 @@ function HomeScreen({ navigation, login, user, error }) {
 
       <Block flex={2} center space="evenly">
         <Block flex={2}>
-        {!user.id && (
+        {!user.id ? (
           <AuthForm
             formType={formType}
             email={email}
@@ -82,7 +82,40 @@ function HomeScreen({ navigation, login, user, error }) {
             onEmailChange={(newEmail) => setEmail(newEmail)}
             onPasswordChange={(newPassword) => setPassword(newPassword)}
             onPress={() => onButtonPress()}
-          />)}
+          />):
+          (
+            <Block>
+            <Button
+            round
+              color={theme.COLORS.PRIMARY}
+              onPress={() => {
+                navigation.navigate("Welcome");
+              }}
+            >
+              <Text style={styles.buttonText}> Back to DashBoard</Text>
+            </Button>
+            <Button
+                 round
+                   color={theme.COLORS.PRIMARY}
+                   onPress={() => {
+                     navigation.navigate("Settings");
+                   }}
+                 >
+                   <Text style={styles.buttonText}>Settings</Text>
+                 </Button>
+
+                 <Button
+                 round
+                   color={theme.COLORS.PRIMARY}
+                   onPress={() => {
+                     navigation.navigate("UserStats");
+                   }}
+                 >
+                   <Text style={styles.buttonText}>Go to Profile</Text>
+                 </Button>
+                 </Block>
+          )
+          }
         
         
         </Block>
@@ -93,8 +126,9 @@ function HomeScreen({ navigation, login, user, error }) {
             </Text>
           </Button>
         </Block> )}
-        {user.id && (
+        {/* {user.id && (
           <Button
+          round
             color={theme.COLORS.PRIMARY}
             onPress={() => {
               navigation.navigate("Welcome");
@@ -102,8 +136,8 @@ function HomeScreen({ navigation, login, user, error }) {
           >
             <Text style={styles.buttonText}> Back to DashBoard</Text>
           </Button>
-        )}
-         <Button
+        )} */}
+         {/* <Button
          round
             color={theme.COLORS.PRIMARY}
             onPress={() => {
@@ -116,7 +150,7 @@ function HomeScreen({ navigation, login, user, error }) {
             <Text center color={theme.COLORS.PRIMARY} size={theme.SIZES.FONT * 0.75}>
               {"Settings"}
             </Text>
-          </Button>
+          </Button> */}
        
       </Block>
     </KeyboardAvoidingView>

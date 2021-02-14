@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Alert, Dimensions, Keyboard } from "react-native";
+import { View, StyleSheet, Alert, Dimensions, Keyboard, Image } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 import SearchBar from "../components/SearchBar";
 import { connect } from "react-redux";
@@ -64,7 +64,7 @@ function AddFriendScreen({
   // useEffect(()=> {
 
   // }, )
-
+console.log(foundFriend)
   return (
     <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
      <Text size={theme.SIZES.FONT * 2} bold>Search for a friend by email!</Text>
@@ -86,6 +86,7 @@ function AddFriendScreen({
       !friends.map((friend) => friend.email).includes(foundFriend.email) ? (
         <View>
            <Text h3> Add {foundFriend.name} as a friend!</Text>
+           <Image source={{uri: `${foundFriend.imageUrl}`}}/>
           <Card
                 flex
                 borderless

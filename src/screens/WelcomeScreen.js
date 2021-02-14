@@ -20,25 +20,38 @@ const { height, width } = Dimensions.get('window');
 const slides = [
   {
     key: 1,
-    title: 'Title 1',
-    text: 'Description.\nSay something cool',
-    image: require('../../assets/register-bg.png'),
+    title: 'Welcome to Vitamon',
+    text: 'Swipe to get Started',
+    image: require('../../assets/slide1.png'),
     backgroundColor: '#59b2ab',
   },
   {
     key: 2,
-    title: 'Title 2',
-    text: 'Other cool stuff',
-    image: require('../../assets/register-bg.png'),
+    title: 'Start A Goal',
+    text: 'Your Vitamon Depends On You',
+    image: require('../../assets/slide2.png'),
     backgroundColor: '#febe29',
   },
   {
     key: 3,
-    title: 'Rocket guy',
-    text: 'I\'m already out of descriptions\n\nLorem ipsum bla bla bla',
-    image: require('../../assets/register-bg.png'),
+    title: 'Stay On Task',
+    text: 'Keep You and Your Vitamon Healthy',
+    image: require('../../assets/slide3.png'),
     backgroundColor: '#22bcb5',
-  }
+  },
+  {
+    key: 3,
+    title: 'Add Friends',
+    text: 'Your Friends Hold You Accountable',
+    image: require('../../assets/slide4.png'),
+    backgroundColor: '#22bcb5',
+  },
+  {
+  key: 3,
+  title: 'Try The Quick Game',
+  text: 'Instant Satisfaction between Long Term Goals',
+  image: require('../../assets/slide5.png'),
+  backgroundColor: '#00000'}
 ];
  
  class WelcomeScreen extends React.Component {
@@ -49,12 +62,13 @@ const slides = [
     return (
      
       
-     
+  
       <View style={styles.slide2}>
         <Text style={styles.title}>{item.title}</Text>
         <Image source={item.image} />
         <Text style={styles.text}>{item.text}</Text>
       </View>
+      
    
     );
   }
@@ -62,7 +76,7 @@ const slides = [
     // User finished the introduction. Show real app through
     // navigation or simply by controlling state
     this.setState({ showRealApp: false });
-    Alert.alert('Go to Goals Below!')
+    Alert.alert('Feed Your Vitamons Go to Goals Below!')
   }
   render() {
     if (this.state.showRealApp) {
@@ -74,16 +88,16 @@ const slides = [
 }
 const styles = StyleSheet.create({
   buttonCircle: {
-    width: 40,
-    height: 40,
+    // width: 40,
+    // height: 40,
     backgroundColor: 'rgba(0, 0, 0, .2)',
     // borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
   slide: {
-    width: 200,
-    height: 200,
+    // width: 200,
+    // height: 200,
     resizeMode: 'contain'
   },
   text: {
@@ -91,12 +105,12 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     fontSize: 23,
     fontWeight: 'bold',
-    color: '#009CFF',
+    color: theme.COLORS.BLUEVIOLET,
     alignSelf: 'center'
   },
   title: {
     fontSize: 26,
-    color: '#fff',
+    color: theme.COLORS.PRIMARY,
     fontWeight: 'bold',
     textAlign: 'center',
     // marginTop: 20,

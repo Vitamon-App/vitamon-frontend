@@ -19,6 +19,8 @@ import AddGoalScreen from "./src/screens/AddGoalScreen";
 import GalioApp from './routes';
 import { View, StatusBar } from 'react-native';
 import theme from './src/theme.js'
+import { DataTable } from "react-native-paper";
+
 
 const Stack = createStackNavigator();
 
@@ -92,6 +94,7 @@ function App() {
           <Stack.Screen name="UserStats" component={UserStatsScreen} />
           <Stack.Screen name="Settings" component={SettingsScreen} />
           <Stack.Screen name="AddGoal" component={AddGoalScreen} />
+
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
