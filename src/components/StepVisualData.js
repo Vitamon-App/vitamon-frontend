@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { VictoryLine, VictoryChart, VictoryTheme } from "victory-native";
+import { VictoryLine, VictoryChart, VictoryAxis } from "victory-native";
 
 function StepVisualData({ allGoals }) {
   const completedGoalsData = () => {
@@ -41,21 +41,45 @@ function StepVisualData({ allGoals }) {
 
   return (
     <View style={styles.container}>
-      <Text>{`You have taken ${totalSum()} steps so far`}</Text>
-      <VictoryChart
-        width={350}
-        minDomain={{ y: 0 }}
-        theme={VictoryTheme.material}
-        color="blue"
-      >
+      <Text
+        style={styles.subHead}
+      >{`You have taken ${totalSum()} steps so far`}</Text>
+      <VictoryChart width={350} minDomain={{ y: 0 }}>
+        <VictoryAxis
+          fixLabelOverlap
+          style={{
+            tickLabels: { padding: 16, fontSize: 14, fill: "#F5F4F6" },
+            axis: { stroke: "white", strokeWidth: 1 },
+            ticks: {
+              size: completedGoalsData().length,
+              stroke: "white",
+              strokeWidth: 2,
+            },
+          }}
+        />
+        <VictoryAxis
+          dependentAxis
+          style={{
+            tickLabels: {
+              padding: 16,
+              fontSize: 14,
+              fill: "#F5F4F6",
+            },
+            axis: { stroke: "white", strokeWidth: 1 },
+          }}
+        />
         <VictoryLine
           data={completedGoalsData()}
           x="stepGoal"
           y="totalNumberOfSteps"
+          style={{
+            // data: { fill: "#c43a31" },
+            data: { stroke: "#F5F4F6" },
+          }}
         />
       </VictoryChart>
 
-      <Text>Step Goals Compeleted</Text>
+      <Text style={styles.textStyle}>Step Goals Compeleted</Text>
     </View>
   );
 }
@@ -65,8 +89,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#faecd9",
+    backgroundColor: "#7E5EC8",
     height: 400,
+  },
+  textStyle: {
+    color: "#F5F4F6",
+  },
+  subHead: {
+    color: "#F5F4F6",
+    fontWeight: "bold",
+    fontSize: 15,
   },
 });
 export default StepVisualData;

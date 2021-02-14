@@ -1,3 +1,4 @@
+import { Button, Input, Block } from "galio-framework";
 import React from "react";
 import {
   StyleSheet,
@@ -16,9 +17,9 @@ const AddGoalForm = ({
   onPress,
 }) => {
   return (
-    <View>
-      <Text>{descriptionOfQty}</Text>
-      <TextInput
+    <View style={styles.container}>
+      <Text style={styles.subHead2}>{descriptionOfQty}</Text>
+      <Input
         style={styles.input}
         autoCapitalize="none"
         autoCorrect={false}
@@ -28,9 +29,10 @@ const AddGoalForm = ({
       />
 
       <View>
-        <Text>{`Duration of Goal (Days)`}</Text>
-        <TextInput
+        <Text style={styles.subHead2}>{`Duration of Goal (Days)`}</Text>
+        <Input
           style={styles.input}
+          //style={{ borderColor: "#5539AA" }}
           autoCapitalize="none"
           autoCorrect={false}
           value={numberOfDays}
@@ -40,9 +42,9 @@ const AddGoalForm = ({
       </View>
       <View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={() => onPress()}>
+          <Button small round color="#2C148B" onPress={() => onPress()}>
             <Text style={styles.buttonText}>Submit</Text>
-          </TouchableOpacity>
+          </Button>
         </View>
       </View>
     </View>
@@ -50,9 +52,10 @@ const AddGoalForm = ({
 };
 const styles = StyleSheet.create({
   buttonContainer: {
-    height: 30,
-    marginHorizontal: 10,
-    backgroundColor: "#97A5E9",
+    //height: 30,
+    // width: 10,
+    //marginHorizontal: 10,
+    // backgroundColor: "#5539AA",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -61,8 +64,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   input: {
+    borderColor: "#5539AA",
     borderWidth: 1,
-    backgroundColor: "#F2F2F2",
+    width: 200,
+    backgroundColor: "#FFF",
     padding: 8,
     margin: 10,
   },
@@ -72,6 +77,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000",
     paddingVertical: 12,
     borderRadius: 10,
+  },
+  subHead2: {
+    fontSize: 22,
+    color: "#2C148B",
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 19,
+    fontSize: 16,
+    paddingBottom: 10,
+  },
+
+  container: {
+    //flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
