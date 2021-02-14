@@ -13,7 +13,7 @@ const cardWidth = width - theme.SIZES.BASE * 2;
 function AllGoalsScreen({ navigation, goals, user, setUserGoals }) {
   useEffect(() => {
     setUserGoals(user.id);
-  });
+  }, []);
 
   return (
     <Block safe flex>
