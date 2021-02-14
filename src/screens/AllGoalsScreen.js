@@ -1,25 +1,12 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, Dimensions, ScrollView } from "react-native";
 import Monster from "../components/Monster";
 import { connect } from "react-redux";
 import { fetchGoals } from "../store/allTheUsersGoals";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 // Galio components
-import {
-  Block,
-  Card,
-  NavBar,
-  Text,
-  Icon,
-  Button,
-  DeckSwiper,
-} from "galio-framework";
+import { Block, Text, Icon, Button } from "galio-framework";
+import { LinearGradient } from "expo-linear-gradient";
 import theme from "../theme";
 const width = Dimensions.get("window").width;
 const cardWidth = width - theme.SIZES.BASE * 2;
@@ -37,16 +24,14 @@ class AllGoalsScreen extends React.Component {
     const { navigation } = this.props;
 
     return (
-      <Block safe flex style={{ backgroundColor: theme.COLORS.YALEBLUE }}>
+      <Block safe flex>
         <ScrollView contentContainerStyle={styles.cards}>
-          <Block flex space="between">
-            <Text h5 bold>
+          <Block styles={styles.container}>
+            <Text h5>
               {"\n"}
               Feed your Vitamons by achieving your goals!{"\n"}
             </Text>
-            <Text p bold>
-              Click a goal to see your progress
-            </Text>
+            <Text p>Tap on a goal to see your progress</Text>
             {!goals.length ? (
               <View>
                 <Text h4>You haven't added any goals yet!</Text>
@@ -61,8 +46,8 @@ class AllGoalsScreen extends React.Component {
                         navigation.navigate("SingleGoal", { id: goal.id })
                       }
                     >
-                      <Block style={styles.container}>
-                        <Block style={styles.container}>
+                      <Block>
+                        <Block style={styles.goalContainer}>
                           <Monster
                             style={styles.vitamon}
                             monsterType={goal.type}
@@ -70,15 +55,17 @@ class AllGoalsScreen extends React.Component {
                             goalId={goal.id}
                           />
                         </Block>
-                        <Text style={styles.goalText} p>
-                          Type: {goal.type}
-                        </Text>
-                        <Text style={styles.goalText} p>
-                          Status:{" "}
-                          {goal.status === "Completed"
-                            ? "Complete"
-                            : "In progress"}
-                        </Text>
+                        <Block style={styles.textContainer}>
+                          <Text style={styles.goalText} p>
+                            Type: {goal.type}
+                          </Text>
+                          <Text style={styles.goalText} p>
+                            Status:{" "}
+                            {goal.status === "Completed"
+                              ? "Complete"
+                              : "In progress"}
+                          </Text>
+                        </Block>
                       </Block>
                     </TouchableWithoutFeedback>
                   </View>
@@ -111,7 +98,7 @@ const styles = StyleSheet.create({
   button: {
     marginLeft: 10,
     marginTop: 20,
-    backgroundColor: "#7E5EC8",
+    backgroundColor: theme.COLORS.OCEANBLUE,
     paddingVertical: 12,
     borderRadius: 10,
   },
@@ -124,7 +111,7 @@ const styles = StyleSheet.create({
 
   goalText: {
     fontWeight: "600",
-    color: "white",
+    color: theme.COLORS.CULTURED,
     fontSize: 16,
     textAlign: "center",
   },
@@ -137,15 +124,34 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: theme.COLORS.PERSIANINDIGO,
+    backgroundColor: theme.COLORS.CULTURED,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 20,
+    // borderRadius: 50,
     color: "white",
+    // borderColor: "transparent",
   },
   goalContainer: {
-    borderColor: "black",
-    padding: 20,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    // padding: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+    margin: 20,
+    backgroundColor: theme.COLORS.BLUEVIOLET,
+  },
+  vitamon: {
+    borderColor: "transparent",
+    backgroundColor: theme.COLORS.BLUEVIOLET,
+  },
+  textContainer: {
+    backgroundColor: theme.COLORS.BLUEVIOLET,
+    color: "white",
+    width: width,
+    borderRadius: 5,
+    width: 373,
+    alignItems: "flex-start",
   },
 });
 
