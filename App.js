@@ -82,13 +82,29 @@ function App() {
         <StatusBar hidden={false} />
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Welcome" component={NavTabs} />
+            <Stack.Screen
+              name="Home"
+              options={{ title: "" }}
+              component={HomeScreen}
+            />
+            <Stack.Screen
+              name="Welcome"
+              component={NavTabs}
+              options={{ title: "" }}
+            />
             <Stack.Screen name="Steps" component={StepsScreen} />
             <Stack.Screen name="AddFriend" component={AddFriendScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
-            <Stack.Screen name="SingleGoal" component={SingleGoalScreen} />
-            <Stack.Screen name="UserStats" component={UserStatsScreen} />
+            <Stack.Screen
+              name="SingleGoal"
+              options={{ title: "" }}
+              component={SingleGoalScreen}
+            />
+            <Stack.Screen
+              name="UserStats"
+              options={{ title: "" }}
+              component={UserStatsScreen}
+            />
             <Stack.Screen name="Settings" component={SettingsScreen} />
             <Stack.Screen name="AddGoal" component={AddGoalScreen} />
           </Stack.Navigator>

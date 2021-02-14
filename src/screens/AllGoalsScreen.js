@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     // padding: 20,
     backgroundColor: "white",
-    borderRadius: 10,
+    borderRadius: 8,
     margin: 20,
     backgroundColor: theme.COLORS.BLUEVIOLET,
   },
