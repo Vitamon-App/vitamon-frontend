@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
-import { VictoryLine, VictoryChart, VictoryTheme } from "victory-native";
+import { VictoryLine, VictoryChart, VictoryAxis } from "victory-native";
 import { Text, Card, Block, Icon, Button } from "galio-framework";
 const width = Dimensions.get("window").width;
 function WaterVisualData({ allGoals }) {
@@ -48,14 +48,41 @@ function WaterVisualData({ allGoals }) {
       <VictoryChart
         width={350}
         minDomain={{ y: 0 }}
-        color='"#F5F4F6"'
-        /*  style={{ data: { stroke: "#F5F4F6", strokeWidth: 15, strokeLinecap: "round" }  */
-        //theme={VictoryTheme.material}
+        fill='"#F5F4F6"'
+        style={{
+          fill: "#F5F4F6",
+        }}
       >
+        <VictoryAxis
+          fixLabelOverlap
+          style={{
+            tickLabels: { padding: 16, fontSize: 14, fill: "#F5F4F6" },
+            axis: { stroke: "white", strokeWidth: 1 },
+            ticks: {
+              size: completedGoalsData().length,
+              stroke: "white",
+              strokeWidth: 2,
+            },
+          }}
+        />
+        <VictoryAxis
+          dependentAxis
+          style={{
+            tickLabels: {
+              padding: 16,
+              fontSize: 14,
+              fill: "#F5F4F6",
+            },
+            axis: { stroke: "white", strokeWidth: 1 },
+          }}
+        />
         <VictoryLine
           data={completedGoalsData()}
           x="waterGoal"
           y="totalNumberOfWaterBottles"
+          style={{
+            data: { stroke: "#F5F4F6" },
+          }}
         />
       </VictoryChart>
 

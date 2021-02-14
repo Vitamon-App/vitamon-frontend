@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   StyleSheet,
@@ -16,6 +16,9 @@ import WaterVisualData from "../components/WaterVisualData";
 import StepVisualData from "../components/StepVisualData";
 
 import { fetchGoals } from "../store/allTheUsersGoals";
+import LottieView from "lottie-react-native";
+import animationData from "../../assets/38463-error.json";
+
 const width = Dimensions.get("window").width;
 function UserStatsScreen({ user, goals, setUserGoals }) {
   console.log("user.goals: ", goals);
@@ -113,8 +116,13 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
       /> */}
       {goals.length ? (
         <Block>
-          <View>
-            <Text style={styles.subHead1}>{user.name}'s Profile</Text>
+          <View style={styles.header}>
+            <Image
+              style={{ width: 50, height: 50, borderRadius: 400 / 2 }}
+              source={{ uri: user.imageUrl }}
+              //resizeMode={"cover"}
+            />
+            <Text style={styles.subHead1}> {user.name}'s Profile</Text>
           </View>
 
           <View style={styles.buttonWrapper}>
@@ -158,10 +166,26 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                   {/*  <SimpleLineIcons name="drop" size={15} color={"blue"} /> */}
                   {isWater() ? (
                     completedWater() ? (
-                      <Text style={styles.textStyle}>
-                        By completing your water goal you have dranked{" "}
-                        {completedWater()} bottles of water !
-                      </Text>
+                      <View>
+                        <View style={styles.lottieImage}>
+                          <LottieView
+                            autoPlay
+                            loop
+                            style={{
+                              width: 100,
+                              height: 100,
+                              backgroundColor: "#eee",
+                              alignItems: "center",
+                              shadowColor: "#F5F4F6",
+                            }}
+                            source={require("../../assets/lf30_editor_twphuvjm.json")}
+                          />
+                          <Text style={styles.textStyle}>
+                            By completing your water goal you have dranked{" "}
+                            {completedWater()} bottles of water !
+                          </Text>
+                        </View>
+                      </View>
                     ) : (
                       <Text>No water goals completed yet </Text>
                     )
@@ -170,13 +194,27 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                   )}
                 </Card>
                 <Card borderless>
-                  <Text style={styles.subHead3}>Steps Stats</Text>
+                  <Text style={styles.subHead3}>Step Stats</Text>
                   {isSteps() ? (
                     completedSteps() ? (
-                      <Text style={styles.textStyle}>
-                        By completing your step goals you have walked{" "}
-                        {completedSteps()} steps!
-                      </Text>
+                      <View style={styles.lottieImage}>
+                        <LottieView
+                          autoPlay
+                          loop
+                          style={{
+                            width: 200,
+                            height: 200,
+                            backgroundColor: "#eee",
+                            alignItems: "center",
+                            shadowColor: "#F5F4F6",
+                          }}
+                          source={require("../../assets/lf20_foxtV6.json")}
+                        />
+                        <Text style={styles.textStyle}>
+                          By completing your step goals you have walked{" "}
+                          {completedSteps()} steps!
+                        </Text>
+                      </View>
                     ) : (
                       <Text>No step goals completed yet </Text>
                     )
@@ -225,8 +263,37 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
         </Block>
       ) : (
         <View>
-          <Text style={styles.subHead1}>{user.name}'s Profile</Text>
-          <Text style={styles.subHeadNoProflie}>Sorry No Stats Available</Text>
+          <View>
+            <View style={styles.header}>
+              <Image
+                style={{ width: 50, height: 50, borderRadius: 400 / 2 }}
+                source={{ uri: user.imageUrl }}
+                //resizeMode={"cover"}
+              />
+
+              <Text style={styles.subHead1}>{user.name}'s Profile</Text>
+            </View>
+            <Text style={styles.subHeadNoProflie}>
+              Sorry No Stats Available
+            </Text>
+          </View>
+          <View style={styles.lottieImage}>
+            <LottieView
+              autoPlay
+              loop
+              style={{
+                width: 200,
+                height: 200,
+                backgroundColor: "#eee",
+                alignItems: "center",
+              }}
+              source={require("../../assets/38463-error.json")}
+            />
+          </View>
+          <Text style={styles.subHeadNoProflie}>
+            Stats Will Be Available Once
+          </Text>
+          <Text style={styles.subHeadNoProflie}>You Have Complete A Goal</Text>
         </View>
       )}
     </ScrollView>
@@ -316,6 +383,26 @@ const styles = StyleSheet.create({
   },
   chartContainer2: {
     marginTop: 10,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  lottieImage: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    //padding: 15,
+    //backgroundColor: "#F5F4F6",
+    shadowColor: "#F5F4F6",
+    shadowOpacity: 0.0,
+  },
+  header: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
   },
 });
 

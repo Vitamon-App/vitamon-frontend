@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Alert } from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
+import { Text, Card, Block, Icon, Button } from "galio-framework";
 import AddGoalForm from "../components/AddGoalForm";
 import { connect } from "react-redux";
 import { addGoalToUser, fetchGoals } from "../store/allTheUsersGoals";
@@ -63,9 +64,9 @@ function AddGoalScreen({ navigation, user, addGoal, setGoals }) {
       }
       await addGoal(newGoal);
       // navigation.navigate("Goals");
-      navigation.navigate("Home")
+      navigation.navigate("Home");
       return Alert.alert("Goal Added!");
-      await setGoals(this.props.user.id)
+      await setGoals(this.props.user.id);
     } catch (error) {
       console.log(error);
     }
@@ -73,12 +74,9 @@ function AddGoalScreen({ navigation, user, addGoal, setGoals }) {
 
   return (
     <View>
-      <Text style={styles.buttonText}>Add Your Goal</Text>
-      <View style={{ margin: 30 }}>
-        <View style={{ width: "100%", alignItems: "center" }}></View>
-        <Text style={{ fontSize: 20, paddingBottom: 10 }}>
-          Select Your Goal
-        </Text>
+      <Text style={styles.subHead1}>Add Your Goal</Text>
+      <View style={styles.inputandText}>
+        <Text style={styles.subHead2}>Select Your Goal</Text>
         <SelectBox
           label={selected}
           options={goalTypes}
@@ -86,7 +84,7 @@ function AddGoalScreen({ navigation, user, addGoal, setGoals }) {
           onChange={goalChanger()}
           hideInputFilter={false}
         />
-        <View style={{ height: 40 }} />
+        {/* <View style={{ height: 40 }} /> */}
       </View>
       <AddGoalForm
         descriptionOfQty={descriptionOfQty}
@@ -118,9 +116,31 @@ const mapDispatch = (dispatch) => {
 };
 
 const styles = StyleSheet.create({
+  subHead1: {
+    textAlign: "center",
+    fontSize: 34,
+    color: "#2C148B",
+    fontWeight: "bold",
+  },
+  subHead2: {
+    fontSize: 22,
+    color: "#2C148B",
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 19,
+    fontSize: 16,
+    paddingBottom: 10,
+  },
   buttonText: {
-    color: "#333333",
+    color: "#5539AA",
     fontSize: 18,
+  },
+  inputandText: {
+    margin: 30,
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
   },
 });
 
