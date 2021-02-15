@@ -155,7 +155,7 @@ class WaterGoalDetails extends React.Component {
                                 {!day.status && !isFuture(day.date) && (
                                   <TouchableOpacity
                                     onPress={() => {
-                                      this.props.navigation.navigate("Welcome");
+                                      this.props.handleUpdate();
                                     }}
                                   >
                                     <Text style={styles.buttonText}>
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontWeight: "600",
-    color: "white",
+    color: "#5539AA",
     fontSize: 11,
     textAlign: "center",
   },
