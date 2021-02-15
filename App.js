@@ -17,13 +17,11 @@ import UserStatsScreen from "./src/screens/UserStatsScreen";
 import SettingsScreen from "./src/screens/SettingsScreen";
 import AddGoalScreen from "./src/screens/AddGoalScreen";
 
-import GoalsOfFriends from './src/components/GoalsOfFriends'
-import GalioApp from './routes';
-import { View, StatusBar } from 'react-native';
-import theme from './src/theme.js'
+import GoalsOfFriends from "./src/components/GoalsOfFriends";
+import GalioApp from "./routes";
+import { View, StatusBar } from "react-native";
+import theme from "./src/theme.js";
 import { DataTable } from "react-native-paper";
-
-
 
 const Stack = createStackNavigator();
 
@@ -39,7 +37,11 @@ function NavTabs({ navigation }) {
           tabBarLabel: "Home",
           tabBarColor: "#00000",
           tabBarIcon: ({ color }) => (
-            <SimpleLineIcons name="home" size={24} color={theme.COLORS.PRIMARY} />
+            <SimpleLineIcons
+              name="home"
+              size={24}
+              color={theme.COLORS.PRIMARY}
+            />
           ),
         }}
       />
@@ -50,7 +52,11 @@ function NavTabs({ navigation }) {
           tabBarLabel: "Quick Goal",
           //tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="shoe-prints" size={24} color={theme.COLORS.PRIMARY} />
+            <FontAwesome5
+              name="shoe-prints"
+              size={24}
+              color={theme.COLORS.PRIMARY}
+            />
           ),
         }}
       />
@@ -73,7 +79,11 @@ function NavTabs({ navigation }) {
           tabBarLabel: "Goals",
           tabBarColor: "#2F004C",
           tabBarIcon: ({ color }) => (
-            <FontAwesome5 name="optin-monster" size={24} color={theme.COLORS.PRIMARY} />
+            <FontAwesome5
+              name="optin-monster"
+              size={24}
+              color={theme.COLORS.PRIMARY}
+            />
           ),
         }}
       />
@@ -99,7 +109,11 @@ function App() {
               options={{ title: "" }}
             />
             <Stack.Screen name="Steps" component={StepsScreen} />
-            <Stack.Screen name="AddFriend" component={AddFriendScreen} />
+            <Stack.Screen
+              name="AddFriend"
+              component={AddFriendScreen}
+              options={{ title: "Add Friends" }}
+            />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
             <Stack.Screen
               name="SingleGoal"
@@ -112,10 +126,17 @@ function App() {
               component={UserStatsScreen}
             />
             <Stack.Screen name="Settings" component={SettingsScreen} />
-            <Stack.Screen name="AddGoal" component={AddGoalScreen} />
+            <Stack.Screen
+              name="AddGoal"
+              component={AddGoalScreen}
+              options={{ title: "" }}
+            />
 
-            <Stack.Screen name="FriendsGoals" component={GoalsOfFriends} />
-
+            <Stack.Screen
+              name="FriendsGoals"
+              component={GoalsOfFriends}
+              options={{ title: "" }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
