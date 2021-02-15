@@ -161,7 +161,7 @@ function HomeScreen({ navigation, login, user, error }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: theme.COLORS.WHITE,
     alignItems: "center",
     justifyContent: "center",
   },

@@ -48,7 +48,7 @@ function SignUp({ navigation, signupUser }) {
         >
           <Block flex middle>
             <Block style={styles.registerContainer}>
-              <Block flex={0.25} middle style={styles.socialConnect}>
+              {/* <Block flex={0.25} middle style={styles.socialConnect}>
                 <Text color="#8898AA" size={12}>
                   Sign up with
                 </Text>
@@ -78,11 +78,11 @@ function SignUp({ navigation, signupUser }) {
                     </Block>
                   </Button>
                 </Block>
-              </Block>
+              </Block> */}
               <Block flex>
                 <Block flex={0.17} middle>
                   <Text color="#8898AA" size={12}>
-                    Or sign up the classic way
+                    Enter your information below
                   </Text>
                 </Block>
                 <Block flex middle>
@@ -91,36 +91,7 @@ function SignUp({ navigation, signupUser }) {
                     behavior="padding"
                     enabled
                   >
-                    {/* <Block width={width * 0.8} style={{ marginBottom: 15 }}>
-                      <Input
-                        borderless
-                        placeholder="Name"
-                        iconContent={
-                          <Icon
-                            size={16}
-                            color={theme.COLORS.ICON}
-                            name="hat-3"
-                            family="ArgonExtra"
-                            style={styles.inputIcons}
-                          />
-                        }
-                      />
-                    </Block> */}
-                    {/* <Block width={width * 0.8} style={{ marginBottom: 15 }}>
-                      <Input
-                        borderless
-                        placeholder="Email"
-                        iconContent={
-                          <Icon
-                            size={16}
-                            color={theme.COLORS.ICON}
-                            name="ic_mail_24px"
-                            family="ArgonExtra"
-                            style={styles.inputIcons}
-                          />
-                        }
-                      />
-                    </Block> */}
+                    
                     <Block width={width * 0.8}>
                     
                        <SignUpForm
@@ -133,17 +104,17 @@ function SignUp({ navigation, signupUser }) {
         backToLogin ={()=> backToLogin()}
       />
                       <Block row style={styles.passwordCheck}>
-                        <Text size={12} color={theme.COLORS.MUTED}>
+                        {/* <Text size={12} color={theme.COLORS.MUTED}>
                           password strength:
                         </Text>
                         <Text bold size={12} color={theme.COLORS.SUCCESS}>
                           {" "}
                           strong
-                        </Text>
+                        </Text> */}
                       </Block>
                     </Block>
                     <Block row width={width * 0.75}>
-                      <Checkbox
+                      {/* <Checkbox
                         checkboxStyle={{
                           borderWidth: 3
                         }}
@@ -159,7 +130,7 @@ function SignUp({ navigation, signupUser }) {
                         }}
                       >
                         Privacy Policy
-                      </Button>
+                      </Button> */}
                     </Block>
                     <Block middle>
                       <Button color={theme.COLORS.PRIMARY} style={styles.createButton}
