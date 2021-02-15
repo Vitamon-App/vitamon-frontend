@@ -1,18 +1,10 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-  Platform,
-  ScrollView,
-} from "react-native";
 
+import { StyleSheet, View, Dimensions, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import { fetchFriends } from "../store/friends";
-import GoalsOfFriends from "../components/GoalsOfFriends";
+
+
 // Galio components
 import { Text, Card, Block, NavBar, Icon, Button } from "galio-framework";
 import theme from "../theme";
@@ -25,41 +17,15 @@ class AllFriendsScreen extends React.Component {
   }
 
   render() {
-    const user = this.props.user;
+
     const friends = this.props.friends || [];
 
-    friends.push(this.props.user);
-    const { navigation } = this.props;
-    let leaderBoard = {};
-    friends.forEach((friend) => {
-      leaderBoard[`${friend.name}`] = 0;
-      friend.goals.forEach((goal) => {
-        if (goal.status === "complete") {
-          leaderBoard[`${friend.name}`]++;
-        }
-      });
-    });
-
-    friends.pop();
-    let ranking = Object.entries(leaderBoard);
-    let highest = [];
-
-    ranking.forEach((rank) => {
-      if (rank[1] > 0) {
-        highest = rank;
-      }
-      if (highest[1] < rank[1]) {
-        highest = rank;
-      }
-    });
-    if (highest[0] === user.name) {
-      highest[0] = "You are";
-    }
 
     return (
       <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
         <ScrollView contentContainerStyle={styles.cards}>
           <Block flex space="between">
+
             <View style={styles.container}>
               <Text size={theme.SIZES.FONT * 2} color="#2C148B" bold>
                 {" "}
@@ -67,12 +33,8 @@ class AllFriendsScreen extends React.Component {
               </Text>
             </View>
 
-            <Text style={styles.goalLeader} color="#2C148B">
-              {highest.length === 0
-                ? "None of your friends have completed goals to be"
-                : `${highest[0]} is`}{" "}
-              the goal leader
-            </Text>
+           
+
             {friends.length ? (
               friends.map((friend, id) => (
                 <Card
@@ -182,7 +144,6 @@ const styles = StyleSheet.create({
     width: 5,
     marginTop: 19,
     marginBottom: 20,
-
     marginRight: 70,
     backgroundColor: "#97A5E9",
     alignItems: "center",
@@ -197,7 +158,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
     textAlign: "center",
-
     backgroundColor: "#5539AA",
   },
 
