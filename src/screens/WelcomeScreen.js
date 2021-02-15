@@ -11,7 +11,8 @@ import {
   Alert
 } from "react-native";
 import { Block, Button, Card, Icon, Input, NavBar } from 'galio-framework';
-
+import { Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons'; 
 import { connect } from "react-redux";
 import AppIntroSlider from 'react-native-app-intro-slider';
 import theme from '../theme';
@@ -21,36 +22,36 @@ const slides = [
   {
     key: 1,
     title: 'Welcome to Vitamon',
-    text: 'Swipe to get Started',
-    image: require('../../assets/slide1.png'),
+    text: 'Swipe to get started',
+    image: require('../../assets/slide1.gif'),
     backgroundColor: '#59b2ab',
   },
   {
     key: 2,
     title: 'Start A Goal',
-    text: 'Your Vitamon Depends On You',
-    image: require('../../assets/slide2.png'),
+    text: 'Your Vitamon depends on you',
+    image: require('../../assets/slide2.gif'),
     backgroundColor: '#febe29',
   },
   {
     key: 3,
     title: 'Stay On Task',
-    text: 'Keep You and Your Vitamon Healthy',
-    image: require('../../assets/slide3.png'),
+    text: 'Keep you and your Vitamon healthy',
+    image: require('../../assets/slide3.gif'),
     backgroundColor: '#22bcb5',
   },
   {
-    key: 3,
+    key: 4,
     title: 'Add Friends',
-    text: 'Your Friends Hold You Accountable',
-    image: require('../../assets/slide4.png'),
+    text: 'Your friends hold you accountable',
+    image: require('../../assets/slide4.gif'),
     backgroundColor: '#22bcb5',
   },
   {
-  key: 3,
+  key: 5,
   title: 'Try The Quick Game',
-  text: 'Instant Satisfaction between Long Term Goals',
-  image: require('../../assets/slide5.png'),
+  text: 'Instant satisfaction',
+  image: require('../../assets/slide5.gif'),
   backgroundColor: '#00000'}
 ];
  
@@ -62,36 +63,63 @@ const slides = [
     return (
      
       
-  
+
       <View style={styles.slide2}>
         <Text style={styles.title}>{item.title}</Text>
         <Image source={item.image} />
         <Text style={styles.text}>{item.text}</Text>
       </View>
+
       
    
+    );
+  }
+  _renderNextButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <AntDesign
+          name="caretright"
+          color="rgba(255, 255, 255, .9)"
+          size={24}
+          style={{ backgroundColor: 'transparent' }}
+        />
+      </View>
+    );
+  }
+  _renderDoneButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Ionicons
+          name="md-checkmark"
+          color="rgba(255, 255, 255, .9)"
+          size={24}
+          style={{ backgroundColor: 'transparent' }}
+        />
+      </View>
     );
   }
   _onDone = () => {
     // User finished the introduction. Show real app through
     // navigation or simply by controlling state
     this.setState({ showRealApp: false });
-    Alert.alert('Feed Your Vitamons Go to Goals Below!')
+    Alert.alert('Feed Your Vitamons! Go to Goals Below!')
   }
   render() {
     if (this.state.showRealApp) {
       return <App />;
     } else {
-      return <AppIntroSlider renderItem={this._renderItem} data={slides} onDone={this._onDone}/>;
+      return( <AppIntroSlider renderItem={this._renderItem} data={slides} onDone={this._onDone}
+      renderDoneButton={this._renderDoneButton}
+      renderNextButton={this._renderNextButton}/>);
     }
   }
 }
 const styles = StyleSheet.create({
   buttonCircle: {
-    // width: 40,
-    // height: 40,
+    width: 40,
+    height: 40,
     backgroundColor: 'rgba(0, 0, 0, .2)',
-    // borderRadius: 20,
+    borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -105,12 +133,12 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     fontSize: 23,
     fontWeight: 'bold',
-    color: theme.COLORS.BLUEVIOLET,
+    color: theme.COLORS.PRIMARY,
     alignSelf: 'center'
   },
   title: {
     fontSize: 26,
-    color: theme.COLORS.PRIMARY,
+    color: theme.COLORS.BLUEVIOLET,
     fontWeight: 'bold',
     textAlign: 'center',
     // marginTop: 20,
@@ -119,7 +147,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+ 
     // padding: 20
+    backgroundColor: theme.COLORS.WHITE,
     resizeMode: 'contain'
   }
 })

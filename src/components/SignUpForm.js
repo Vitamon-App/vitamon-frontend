@@ -71,33 +71,9 @@ const SignUpForm = ({
         onChangeText={onPasswordChange}
         placeholder="enter password"
       />
-      <View>
-        {/* <Button
-       round
-      color={theme.COLORS.PRIMARY}
-    onPress={() => onPress(name, email, password)}
-              >
-                Sign up
-              </Button> */}
 
-        <Button
-          round
-          color="primary"
-          onPress={() => onPress(name, email, password)}
-        >
-          Sign up
-        </Button>
+    
 
-        <Button color="transparent" shadowless onPress={backToLogin}>
-          <Text
-            center
-            color={theme.COLORS.ERROR}
-            size={theme.SIZES.FONT * 0.75}
-          >
-            Already have an account? Sign In
-          </Text>
-        </Button>
-      </View>
     </View>
   );
 };
