@@ -47,112 +47,92 @@ class WaterGoalDetails extends React.Component {
     let goalDetails = `drink ${goal.quantity} bottles of water a day`;
 
     return (
-
       <Block>
         <ScrollView>
-     
-  <GifMonster monsterStatus={goal.status} monsterType={goal.type}/>
-      <Block center >
-        <Block flex style={styles.header}>
-          <Block>
-          <Block >
-        
-          {goal.type && (
-            <View>
-              {(goal.status === 'start') && 
-              <Text style={styles.headline}> What will your little egg hatch into? Keep feeding your Vitamon by completing your goals to find out!</Text> }
-                       {(goal.status === 'middle') && 
-              <Text style={styles.instructions}> Your Vitamon is growing from being fed by your healthy habits! </Text> }
-                                 {(goal.status === 'warning') && 
-              <Text style={styles.instructions}> Seems like you've missed a day or two, get back on track to get your Vitamon healthy again. </Text> }
-                                           {(goal.status === 'fail') && 
-              <Text style={styles.instructions}> Unfortunetly, you've missed too many days. Your Vitamon can not recover. </Text> }
-                                                      {(goal.status === 'complete') && 
-              <Text style={styles.instructions}> Congratulations! You completed your goal! Your Vitamon is full grown! </Text> }
-              <Text style={styles.text}>You said you'd {goalDetails} for {goal.numberOfDays} days</Text>
-          
-              <Text >
-                So far, you've completed {goal.completedDays} out of {goal.numberOfDays} days!
-              </Text>
-              <Text
-                      p
-                      color={theme.COLORS.MUTED}
-                      size={theme.SIZES.FONT * 0.875}
-                      style={{ marginLeft: theme.SIZES.BASE * 0.25 }}
-                    >Completion Status:</Text>
-                    <Block>
-                    <Block flex left>
-                    <AnimatedCircularProgress
-                size={200}
-                width={15}
-                fill={Number(progress)}
-                tintColor="#7E5EC8"
-                backgroundColor="#2C148B"
-              >
-                {(fill) => <Text>{progress}%</Text>}
-              </AnimatedCircularProgress>
-              </Block>
-              <Block flex right>
-          
-             
-          <Text style={styles.headline}>Check off Completed Days Below</Text>
-              </Block>
-              <Block flex middle left>
-             
-              </Block>
-            
-              </Block>
-         
-              <DataTable>
-                <DataTable.Header>
-                  <DataTable.Title>Day</DataTable.Title>
-                  <DataTable.Title>Date</DataTable.Title>
-                  <DataTable.Title>Completed?</DataTable.Title>
-                  <DataTable.Title></DataTable.Title>
-                </DataTable.Header>
-                {this.props.days.map((day, i) => {
-                  return (
-                    <DataTable.Row key={i}>
-                      <DataTable.Cell>{i + 1}</DataTable.Cell>
-                      <DataTable.Cell>
-                        {day.date.toLocaleDateString()}
-                      </DataTable.Cell>
-                      <DataTable.Cell>
-                        {day.status && (
-                          <Entypo name="check" size={24} color={theme.COLORS.PRIMARY} />
-                        )}
-                      </DataTable.Cell>
-                      <DataTable.Cell>
-                        {!day.status && !isFuture(day.date) && (
-                          <TouchableOpacity
+          <GifMonster monsterStatus={goal.status} monsterType={goal.type} />
+          <Block center>
+            <Block flex style={styles.header}>
+              <Block>
+                <Block>
+                  {goal.type && (
+                    <View>
+                      {goal.status === "start" && (
+                        <Text style={styles.headline}>
+                          {" "}
+                          What will your little egg hatch into? Keep feeding
+                          your Vitamon by completing your goals to find out!
+                        </Text>
+                      )}
+                      {goal.status === "middle" && (
+                        <Text style={styles.instructions}>
+                          {" "}
+                          Your Vitamon is growing from being fed by your healthy
+                          habits!{" "}
+                        </Text>
+                      )}
+                      {goal.status === "warning" && (
+                        <Text style={styles.instructions}>
+                          {" "}
+                          Seems like you've missed a day or two, get back on
+                          track to get your Vitamon healthy again.{" "}
+                        </Text>
+                      )}
+                      {goal.status === "fail" && (
+                        <Text style={styles.instructions}>
+                          {" "}
+                          Unfortunetly, you've missed too many days. Your
+                          Vitamon can not recover.{" "}
+                        </Text>
+                      )}
+                      {goal.status === "complete" && (
+                        <Text style={styles.instructions}>
+                          {" "}
+                          Congratulations! You completed your goal! Your Vitamon
+                          is full grown!{" "}
+                        </Text>
+                      )}
+                      <Text style={styles.text}>
+                        You said you'd {goalDetails} for {goal.numberOfDays}{" "}
+                        days
+                      </Text>
 
-                            onPress={() => {
-                              this.props.navigation.navigate("Welcome");
-                            }}
+                      <Text>
+                        So far, you've completed {goal.completedDays} out of{" "}
+                        {goal.numberOfDays} days!
+                      </Text>
+                      <Text
+                        p
+                        color={theme.COLORS.MUTED}
+                        size={theme.SIZES.FONT * 0.875}
+                        style={{ marginLeft: theme.SIZES.BASE * 0.25 }}
+                      >
+                        Completion Status:
+                      </Text>
+                      <Block>
+                        <Block flex left>
+                          <AnimatedCircularProgress
+                            size={200}
+                            width={15}
+                            fill={Number(progress)}
+                            tintColor="#7E5EC8"
+                            backgroundColor="#2C148B"
                           >
-                            <Text style={styles.buttonText}>Complete</Text>
-                          </TouchableOpacity>
-                        )}
-                      </DataTable.Cell>
-                    </DataTable.Row>
-                  );
-                })}
-              </DataTable>
-             
-      
-   
-            </View>
-          )}
-       
-          </Block>
-    
+                            {(fill) => <Text>{progress}%</Text>}
+                          </AnimatedCircularProgress>
+                        </Block>
+                        <Block flex right>
+                          <Text style={styles.headline}>
+                            Check off Completed Days Below
+                          </Text>
+                        </Block>
 
+                      </Block>
 
                       <DataTable>
                         <DataTable.Header>
                           <DataTable.Title>Day</DataTable.Title>
                           <DataTable.Title>Date</DataTable.Title>
-                          <DataTable.Title>Goal Completed?</DataTable.Title>
+                          <DataTable.Title>Completed?</DataTable.Title>
                           <DataTable.Title></DataTable.Title>
                         </DataTable.Header>
                         {this.props.days.map((day, i) => {
@@ -167,7 +147,7 @@ class WaterGoalDetails extends React.Component {
                                   <Entypo
                                     name="check"
                                     size={24}
-                                    color="black"
+                                    color={theme.COLORS.PRIMARY}
                                   />
                                 )}
                               </DataTable.Cell>
@@ -175,9 +155,8 @@ class WaterGoalDetails extends React.Component {
                                 {!day.status && !isFuture(day.date) && (
                                   <TouchableOpacity
                                     onPress={() => {
-                                      this.props.handleUpdate();
+                                      this.props.navigation.navigate("Welcome");
                                     }}
-                                    style={styles.button}
                                   >
                                     <Text style={styles.buttonText}>
                                       Complete
@@ -197,8 +176,6 @@ class WaterGoalDetails extends React.Component {
           </Block>
         </ScrollView>
       </Block>
- 
-
     );
   }
 }
