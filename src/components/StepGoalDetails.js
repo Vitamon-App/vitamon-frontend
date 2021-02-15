@@ -36,9 +36,10 @@ class StepGoalDetails extends React.Component {
     let goalDetails = `Walk ${goal.quantity} steps a day`;
 
     return (
-      // <ScrollView style={styles.headlineContainer} >
+
       <Block>
-           <StatusBar barStyle="light-content" />
+           <ScrollView>
+
            <GifMonster monsterStatus={goal.status} monsterType={goal.type}/>
            <Block center >
            <Block flex style={styles.header}>
@@ -83,13 +84,14 @@ class StepGoalDetails extends React.Component {
               {(fill) => <Text>{progress}%</Text>}
             </AnimatedCircularProgress>
 
-            <Text>Vitamon Status: {goal.status}</Text>
+            {/* <Text>Vitamon Status: {goal.status}</Text> */}
+            <Text style={styles.headline}>Check out Completed Days Below</Text>
             <DataTable>
               <DataTable.Header>
                 <DataTable.Title>Day</DataTable.Title>
                 <DataTable.Title>Date</DataTable.Title>
                 <DataTable.Title>Completed?</DataTable.Title>
-                <DataTable.Title>Steps</DataTable.Title>
+                <DataTable.Title style={{flex: "center"}}>Steps</DataTable.Title>
 
                 <DataTable.Title></DataTable.Title>
               </DataTable.Header>
@@ -102,7 +104,7 @@ class StepGoalDetails extends React.Component {
                     </DataTable.Cell>
                     <DataTable.Cell>
                       {day.status && (
-                        <Entypo name="check" size={24} color="black" />
+                        <Entypo name="check" size={24} color={theme.COLORS.PRIMARY} />
                       )}
                       {!this.props.isPedometerAvailable &&
                         !day.status &&
@@ -129,8 +131,9 @@ class StepGoalDetails extends React.Component {
       </View>
       </Block>
       </Block>
+      </ScrollView>
       </Block>
-      // </ScrollView>
+   
     );
   }
 }

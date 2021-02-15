@@ -26,11 +26,11 @@ function AllGoalsScreen({ navigation, goals, user, setUserGoals }) {
     <Block safe flex>
       <ScrollView contentContainerStyle={styles.cards}>
         <Block styles={styles.container}>
-          <Text h5>
+          <Text style={styles.headline}>
             {"\n"}
             Feed your Vitamons by achieving your goals!{"\n"}
           </Text>
-          <Text p>Tap on a goal to see your progress</Text>
+          <Text style={styles.instructions}>Tap on a goal to see your progress</Text>
           {!goals.length ? (
             <View>
               <Text h4>You haven't added any goals yet!</Text>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   button: {
     marginLeft: 10,
     marginTop: 20,
-    backgroundColor: theme.COLORS.OCEANBLUE,
+    backgroundColor: theme.COLORS.PRIMARY,
     paddingVertical: 12,
     borderRadius: 10,
   },
@@ -120,6 +120,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     color: "white",
   },
+  headline: {
+    color: theme.COLORS.OCEANBLUE,
+    fontSize: 30,
+    textAlign: "center",
+    fontWeight: "600",
+  },
+  instructions: {
+    alignSelf: "center",
+    maxWidth: "90%",
+    fontSize: 0.045 * width,
+    textAlign: "center",
+    color: theme.COLORS.BLUEVIOLET,
+    fontWeight: "500",
+
+  },
   goalContainer: {
     flex: 1,
     alignItems: "center",
@@ -127,7 +142,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
     margin: 20,
-    backgroundColor: theme.COLORS.BLUEVIOLET,
+    backgroundColor: theme.COLORS.PRIMARY,
   },
   vitamon: {
     borderColor: "transparent",
