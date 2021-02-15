@@ -1,7 +1,6 @@
 import React from "react";
 import {
   StyleSheet,
-  // Text,
   View,
   FlatList,
   Image,
@@ -28,8 +27,6 @@ class AllFriendsScreen extends React.Component {
   render() {
     const user = this.props.user;
     const friends = this.props.friends || [];
-
-    console.log(friends);
     friends.push(this.props.user);
     const { navigation } = this.props;
     let leaderBoard = {};
@@ -41,11 +38,9 @@ class AllFriendsScreen extends React.Component {
         }
       });
     });
-    //console.log("leaderBoard", leaderBoard)
     friends.pop();
     let ranking = Object.entries(leaderBoard);
     let highest = [];
-    //console.log("ranking", ranking.sort())
     ranking.forEach((rank) => {
       if (rank[1] > 0) {
         highest = rank;
@@ -82,8 +77,6 @@ class AllFriendsScreen extends React.Component {
                   titleColor={theme.COLORS.WHITE}
                   captionColor={theme.COLORS.WHITE}
                   style={styles.card}
-                  //title={friend.name}
-                  //caption={friend.email}
                   location={
                     <View style={styles.buttonContainer}>
                       <Button
@@ -100,14 +93,10 @@ class AllFriendsScreen extends React.Component {
                       </Button>
                     </View>
                   }
-                  //avatar={`https://images.unsplash.com/photo-1571172964276-91faaa704e1f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80`}
                   image={`${friend.imageUrl}`}
                   imageStyle={styles.cardImageRadius}
                   imageStyle={styles.rounded}
-                  imageBlockStyle={[
-                    // { padding: theme.SIZES.BASE / 2 },
-                    styles.noRadius,
-                  ]}
+                  imageBlockStyle={[styles.noRadius]}
                   footerStyle={styles.full}
                 >
                   <Text style={styles.textStyle}>{friend.name}</Text>
@@ -181,20 +170,13 @@ const styles = StyleSheet.create({
     width: 5,
     marginTop: 19,
     marginBottom: 20,
-    //marginHorizontal: 10,
+
     marginRight: 70,
     backgroundColor: "#97A5E9",
     alignItems: "center",
     justifyContent: "center",
   },
   buttonContainer2: {
-    /*    height: 40,
-    width: 5,
-    marginTop: 19,
-    marginBottom: 10, */
-    //marginHorizontal: 10,
-    //marginLeft: 90,
-    //backgroundColor: "#97A5E9",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -203,8 +185,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
     textAlign: "center",
-    //marginTop: 10,
-    //width: 200,
+
     backgroundColor: "#5539AA",
   },
 

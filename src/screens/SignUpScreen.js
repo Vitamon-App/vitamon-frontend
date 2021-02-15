@@ -1,14 +1,23 @@
 import React, { useState } from "react";
-import { StyleSheet, 
+import {
+  StyleSheet,
   ImageBackground,
   Dimensions,
   StatusBar,
   KeyboardAvoidingView,
- } from "react-native";
+} from "react-native";
 import SignUpForm from "../components/SignUpForm";
 import { connect } from "react-redux";
 import { signup } from "../store/user";
-import { Block, Checkbox, Text, Button, Icon, Input, Image } from "galio-framework";
+import {
+  Block,
+  Checkbox,
+  Text,
+  Button,
+  Icon,
+  Input,
+  Image,
+} from "galio-framework";
 
 import theme from "../theme.js";
 
@@ -19,8 +28,6 @@ function SignUp({ navigation, signupUser }) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
- // console.log("email: ", email);
-  //console.log("password: ", password);
   const onSignUpButtonPress = async () => {
     try {
       let newUser = {
@@ -36,154 +43,134 @@ function SignUp({ navigation, signupUser }) {
   };
 
   const backToLogin = () => {
-    navigation.navigate("Home")
-  }
+    navigation.navigate("Home");
+  };
 
   return (
     <Block flex middle>
-        <StatusBar hidden />
-        <ImageBackground
-          source={require("../../assets/register-bg.png")}
-          style={{ width, height, zIndex: 1 }}
-        >
-          <Block flex middle>
-            <Block style={styles.registerContainer}>
-              <Block flex={0.25} middle style={styles.socialConnect}>
-                <Text color="#8898AA" size={12}>
-                  Sign up with
-                </Text>
-                <Block row style={{ marginTop: theme.SIZES.BASE }}>
-                  <Button style={{ ...styles.socialButtons, marginRight: 30 }}>
-                    <Block row>
-                      <Icon
-                        name="logo-github"
-                        family="Ionicon"
-                        size={14}
-                        color={"black"}
-                        style={{ marginTop: 2, marginRight: 5 }}
-                      />
-                      <Text style={styles.socialTextButtons}>GITHUB</Text>
-                    </Block>
-                  </Button>
-                  <Button style={styles.socialButtons}>
-                    <Block row>
-                      <Icon
-                        name="logo-google"
-                        family="Ionicon"
-                        size={14}
-                        color={"black"}
-                        style={{ marginTop: 2, marginRight: 5 }}
-                      />
-                      <Text style={styles.socialTextButtons}>GOOGLE</Text>
-                    </Block>
-                  </Button>
-                </Block>
+      <StatusBar hidden />
+      <ImageBackground
+        source={require("../../assets/register-bg.png")}
+        style={{ width, height, zIndex: 1 }}
+      >
+        <Block flex middle>
+          <Block style={styles.registerContainer}>
+            <Block flex={0.25} middle style={styles.socialConnect}>
+              <Text color="#8898AA" size={12}>
+                Sign up with
+              </Text>
+              <Block row style={{ marginTop: theme.SIZES.BASE }}>
+                <Button style={{ ...styles.socialButtons, marginRight: 30 }}>
+                  <Block row>
+                    <Icon
+                      name="logo-github"
+                      family="Ionicon"
+                      size={14}
+                      color={"black"}
+                      style={{ marginTop: 2, marginRight: 5 }}
+                    />
+                    <Text style={styles.socialTextButtons}>GITHUB</Text>
+                  </Block>
+                </Button>
+                <Button style={styles.socialButtons}>
+                  <Block row>
+                    <Icon
+                      name="logo-google"
+                      family="Ionicon"
+                      size={14}
+                      color={"black"}
+                      style={{ marginTop: 2, marginRight: 5 }}
+                    />
+                    <Text style={styles.socialTextButtons}>GOOGLE</Text>
+                  </Block>
+                </Button>
               </Block>
-              <Block flex>
-                <Block flex={0.17} middle>
-                  <Text color="#8898AA" size={12}>
-                    Or sign up the classic way
-                  </Text>
-                </Block>
-                <Block flex middle>
-                  <KeyboardAvoidingView
-                    style={{ flex: 1 }}
-                    behavior="padding"
-                    enabled
-                  >
-                    {/* <Block width={width * 0.8} style={{ marginBottom: 15 }}>
-                      <Input
-                        borderless
-                        placeholder="Name"
-                        iconContent={
-                          <Icon
-                            size={16}
-                            color={theme.COLORS.ICON}
-                            name="hat-3"
-                            family="ArgonExtra"
-                            style={styles.inputIcons}
-                          />
-                        }
-                      />
-                    </Block> */}
-                    {/* <Block width={width * 0.8} style={{ marginBottom: 15 }}>
-                      <Input
-                        borderless
-                        placeholder="Email"
-                        iconContent={
-                          <Icon
-                            size={16}
-                            color={theme.COLORS.ICON}
-                            name="ic_mail_24px"
-                            family="ArgonExtra"
-                            style={styles.inputIcons}
-                          />
-                        }
-                      />
-                    </Block> */}
-                    <Block width={width * 0.8}>
-                    
-                       <SignUpForm
-        name={name}
-        email={email}
-        password={password}
-        onEmailChange={(newEmail) => setEmail(newEmail)}
-        onPasswordChange={(newPassword) => setPassword(newPassword)}
-        onNameChange={(newName) => setName(newName)}
-        backToLogin ={()=> backToLogin()}
-      />
-                      <Block row style={styles.passwordCheck}>
-                        <Text size={12} color={theme.COLORS.MUTED}>
-                          password strength:
-                        </Text>
-                        <Text bold size={12} color={theme.COLORS.SUCCESS}>
-                          {" "}
-                          strong
-                        </Text>
-                      </Block>
+            </Block>
+            <Block flex>
+              <Block flex={0.17} middle>
+                <Text color="#8898AA" size={12}>
+                  Or sign up the classic way
+                </Text>
+              </Block>
+              <Block flex middle>
+                <KeyboardAvoidingView
+                  style={{ flex: 1 }}
+                  behavior="padding"
+                  enabled
+                >
+                  <Block width={width * 0.8}>
+                    <SignUpForm
+                      name={name}
+                      email={email}
+                      password={password}
+                      onEmailChange={(newEmail) => setEmail(newEmail)}
+                      onPasswordChange={(newPassword) =>
+                        setPassword(newPassword)
+                      }
+                      onNameChange={(newName) => setName(newName)}
+                      backToLogin={() => backToLogin()}
+                    />
+                    <Block row style={styles.passwordCheck}>
+                      <Text size={12} color={theme.COLORS.MUTED}>
+                        password strength:
+                      </Text>
+                      <Text bold size={12} color={theme.COLORS.SUCCESS}>
+                        {" "}
+                        strong
+                      </Text>
                     </Block>
-                    <Block row width={width * 0.75}>
-                      <Checkbox
-                        checkboxStyle={{
-                          borderWidth: 3
-                        }}
-                        color={theme.COLORS.PRIMARY}
-                        label="I agree with the"
-                      />
-                      <Button
-                        style={{ width: 100 }}
-                        color="transparent"
-                        textStyle={{
-                          color: theme.COLORS.PRIMARY,
-                          fontSize: 14
-                        }}
-                      >
-                        Privacy Policy
-                      </Button>
-                    </Block>
-                    <Block middle>
-                      <Button color={theme.COLORS.PRIMARY} style={styles.createButton}
-                      onPress={()=> onSignUpButtonPress(name, email, password)}>
-                        <Text bold size={14} color={theme.COLORS.WHITE}>
-                          CREATE ACCOUNT
-                        </Text>
-                      </Button>
+                  </Block>
+                  <Block row width={width * 0.75}>
+                    <Checkbox
+                      checkboxStyle={{
+                        borderWidth: 3,
+                      }}
+                      color={theme.COLORS.PRIMARY}
+                      label="I agree with the"
+                    />
+                    <Button
+                      style={{ width: 100 }}
+                      color="transparent"
+                      textStyle={{
+                        color: theme.COLORS.PRIMARY,
+                        fontSize: 14,
+                      }}
+                    >
+                      Privacy Policy
+                    </Button>
+                  </Block>
+                  <Block middle>
+                    <Button
+                      color={theme.COLORS.PRIMARY}
+                      style={styles.createButton}
+                      onPress={() => onSignUpButtonPress(name, email, password)}
+                    >
+                      <Text bold size={14} color={theme.COLORS.WHITE}>
+                        CREATE ACCOUNT
+                      </Text>
+                    </Button>
 
-          <Button color="transparent" 
-          shadowless 
-          onPress={backToLogin}>
-          <Text center color={theme.COLORS.PRIMARY} size={theme.SIZES.FONT * 0.75}>
-             Already have an account? Sign In
-          </Text>
-              </Button>
-                    </Block>
-                  </KeyboardAvoidingView>
-                </Block>
+                    <Button
+                      color="transparent"
+                      shadowless
+                      onPress={backToLogin}
+                    >
+                      <Text
+                        center
+                        color={theme.COLORS.PRIMARY}
+                        size={theme.SIZES.FONT * 0.75}
+                      >
+                        Already have an account? Sign In
+                      </Text>
+                    </Button>
+                  </Block>
+                </KeyboardAvoidingView>
               </Block>
             </Block>
           </Block>
-        </ImageBackground>
-      </Block>
+        </Block>
+      </ImageBackground>
+    </Block>
   );
 }
 const mapDispatch = (dispatch) => {
@@ -207,17 +194,17 @@ const styles = StyleSheet.create({
     shadowColor: theme.COLORS.BLACK,
     shadowOffset: {
       width: 0,
-      height: 4
+      height: 4,
     },
     shadowRadius: 8,
     shadowOpacity: 0.1,
     elevation: 1,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   socialConnect: {
     backgroundColor: theme.COLORS.WHITE,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: "#8898AA"
+    borderColor: "#8898AA",
   },
   socialButtons: {
     width: 120,
@@ -226,29 +213,29 @@ const styles = StyleSheet.create({
     shadowColor: theme.COLORS.BLACK,
     shadowOffset: {
       width: 0,
-      height: 4
+      height: 4,
     },
     shadowRadius: 8,
     shadowOpacity: 0.1,
-    elevation: 1
+    elevation: 1,
   },
   socialTextButtons: {
     color: theme.COLORS.PRIMARY,
     fontWeight: "800",
-    fontSize: 14
+    fontSize: 14,
   },
   inputIcons: {
-    marginRight: 12
+    marginRight: 12,
   },
   passwordCheck: {
     paddingLeft: 15,
     paddingTop: 13,
-    paddingBottom: 30
+    paddingBottom: 30,
   },
   createButton: {
     width: width * 0.5,
-    marginTop: 25
-  }
+    marginTop: 25,
+  },
 });
 
 export default connect(null, mapDispatch)(SignUp);

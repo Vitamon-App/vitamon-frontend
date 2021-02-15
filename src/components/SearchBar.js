@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Input } from "galio-framework";
 import { Feather } from "@expo/vector-icons";
 
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginHorizontal: 15,
     flexDirection: "row",
-    //borderColor: "#5539AA",
   },
   inputStyle: {
     flex: 1,
@@ -48,8 +47,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: 500,
     backgroundColor: "#FFF",
-    //padding: 8,
-    // margin: 10,
   },
 });
 

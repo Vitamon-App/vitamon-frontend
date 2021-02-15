@@ -63,13 +63,9 @@ function AddFriendScreen({
     }
   };
 
-  // useEffect(()=> {
-
-  // }, )
-  console.log(foundFriend);
   return (
     <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
-      <Text /* size={theme.SIZES.FONT * 2} */ style={styles.textStyle} bold>
+      <Text style={styles.textStyle} bold>
         Search for a friend by email!
       </Text>
       <Block flex space="space">
@@ -97,7 +93,6 @@ function AddFriendScreen({
                 style={{
                   width: 380,
                   height: 290,
-                  /* borderRadius: 400 / 2, */
                 }}
               />
 
@@ -109,14 +104,9 @@ function AddFriendScreen({
                 style={styles.card}
                 title={foundFriend.name}
                 caption={foundFriend.email}
-                //location={"goals"}
-                // avatar={`https://images.unsplash.com/photo-1571172964276-91faaa704e1f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80`}
                 image={`${foundFriend.imageUrl}`}
                 imageStyle={styles.rounded}
-                imageBlockStyle={[
-                  // { padding: theme.SIZES.BASE / 2 },
-                  styles.noRadius,
-                ]}
+                imageBlockStyle={[styles.noRadius]}
                 footerStyle={styles.full}
               >
                 <LinearGradient
@@ -127,7 +117,6 @@ function AddFriendScreen({
               <Text h3> Add {foundFriend.name} as a friend!</Text>
               <View>
                 <Button
-                  //style={styles.button}
                   small
                   round
                   color="#5539AA"
@@ -141,7 +130,7 @@ function AddFriendScreen({
           ) : (
             <>
               {foundFriend.name && foundFriend.name !== "nobody" ? (
-                <View /* style={styles.foundResultContainer} */>
+                <View>
                   <View style={styles.imageResult}>
                     <Image
                       source={{ uri: `${foundFriend.imageUrl}` }}
@@ -164,8 +153,6 @@ function AddFriendScreen({
               )}
             </>
           )}
-
-          {/* <Text>you entered: {searchEmail}</Text> */}
         </View>
       </Block>
     </Block>
@@ -196,8 +183,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "bold",
     textAlign: "center",
-    //marginTop: 10,
-    //width: 200,
     backgroundColor: "#5539AA",
   },
   full: {
