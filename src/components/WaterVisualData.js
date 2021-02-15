@@ -44,7 +44,7 @@ function WaterVisualData({ allGoals }) {
     <View style={styles.container}>
       <Text
         style={styles.subHead}
-      >{`You have dranked ${totalSum()} bottles of water so far `}</Text>
+      >{`You have drank ${totalSum()} bottles of water so far `}</Text>
       <VictoryChart
         width={350}
         minDomain={{ y: 0 }}

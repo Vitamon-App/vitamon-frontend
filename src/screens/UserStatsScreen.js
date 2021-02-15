@@ -21,12 +21,10 @@ import animationData from "../../assets/38463-error.json";
 
 const width = Dimensions.get("window").width;
 function UserStatsScreen({ user, goals, setUserGoals }) {
-  console.log("user.goals: ", goals);
-
   useEffect(() => {
     setUserGoals(user.id);
   }, []);
-
+  //console.log("user.goals!!!!!: ", goals);
   const [selected, setSelected] = useState("text");
   const changeSelectedToText = () => {
     setSelected("text");
@@ -185,7 +183,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                             source={require("../../assets/lf30_editor_twphuvjm.json")}
                           />
                           <Text style={styles.textStyle}>
-                            By completing your water goal you have dranked{" "}
+                            By completing your water goal you have drank{" "}
                             {completedWater()} bottles of water !
                           </Text>
                         </View>
