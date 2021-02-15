@@ -48,15 +48,14 @@ function SignUp({ navigation, signupUser }) {
 
   return (
     <Block flex middle>
-
-        <StatusBar hidden />
-        <ImageBackground
-          source={require("../../assets/register-bg.png")}
-          style={{ width, height, zIndex: 1 }}
-        >
-          <Block flex middle>
-            <Block style={styles.registerContainer}>
-              {/* <Block flex={0.25} middle style={styles.socialConnect}>
+      <StatusBar hidden />
+      <ImageBackground
+        source={require("../../assets/register-bg.png")}
+        style={{ width, height, zIndex: 1 }}
+      >
+        <Block flex middle>
+          <Block style={styles.registerContainer}>
+            {/* <Block flex={0.25} middle style={styles.socialConnect}>
 
                 <Text color="#8898AA" size={12}>
                   Or sign up the classic way
@@ -89,42 +88,42 @@ function SignUp({ navigation, signupUser }) {
                   </Button>
                 </Block>
               </Block> */}
-              <Block flex>
-                <Block flex={0.17} middle>
-                  <Text color="#8898AA" size={12}>
-                    Enter your information below
-                  </Text>
-                </Block>
-                <Block flex middle>
-                  <KeyboardAvoidingView
-                    style={{ flex: 1 }}
-                    behavior="padding"
-                    enabled
-                  >
-                    
-                    <Block width={width * 0.8}>
-                    
-                       <SignUpForm
-        name={name}
-        email={email}
-        password={password}
-        onEmailChange={(newEmail) => setEmail(newEmail)}
-        onPasswordChange={(newPassword) => setPassword(newPassword)}
-        onNameChange={(newName) => setName(newName)}
-        backToLogin ={()=> backToLogin()}
-      />
-                      <Block row style={styles.passwordCheck}>
-                        {/* <Text size={12} color={theme.COLORS.MUTED}>
+            <Block flex>
+              <Block flex={0.17} middle>
+                <Text color="#8898AA" size={12}>
+                  Enter your information below
+                </Text>
+              </Block>
+              <Block flex middle>
+                <KeyboardAvoidingView
+                  style={{ flex: 1 }}
+                  behavior="padding"
+                  enabled
+                >
+                  <Block width={width * 0.8}>
+                    <SignUpForm
+                      name={name}
+                      email={email}
+                      password={password}
+                      onEmailChange={(newEmail) => setEmail(newEmail)}
+                      onPasswordChange={(newPassword) =>
+                        setPassword(newPassword)
+                      }
+                      onNameChange={(newName) => setName(newName)}
+                      backToLogin={() => backToLogin()}
+                    />
+                    <Block row style={styles.passwordCheck}>
+                      {/* <Text size={12} color={theme.COLORS.MUTED}>
                           password strength:
                         </Text>
                         <Text bold size={12} color={theme.COLORS.SUCCESS}>
                           {" "}
                           strong
                         </Text> */}
-                      </Block>
                     </Block>
-                    <Block row width={width * 0.75}>
-                      {/* <Checkbox
+                  </Block>
+                  <Block row width={width * 0.75}>
+                    {/* <Checkbox
                         checkboxStyle={{
                           borderWidth: 3
                         }}
@@ -135,25 +134,33 @@ function SignUp({ navigation, signupUser }) {
 
                         Privacy Policy
                       </Button> */}
-                    </Block>
-                    <Block middle>
-                      <Button color={theme.COLORS.PRIMARY} style={styles.createButton}
-                      onPress={()=> onSignUpButtonPress(name, email, password)}>
-                        <Text bold size={14} color={theme.COLORS.WHITE}>
-                          CREATE ACCOUNT
-                        </Text>
-                      </Button>
+                  </Block>
+                  <Block middle>
+                    <Button
+                      color={theme.COLORS.PRIMARY}
+                      style={styles.createButton}
+                      onPress={() => onSignUpButtonPress(name, email, password)}
+                    >
+                      <Text bold size={14} color={theme.COLORS.WHITE}>
+                        CREATE ACCOUNT
+                      </Text>
+                    </Button>
 
-          <Button color="transparent" 
-          shadowless 
-          onPress={backToLogin}>
-          <Text center color={theme.COLORS.PRIMARY} size={theme.SIZES.FONT * 0.75}>
-             Already have an account? Sign In
-          </Text>
-              </Button>
-                    </Block>
-                  </KeyboardAvoidingView>
-                </Block>
+                    <Button
+                      color="transparent"
+                      shadowless
+                      onPress={backToLogin}
+                    >
+                      <Text
+                        center
+                        color={theme.COLORS.PRIMARY}
+                        size={theme.SIZES.FONT * 0.75}
+                      >
+                        Already have an account? Sign In
+                      </Text>
+                    </Button>
+                  </Block>
+                </KeyboardAvoidingView>
               </Block>
             </Block>
           </Block>
