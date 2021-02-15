@@ -27,6 +27,7 @@ class AllFriendsScreen extends React.Component {
   render() {
     const user = this.props.user;
     const friends = this.props.friends || [];
+
     friends.push(this.props.user);
     const { navigation } = this.props;
     let leaderBoard = {};
@@ -38,9 +39,11 @@ class AllFriendsScreen extends React.Component {
         }
       });
     });
+
     friends.pop();
     let ranking = Object.entries(leaderBoard);
     let highest = [];
+
     ranking.forEach((rank) => {
       if (rank[1] > 0) {
         highest = rank;
@@ -208,6 +211,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     alignItems: "center",
     justifyContent: "center",
+
   },
 });
 
