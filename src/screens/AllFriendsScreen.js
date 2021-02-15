@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StyleSheet, View, Dimensions, ScrollView } from "react-native";
+import { StyleSheet, View, Dimensions, ScrollView} from "react-native";
 import { connect } from "react-redux";
 import { fetchFriends } from "../store/friends";
 
@@ -87,7 +87,7 @@ class AllFriendsScreen extends React.Component {
                 style={styles.button}
                 color="#2C148B"
                 round
-                onPress={() => navigation.navigate("AddFriend")}
+                onPress={() => this.props.navigation.navigate("AddFriend")}
               >
                 Add a new friend!
               </Button>

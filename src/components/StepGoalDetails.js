@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   button: {
     marginRight: 10,
     width: 120,
-    backgroundColor: "#9F1BEE",
+    backgroundColor: theme.COLORS.OCEANBLUE,
     paddingVertical: 12,
     borderRadius: 10,
   },
@@ -234,14 +234,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 10,
   },
-  button: {
-    marginLeft: 10,
-    marginTop: 20,
-    backgroundColor: "#f114af",
-    // paddingVertical: 10,
-    borderRadius: 10,
-    bottom: 20,
-  },
+  
   buttonTwo: {
     marginLeft: 10,
     marginTop: 20,
