@@ -57,11 +57,14 @@ class AllFriendsScreen extends React.Component {
       <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
         <ScrollView contentContainerStyle={styles.cards}>
           <Block flex space="between">
-            <Text size={theme.SIZES.FONT * 2} bold>
-              {" "}
-              Here are all your friends!{" "}
-            </Text>
-            <Text style={styles.goalLeader}>
+            <View style={styles.container}>
+              <Text size={theme.SIZES.FONT * 2} color="#2C148B" bold>
+                {" "}
+                Here are all your friends!{" "}
+              </Text>
+            </View>
+
+            <Text style={styles.goalLeader} color="#2C148B">
               {highest.length === 0
                 ? "None of your friends have completed goals to be"
                 : `${highest[0]} is`}{" "}
@@ -103,9 +106,15 @@ class AllFriendsScreen extends React.Component {
                 </Card>
               ))
             ) : (
-              <Text style={{ marginVertical: theme.SIZES.FONT / 4 }} h1>
-                You haven't Added Any Friends Yet!
-              </Text>
+              <View style={styles.container}>
+                <Text
+                  style={{ marginVertical: theme.SIZES.FONT / 4 }}
+                  color="#2C148B"
+                  h5
+                >
+                  You haven't Added Any Friends Yet!
+                </Text>
+              </View>
             )}
 
             <View style={styles.buttonContainer2}>
@@ -192,6 +201,13 @@ const styles = StyleSheet.create({
   goalLeader: {
     fontSize: 18,
     textAlign: "center",
+    marginBottom: 20,
+  },
+  container: {
+    flex: 1,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
