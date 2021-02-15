@@ -72,83 +72,101 @@ function AddFriendScreen({
       <Text /* size={theme.SIZES.FONT * 2} */ style={styles.textStyle} bold>
         Search for a friend by email!
       </Text>
-      <Block flex space="around">
-        <SearchBar
-          term={searchEmail}
-          // search bar component expects a prop called term
-          onTermChange={(newSearchEmail) => setSearchEmail(newSearchEmail)}
-          onTermSubmit={onSubmit}
-        />
+      <Block flex space="space">
+        <View>
+          <SearchBar
+            term={searchEmail}
+            // search bar component expects a prop called term
+            onTermChange={(newSearchEmail) => setSearchEmail(newSearchEmail)}
+            onTermSubmit={onSubmit}
+          />
 
-        {foundFriend.name ? (
-          <Text style={styles.searchResult}>
-            We found {foundFriend.name} with that email
-          </Text>
-        ) : (
-          <Text> </Text>
-        )}
+          {foundFriend.name ? (
+            <Text style={styles.searchResult}>
+              We found {foundFriend.name} with that email
+            </Text>
+          ) : (
+            <Text> </Text>
+          )}
 
-        {foundFriend.email &&
-        !friends.map((friend) => friend.email).includes(foundFriend.email) ? (
-          <View>
-            <Text h3> Add {foundFriend.name} as a friend!</Text>
-            <Image source={{ uri: `${foundFriend.imageUrl}` }} />
-            <Card
-              flex
-              borderless
-              shadowColor={theme.COLORS.BLACK}
-              titleColor={theme.COLORS.WHITE}
-              style={styles.card}
-              title={foundFriend.name}
-              caption={foundFriend.email}
-              location={"goals"}
-              // avatar={`https://images.unsplash.com/photo-1571172964276-91faaa704e1f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80`}
-              image={`${foundFriend.imageUrl}`}
-              imageStyle={styles.rounded}
-              imageBlockStyle={[
-                // { padding: theme.SIZES.BASE / 2 },
-                styles.noRadius,
-              ]}
-              footerStyle={styles.full}
-            >
-              <LinearGradient
-                colors={["transparent", "rgba(0,0,0, 0.8)"]}
-                style={styles.gradient}
+          {foundFriend.email &&
+          !friends.map((friend) => friend.email).includes(foundFriend.email) ? (
+            <View style={styles.cardContainer}>
+              <Image
+                source={{ uri: `${foundFriend.imageUrl}` }}
+                style={{
+                  width: 380,
+                  height: 290,
+                  /* borderRadius: 400 / 2, */
+                }}
               />
-            </Card>
-            <Button
-              style={styles.button}
-              round
-              title="add friend"
-              onPress={() => onButtonPress()}
-            />
-          </View>
-        ) : (
-          <>
-            {foundFriend.name && foundFriend.name !== "nobody" ? (
-              <View style={styles.foundResultContainer}>
-                <View style={styles.imageResult}>
-                  <Image
-                    source={{ uri: `${foundFriend.imageUrl}` }}
-                    style={{
-                      width: 200,
-                      height: 200,
-                      borderRadius: 400 / 2,
-                    }}
-                  />
-                </View>
-                <Text style={styles.searchResult}>
-                  {foundFriend.name} is already your friend! Search For someone
-                  else to add!
-                </Text>
-              </View>
-            ) : (
-              <Text></Text>
-            )}
-          </>
-        )}
 
-        {/* <Text>you entered: {searchEmail}</Text> */}
+              <Card
+                flex
+                borderless
+                shadowColor={theme.COLORS.BLACK}
+                titleColor={theme.COLORS.WHITE}
+                style={styles.card}
+                title={foundFriend.name}
+                caption={foundFriend.email}
+                //location={"goals"}
+                // avatar={`https://images.unsplash.com/photo-1571172964276-91faaa704e1f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80`}
+                image={`${foundFriend.imageUrl}`}
+                imageStyle={styles.rounded}
+                imageBlockStyle={[
+                  // { padding: theme.SIZES.BASE / 2 },
+                  styles.noRadius,
+                ]}
+                footerStyle={styles.full}
+              >
+                <LinearGradient
+                  colors={["transparent", "rgba(0,0,0, 0.8)"]}
+                  style={styles.gradient}
+                />
+              </Card>
+              <Text h3> Add {foundFriend.name} as a friend!</Text>
+              <View>
+                <Button
+                  //style={styles.button}
+                  small
+                  round
+                  color="#5539AA"
+                  title="add friend"
+                  onPress={() => onButtonPress()}
+                >
+                  <Text style={styles.buttonText}> add friend </Text>
+                </Button>
+              </View>
+            </View>
+          ) : (
+            <>
+              {foundFriend.name && foundFriend.name !== "nobody" ? (
+                <View /* style={styles.foundResultContainer} */>
+                  <View style={styles.imageResult}>
+                    <Image
+                      source={{ uri: `${foundFriend.imageUrl}` }}
+                      style={{
+                        width: 200,
+                        height: 200,
+                        borderRadius: 400 / 2,
+                      }}
+                    />
+                  </View>
+                  <Text style={styles.searchResult}>
+                    {foundFriend.name} is already your friend!
+                  </Text>
+                  <Text style={styles.searchResult}>
+                    Search for someone else to add!
+                  </Text>
+                </View>
+              ) : (
+                <Text></Text>
+              )}
+            </>
+          )}
+
+          {/* <Text>you entered: {searchEmail}</Text> */}
+        </View>
       </Block>
     </Block>
   );
@@ -166,6 +184,21 @@ const styles = StyleSheet.create({
     width: width - theme.SIZES.BASE * 2,
     marginVertical: theme.SIZES.BASE * 0.875,
     elevation: theme.SIZES.BASE / 2,
+  },
+  cardContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 200,
+  },
+  textStyle: {
+    color: "#f5f5f5",
+    fontSize: 15,
+    fontWeight: "bold",
+    textAlign: "center",
+    //marginTop: 10,
+    //width: 200,
+    backgroundColor: "#5539AA",
   },
   full: {
     position: "absolute",
@@ -190,16 +223,23 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: theme.SIZES.BASE * 0.5,
     borderBottomLeftRadius: theme.SIZES.BASE * 0.5,
   },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+  },
   textStyle: {
     color: "#5539AA",
     fontSize: 28,
     textAlign: "center",
+    marginBottom: 10,
   },
   searchResult: {
     color: "#5539AA",
     fontSize: 18,
     textAlign: "center",
     fontWeight: "bold",
+    marginTop: 20,
+    marginBottom: 10,
   },
   imageContainer: {
     flex: 1,
@@ -208,12 +248,15 @@ const styles = StyleSheet.create({
   },
   foundResultContainer: {
     flex: 1,
-    //flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
   searchResultCont: {
     marginTop: 19,
+  },
+  imageResult: {
+    marginTop: 10,
+    alignItems: "center",
   },
 });
 
