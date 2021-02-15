@@ -1,7 +1,9 @@
 import React from "react";
+
 import { StyleSheet, View, Dimensions, ScrollView } from "react-native";
 import { connect } from "react-redux";
 import { fetchFriends } from "../store/friends";
+
 
 // Galio components
 import { Text, Card, Block, NavBar, Icon, Button } from "galio-framework";
@@ -15,16 +17,23 @@ class AllFriendsScreen extends React.Component {
   }
 
   render() {
+
     const friends = this.props.friends || [];
+
 
     return (
       <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
         <ScrollView contentContainerStyle={styles.cards}>
           <Block flex space="between">
-            <Text size={theme.SIZES.FONT * 2} bold>
-              {" "}
-              Here are all your friends!{" "}
-            </Text>
+
+            <View style={styles.container}>
+              <Text size={theme.SIZES.FONT * 2} color="#2C148B" bold>
+                {" "}
+                Here are all your friends!{" "}
+              </Text>
+            </View>
+
+           
 
             {friends.length ? (
               friends.map((friend, id) => (
@@ -52,7 +61,6 @@ class AllFriendsScreen extends React.Component {
                       </Button>
                     </View>
                   }
-                  //avatar={`https://images.unsplash.com/photo-1571172964276-91faaa704e1f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80`}
                   image={`${friend.imageUrl}`}
                   imageStyle={styles.cardImageRadius}
                   imageStyle={styles.rounded}
@@ -63,9 +71,15 @@ class AllFriendsScreen extends React.Component {
                 </Card>
               ))
             ) : (
-              <Text style={{ marginVertical: theme.SIZES.FONT / 4 }} h1>
-                You haven't Added Any Friends Yet!
-              </Text>
+              <View style={styles.container}>
+                <Text
+                  style={{ marginVertical: theme.SIZES.FONT / 4 }}
+                  color="#2C148B"
+                  h5
+                >
+                  You haven't Added Any Friends Yet!
+                </Text>
+              </View>
             )}
 
             <View style={styles.buttonContainer2}>
@@ -145,6 +159,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     backgroundColor: "#5539AA",
+  },
+
+  goalLeader: {
+    fontSize: 18,
+    textAlign: "center",
+    marginBottom: 20,
+  },
+  container: {
+    flex: 1,
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: "center",
+
   },
 });
 

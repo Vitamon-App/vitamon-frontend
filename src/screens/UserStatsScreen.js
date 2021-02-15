@@ -1,28 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  Dimensions,
-  //Text,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { View, StyleSheet, Image, Dimensions, ScrollView } from "react-native";
 import { Text, Card, Block, Icon, Button } from "galio-framework";
 import theme from "../theme";
-import { SimpleLineIcons, FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import WaterVisualData from "../components/WaterVisualData";
 import StepVisualData from "../components/StepVisualData";
-
 import { fetchGoals } from "../store/allTheUsersGoals";
 import LottieView from "lottie-react-native";
-import animationData from "../../assets/38463-error.json";
 
 const width = Dimensions.get("window").width;
 function UserStatsScreen({ user, goals, setUserGoals }) {
-  console.log("user.goals: ", goals);
-
   useEffect(() => {
     setUserGoals(user.id);
   }, []);
@@ -107,24 +94,13 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
   };
 
   return (
-    // <Block>
     <ScrollView>
-      {/* <Text style={styles.textStyle}>UserStats</Text> */}
-      {/* <Image
-        source={require("../../assets/profile2.png")}
-        // source={{
-        //   uri:
-        //     '../public/images/anonymous-avatar-sm.jpg',
-        // }}
-        style={{ alignSelf: "center" }}
-      /> */}
       {goals.length ? (
         <Block>
           <View style={styles.header}>
             <Image
               style={{ width: 50, height: 50, borderRadius: 400 / 2 }}
               source={{ uri: user.imageUrl }}
-              //resizeMode={"cover"}
             />
             <Text style={styles.subHead1}> {user.name}'s Profile</Text>
           </View>
@@ -167,7 +143,6 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                   borderless
                 >
                   <Text style={styles.subHead3}>Water Stats</Text>
-                  {/*  <SimpleLineIcons name="drop" size={15} color={"blue"} /> */}
                   {isWater() ? (
                     completedWater() ? (
                       <View>
@@ -185,7 +160,7 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
                             source={require("../../assets/lf30_editor_twphuvjm.json")}
                           />
                           <Text style={styles.textStyle}>
-                            By completing your water goal you have dranked{" "}
+                            By completing your water goal you have drank{" "}
                             {completedWater()} bottles of water !
                           </Text>
                         </View>
@@ -272,7 +247,6 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
               <Image
                 style={{ width: 50, height: 50, borderRadius: 400 / 2 }}
                 source={{ uri: user.imageUrl }}
-                //resizeMode={"cover"}
               />
 
               <Text style={styles.subHead1}>{user.name}'s Profile</Text>
@@ -301,7 +275,6 @@ function UserStatsScreen({ user, goals, setUserGoals }) {
         </View>
       )}
     </ScrollView>
-    // </Block>
   );
 }
 const mapState = (state) => {
@@ -332,7 +305,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 10,
     marginBottom: 20,
-    // width: 200,
     backgroundColor: "#5539AA",
   },
   subHead1: {
@@ -351,7 +323,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#2C148B",
     fontWeight: "bold",
-    // marginTop: 5,
   },
   subHeadNoProflie: {
     fontSize: 18,
@@ -359,7 +330,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#2C148B",
     fontWeight: "bold",
-    // marginTop: 5,
   },
   buttonContainer: {
     height: 40,
@@ -398,8 +368,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    //padding: 15,
-    //backgroundColor: "#F5F4F6",
     shadowColor: "#F5F4F6",
     shadowOpacity: 0.0,
   },

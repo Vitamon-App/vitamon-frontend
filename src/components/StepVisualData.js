@@ -35,10 +35,6 @@ function StepVisualData({ allGoals }) {
     return totalBottles;
   };
 
-  /* const data = [
-    { stepGoal: 1, totalNumberOfSteps: 1000},
-  ]; */
-
   return (
     <View style={styles.container}>
       <Text
@@ -73,7 +69,6 @@ function StepVisualData({ allGoals }) {
           x="stepGoal"
           y="totalNumberOfSteps"
           style={{
-            // data: { fill: "#c43a31" },
             data: { stroke: "#F5F4F6" },
           }}
         />

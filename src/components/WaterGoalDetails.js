@@ -9,15 +9,21 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import GifMonster from './GifMonster'
-import Constants from 'expo-constants';
+import GifMonster from "./GifMonster";
+import Constants from "expo-constants";
 
 const { statusBarHeight } = Constants;
 // galio components
 import {
-  Block, Card, Text, Icon, NavBar, Image, Button
-} from 'galio-framework';
-import theme from '../theme';
+  Block,
+  Card,
+  Text,
+  Icon,
+  NavBar,
+  Image,
+  Button,
+} from "galio-framework";
+import theme from "../theme";
 import Monster from "../components/Monster";
 import { connect } from "react-redux";
 import { DataTable } from "react-native-paper";
@@ -26,10 +32,9 @@ import { setGoal, updateGoal } from "../store/goal";
 import { Entypo } from "@expo/vector-icons";
 // import DataTable from './DataTableForm'
 
-
 import { isFuture } from "date-fns";
 
-const { width, height } = Dimensions.get('screen');
+const { width, height } = Dimensions.get("screen");
 
 class WaterGoalDetails extends React.Component {
   constructor() {
@@ -42,24 +47,16 @@ class WaterGoalDetails extends React.Component {
     let goalDetails = `drink ${goal.quantity} bottles of water a day`;
 
     return (
+
       <Block>
-      <StatusBar barStyle="light-content" />
+        <ScrollView>
      
   <GifMonster monsterStatus={goal.status} monsterType={goal.type}/>
       <Block center >
         <Block flex style={styles.header}>
           <Block>
-          <ScrollView
-  // horizontal={true}
-  // // contentContainerStyle={{ width: `${100 * intervals}%` }}
-  // showsHorizontalScrollIndicator={false}
-  // scrollEventThrottle={200}
-  // decelerationRate="fast"
-  // pagingEnabled
->
-  <ScrollView>
           <Block >
-  
+        
           {goal.type && (
             <View>
               {(goal.status === 'start') && 
@@ -73,9 +70,7 @@ class WaterGoalDetails extends React.Component {
                                                       {(goal.status === 'complete') && 
               <Text style={styles.instructions}> Congratulations! You completed your goal! Your Vitamon is full grown! </Text> }
               <Text style={styles.text}>You said you'd {goalDetails} for {goal.numberOfDays} days</Text>
-              {/* <Text>
-                Goal Length: {goal.numberOfDays} days
-              </Text> */}
+          
               <Text >
                 So far, you've completed {goal.completedDays} out of {goal.numberOfDays} days!
               </Text>
@@ -90,7 +85,7 @@ class WaterGoalDetails extends React.Component {
                     <AnimatedCircularProgress
                 size={200}
                 width={15}
-                fill={progress}
+                fill={Number(progress)}
                 tintColor="#7E5EC8"
                 backgroundColor="#2C148B"
               >
@@ -99,15 +94,8 @@ class WaterGoalDetails extends React.Component {
               </Block>
               <Block flex right>
           
-                   <Button
-            color={theme.COLORS.PRIMARY}
-            shadowColor={theme.COLORS.DRIBBBLE}
-            onPress={() => {
-              this.props.navigation.navigate("Welcome");
-            }}
-          >
-            <Text style={styles.buttonText}> Log Your Progress > </Text>
-          </Button>
+             
+          <Text style={styles.headline}>Check off Completed Days Below</Text>
               </Block>
               <Block flex middle left>
              
@@ -119,7 +107,7 @@ class WaterGoalDetails extends React.Component {
                 <DataTable.Header>
                   <DataTable.Title>Day</DataTable.Title>
                   <DataTable.Title>Date</DataTable.Title>
-                  <DataTable.Title>Goal Completed?</DataTable.Title>
+                  <DataTable.Title>Completed?</DataTable.Title>
                   <DataTable.Title></DataTable.Title>
                 </DataTable.Header>
                 {this.props.days.map((day, i) => {
@@ -131,16 +119,16 @@ class WaterGoalDetails extends React.Component {
                       </DataTable.Cell>
                       <DataTable.Cell>
                         {day.status && (
-                          <Entypo name="check" size={24} color="black" />
+                          <Entypo name="check" size={24} color={theme.COLORS.PRIMARY} />
                         )}
                       </DataTable.Cell>
                       <DataTable.Cell>
                         {!day.status && !isFuture(day.date) && (
                           <TouchableOpacity
+
                             onPress={() => {
-                              this.props.handleUpdate();
+                              this.props.navigation.navigate("Welcome");
                             }}
-                            style={styles.button}
                           >
                             <Text style={styles.buttonText}>Complete</Text>
                           </TouchableOpacity>
@@ -150,24 +138,67 @@ class WaterGoalDetails extends React.Component {
                   );
                 })}
               </DataTable>
-              {/* <View style={{width: width, height: 300, color: 'white'}}></View> */}
+             
       
    
             </View>
           )}
+       
           </Block>
-        {/* </View> */}
-        {/* <Image source={{uri: bgImage}} /> */}
-        </ScrollView>
-      </ScrollView>
+    
 
+
+                      <DataTable>
+                        <DataTable.Header>
+                          <DataTable.Title>Day</DataTable.Title>
+                          <DataTable.Title>Date</DataTable.Title>
+                          <DataTable.Title>Goal Completed?</DataTable.Title>
+                          <DataTable.Title></DataTable.Title>
+                        </DataTable.Header>
+                        {this.props.days.map((day, i) => {
+                          return (
+                            <DataTable.Row key={i}>
+                              <DataTable.Cell>{i + 1}</DataTable.Cell>
+                              <DataTable.Cell>
+                                {day.date.toLocaleDateString()}
+                              </DataTable.Cell>
+                              <DataTable.Cell>
+                                {day.status && (
+                                  <Entypo
+                                    name="check"
+                                    size={24}
+                                    color="black"
+                                  />
+                                )}
+                              </DataTable.Cell>
+                              <DataTable.Cell>
+                                {!day.status && !isFuture(day.date) && (
+                                  <TouchableOpacity
+                                    onPress={() => {
+                                      this.props.handleUpdate();
+                                    }}
+                                    style={styles.button}
+                                  >
+                                    <Text style={styles.buttonText}>
+                                      Complete
+                                    </Text>
+                                  </TouchableOpacity>
+                                )}
+                              </DataTable.Cell>
+                            </DataTable.Row>
+                          );
+                        })}
+                      </DataTable>
+                    </View>
+                  )}
+                </Block>
+              </Block>
+            </Block>
           </Block>
-  
-        
-         
-        </Block>
+        </ScrollView>
       </Block>
-    </Block>
+ 
+
     );
   }
 }
@@ -180,7 +211,7 @@ const styles = StyleSheet.create({
   button: {
     marginRight: 10,
     width: 120,
-    backgroundColor: "#9F1BEE",
+    backgroundColor: theme.COLORS.PRIMARY,
     paddingVertical: 12,
     borderRadius: 10,
   },
@@ -232,9 +263,8 @@ const styles = StyleSheet.create({
     padding: 10,
     color: theme.COLORS.BLUEVIOLET,
     fontWeight: "500",
-
   },
-  text : {
+  text: {
     alignSelf: "center",
     // margin: 5,
     fontSize: 0.035 * width,
@@ -271,7 +301,7 @@ const styles = StyleSheet.create({
   button: {
     marginLeft: 10,
     marginTop: 20,
-    backgroundColor: "#f114af",
+    backgroundColor: theme.COLORS.PRIMARY,
     // paddingVertical: 10,
     borderRadius: 10,
     bottom: 20,
