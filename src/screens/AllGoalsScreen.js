@@ -4,6 +4,7 @@ import Monster from "../components/Monster";
 import { connect } from "react-redux";
 import { fetchGoals } from "../store/allTheUsersGoals";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { useFocusEffect } from "@react-navigation/native";
 // Galio components
 import { Block, Text, Button } from "galio-framework";
 import theme from "../theme";
@@ -13,7 +14,13 @@ const cardWidth = width - theme.SIZES.BASE * 2;
 function AllGoalsScreen({ navigation, goals, user, setUserGoals }) {
   useEffect(() => {
     setUserGoals(user.id);
-  });
+  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setUserGoals(user.id);
+    }, [])
+  );
 
   return (
     <Block safe flex>
@@ -151,9 +158,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   test: {
-    backgroundColor: 'black',
+    backgroundColor: "black",
     width: width,
-  }
+  },
 });
 
 const mapState = (state) => {

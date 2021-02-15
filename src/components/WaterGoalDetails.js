@@ -9,15 +9,21 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import GifMonster from './GifMonster'
-import Constants from 'expo-constants';
+import GifMonster from "./GifMonster";
+import Constants from "expo-constants";
 
 const { statusBarHeight } = Constants;
 // galio components
 import {
-  Block, Card, Text, Icon, NavBar, Image, Button
-} from 'galio-framework';
-import theme from '../theme';
+  Block,
+  Card,
+  Text,
+  Icon,
+  NavBar,
+  Image,
+  Button,
+} from "galio-framework";
+import theme from "../theme";
 import Monster from "../components/Monster";
 import { connect } from "react-redux";
 import { DataTable } from "react-native-paper";
@@ -26,10 +32,9 @@ import { setGoal, updateGoal } from "../store/goal";
 import { Entypo } from "@expo/vector-icons";
 // import DataTable from './DataTableForm'
 
-
 import { isFuture } from "date-fns";
 
-const { width, height } = Dimensions.get('screen');
+const { width, height } = Dimensions.get("screen");
 
 class WaterGoalDetails extends React.Component {
   constructor() {
@@ -45,7 +50,6 @@ class WaterGoalDetails extends React.Component {
 
       <Block>
         <ScrollView>
-      {/* <StatusBar barStyle="light-content" /> */}
      
   <GifMonster monsterStatus={goal.status} monsterType={goal.type}/>
       <Block center >
@@ -121,10 +125,10 @@ class WaterGoalDetails extends React.Component {
                       <DataTable.Cell>
                         {!day.status && !isFuture(day.date) && (
                           <TouchableOpacity
+
                             onPress={() => {
-                              this.props.handleUpdate();
+                              this.props.navigation.navigate("Welcome");
                             }}
-                            style={styles.button}
                           >
                             <Text style={styles.buttonText}>Complete</Text>
                           </TouchableOpacity>
@@ -143,15 +147,58 @@ class WaterGoalDetails extends React.Component {
           </Block>
     
 
+
+                      <DataTable>
+                        <DataTable.Header>
+                          <DataTable.Title>Day</DataTable.Title>
+                          <DataTable.Title>Date</DataTable.Title>
+                          <DataTable.Title>Goal Completed?</DataTable.Title>
+                          <DataTable.Title></DataTable.Title>
+                        </DataTable.Header>
+                        {this.props.days.map((day, i) => {
+                          return (
+                            <DataTable.Row key={i}>
+                              <DataTable.Cell>{i + 1}</DataTable.Cell>
+                              <DataTable.Cell>
+                                {day.date.toLocaleDateString()}
+                              </DataTable.Cell>
+                              <DataTable.Cell>
+                                {day.status && (
+                                  <Entypo
+                                    name="check"
+                                    size={24}
+                                    color="black"
+                                  />
+                                )}
+                              </DataTable.Cell>
+                              <DataTable.Cell>
+                                {!day.status && !isFuture(day.date) && (
+                                  <TouchableOpacity
+                                    onPress={() => {
+                                      this.props.handleUpdate();
+                                    }}
+                                    style={styles.button}
+                                  >
+                                    <Text style={styles.buttonText}>
+                                      Complete
+                                    </Text>
+                                  </TouchableOpacity>
+                                )}
+                              </DataTable.Cell>
+                            </DataTable.Row>
+                          );
+                        })}
+                      </DataTable>
+                    </View>
+                  )}
+                </Block>
+              </Block>
+            </Block>
           </Block>
-  
-        
-         
-        </Block>
+        </ScrollView>
       </Block>
-      </ScrollView>
-    </Block>
  
+
     );
   }
 }
@@ -216,9 +263,8 @@ const styles = StyleSheet.create({
     padding: 10,
     color: theme.COLORS.BLUEVIOLET,
     fontWeight: "500",
-
   },
-  text : {
+  text: {
     alignSelf: "center",
     // margin: 5,
     fontSize: 0.035 * width,
