@@ -1,14 +1,23 @@
 import React, { useState } from "react";
-import { StyleSheet, 
+import {
+  StyleSheet,
   ImageBackground,
   Dimensions,
   StatusBar,
   KeyboardAvoidingView,
- } from "react-native";
+} from "react-native";
 import SignUpForm from "../components/SignUpForm";
 import { connect } from "react-redux";
 import { signup } from "../store/user";
-import { Block, Checkbox, Text, Button, Icon, Input, Image } from "galio-framework";
+import {
+  Block,
+  Checkbox,
+  Text,
+  Button,
+  Icon,
+  Input,
+  Image,
+} from "galio-framework";
 
 import theme from "../theme.js";
 
@@ -19,8 +28,6 @@ function SignUp({ navigation, signupUser }) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
- // console.log("email: ", email);
-  //console.log("password: ", password);
   const onSignUpButtonPress = async () => {
     try {
       let newUser = {
@@ -36,11 +43,12 @@ function SignUp({ navigation, signupUser }) {
   };
 
   const backToLogin = () => {
-    navigation.navigate("Home")
-  }
+    navigation.navigate("Home");
+  };
 
   return (
     <Block flex middle>
+
         <StatusBar hidden />
         <ImageBackground
           source={require("../../assets/register-bg.png")}
@@ -49,9 +57,11 @@ function SignUp({ navigation, signupUser }) {
           <Block flex middle>
             <Block style={styles.registerContainer}>
               {/* <Block flex={0.25} middle style={styles.socialConnect}>
+
                 <Text color="#8898AA" size={12}>
-                  Sign up with
+                  Or sign up the classic way
                 </Text>
+
                 <Block row style={{ marginTop: theme.SIZES.BASE }}>
                   <Button style={{ ...styles.socialButtons, marginRight: 30 }}>
                     <Block row>
@@ -118,17 +128,11 @@ function SignUp({ navigation, signupUser }) {
                         checkboxStyle={{
                           borderWidth: 3
                         }}
+
                         color={theme.COLORS.PRIMARY}
-                        label="I agree with the"
-                      />
-                      <Button
-                        style={{ width: 100 }}
-                        color="transparent"
-                        textStyle={{
-                          color: theme.COLORS.PRIMARY,
-                          fontSize: 14
-                        }}
+                        size={theme.SIZES.FONT * 0.75}
                       >
+
                         Privacy Policy
                       </Button> */}
                     </Block>
@@ -153,8 +157,9 @@ function SignUp({ navigation, signupUser }) {
               </Block>
             </Block>
           </Block>
-        </ImageBackground>
-      </Block>
+        </Block>
+      </ImageBackground>
+    </Block>
   );
 }
 const mapDispatch = (dispatch) => {
@@ -178,17 +183,17 @@ const styles = StyleSheet.create({
     shadowColor: theme.COLORS.BLACK,
     shadowOffset: {
       width: 0,
-      height: 4
+      height: 4,
     },
     shadowRadius: 8,
     shadowOpacity: 0.1,
     elevation: 1,
-    overflow: "hidden"
+    overflow: "hidden",
   },
   socialConnect: {
     backgroundColor: theme.COLORS.WHITE,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderColor: "#8898AA"
+    borderColor: "#8898AA",
   },
   socialButtons: {
     width: 120,
@@ -197,29 +202,29 @@ const styles = StyleSheet.create({
     shadowColor: theme.COLORS.BLACK,
     shadowOffset: {
       width: 0,
-      height: 4
+      height: 4,
     },
     shadowRadius: 8,
     shadowOpacity: 0.1,
-    elevation: 1
+    elevation: 1,
   },
   socialTextButtons: {
     color: theme.COLORS.PRIMARY,
     fontWeight: "800",
-    fontSize: 14
+    fontSize: 14,
   },
   inputIcons: {
-    marginRight: 12
+    marginRight: 12,
   },
   passwordCheck: {
     paddingLeft: 15,
     paddingTop: 13,
-    paddingBottom: 30
+    paddingBottom: 30,
   },
   createButton: {
     width: width * 0.5,
-    marginTop: 25
-  }
+    marginTop: 25,
+  },
 });
 
 export default connect(null, mapDispatch)(SignUp);

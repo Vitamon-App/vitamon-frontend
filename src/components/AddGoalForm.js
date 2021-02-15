@@ -1,12 +1,6 @@
-import { Button, Input, Block } from "galio-framework";
+import { Button, Input } from "galio-framework";
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 const AddGoalForm = ({
   descriptionOfQty,
@@ -32,7 +26,6 @@ const AddGoalForm = ({
         <Text style={styles.subHead2}>{`Duration of Goal (Days)`}</Text>
         <Input
           style={styles.input}
-          //style={{ borderColor: "#5539AA" }}
           autoCapitalize="none"
           autoCorrect={false}
           value={numberOfDays}
@@ -52,10 +45,6 @@ const AddGoalForm = ({
 };
 const styles = StyleSheet.create({
   buttonContainer: {
-    //height: 30,
-    // width: 10,
-    //marginHorizontal: 10,
-    // backgroundColor: "#5539AA",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -89,7 +78,6 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    //flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },

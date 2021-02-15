@@ -1,11 +1,9 @@
 import React from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 import { VictoryLine, VictoryChart, VictoryAxis } from "victory-native";
-import { Text, Card, Block, Icon, Button } from "galio-framework";
+import { Text } from "galio-framework";
 const width = Dimensions.get("window").width;
 function WaterVisualData({ allGoals }) {
-  //console.log("&&&ALLGOALS: ", allGoals);
-
   const completedGoalsData = () => {
     let data = [];
     let xValue = 0;
@@ -36,15 +34,12 @@ function WaterVisualData({ allGoals }) {
     }
     return totalBottles;
   };
-  /* const data = [
-    { waterGoal: 1, totalNumberOfWaterBottles: 5 },
-  ]; */
 
   return (
     <View style={styles.container}>
       <Text
         style={styles.subHead}
-      >{`You have dranked ${totalSum()} bottles of water so far `}</Text>
+      >{`You have drank ${totalSum()} bottles of water so far `}</Text>
       <VictoryChart
         width={350}
         minDomain={{ y: 0 }}
