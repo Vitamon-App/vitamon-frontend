@@ -154,6 +154,7 @@ class WaterGoalDetails extends React.Component {
                               <DataTable.Cell>
                                 {!day.status && !isFuture(day.date) && (
                                   <TouchableOpacity
+                                  style={styles.button}
                                     onPress={() => {
                                       this.props.handleUpdate();
                                     }}
