@@ -73,9 +73,7 @@ class AllFriendsScreen extends React.Component {
             ) : (
               <View style={styles.container}>
                 <Text
-                  style={{ marginVertical: theme.SIZES.FONT / 4 }}
-                  color="#2C148B"
-                  h5
+                  style={styles.instructions}
                 >
                   You haven't Added Any Friends Yet!
                 </Text>
@@ -138,7 +136,15 @@ const styles = StyleSheet.create({
   primary: {
     backgroundColor: theme.COLORS.primary,
   },
+  instructions: {
+    alignSelf: "center",
+    maxWidth: "90%",
+    fontSize: 0.045 * width,
+    textAlign: "center",
+    color: theme.COLORS.BLUEVIOLET,
+    fontWeight: "500",
 
+  },
   buttonContainer: {
     height: 40,
     width: 5,
