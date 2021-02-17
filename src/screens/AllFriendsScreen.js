@@ -75,7 +75,7 @@ class AllFriendsScreen extends React.Component {
                 <Text
                   style={styles.instructions}
                 >
-                  You haven't Added Any Friends Yet!
+                  You haven't added any friends yet!
                 </Text>
               </View>
             )}
