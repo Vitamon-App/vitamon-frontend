@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Vitamon is a fun mobile application that allows users to set and achieve goals through a routine and reward system. In our app, Vitamons are monsters that are fed through users’ healthy habits and daily accomplishments. You can also add friends to help keep you accountable. Flex your achievements on the Vitamon app!",
+    "githubUrl": "https://github.com/Vitamon-App"
   }
 }
