@@ -92,59 +92,66 @@ export default class StepsScreen extends React.Component {
         <Text h4>Welcome To Quick Goals! {"\n"}</Text>
 
         {this.state.isPedometerAvailable ? (
-          <Text p>You're ready to play</Text>
+          <View style={styles.container}>
+            <Text p>You're ready to play</Text>
+            <DismissKeyboard>
+              <Text p>Set your quick step goal:</Text>
+
+              <Input
+                keyboardType="numeric"
+                style={styles.input}
+                autoCapitalize="none"
+                placeholder="enter step goal"
+                autoCorrect={false}
+                value={this.state.goalSteps}
+                onChangeText={(newValue) =>
+                  this.setState({ goalSteps: newValue })
+                }
+                onEndEditing={() => {
+                  Keyboard.dismiss();
+                }}
+              />
+
+              {Number(this.state.goalSteps) > 1 && (
+                <Text p>
+                  Walk {this.state.goalSteps} steps to get the Vitamon to dance!
+                </Text>
+              )}
+
+              <LottieView
+                autoPlay={this.state.autoPlay}
+                speed={this.state.speed}
+                ref={(animation) => {
+                  this.animation = animation;
+                }}
+                style={{
+                  width: 400,
+                  height: 400,
+                  backgroundColor: "#eee",
+                }}
+                source={require("../../assets/40864-the-awkward-monster.json")}
+              />
+              <Text p>Progress:</Text>
+              <Text p> {this.state.currSteps} steps</Text>
+            </DismissKeyboard>
+            {this.state.autoPlay && (
+              <Button
+                round
+                shadowless={true}
+                onPress={this.handlePress}
+                style={styles.button}
+              >
+                <Text style={styles.buttonText}>Play Again!</Text>
+              </Button>
+            )}
+          </View>
         ) : (
-          Alert.alert(
-            "You need to allow access to your pedometer to play this game"
-          )
-        )}
-        <DismissKeyboard>
-          <Text p>Set your quick step goal:</Text>
-
-          <Input
-            keyboardType="numeric"
-            style={styles.input}
-            autoCapitalize="none"
-            placeholder="enter step goal"
-            autoCorrect={false}
-            value={this.state.goalSteps}
-            onChangeText={(newValue) => this.setState({ goalSteps: newValue })}
-            onEndEditing={() => {
-              Keyboard.dismiss();
-            }}
-          />
-
-          {Number(this.state.goalSteps) > 1 && (
-            <Text p>
-              Walk {this.state.goalSteps} steps to get the Vitamon to dance!
+          <View>
+            <Text>
+              This game is currently only available for Apple users{"\n"}who
+              allow pedometer access.
             </Text>
-          )}
-
-          <LottieView
-            autoPlay={this.state.autoPlay}
-            speed={this.state.speed}
-            ref={(animation) => {
-              this.animation = animation;
-            }}
-            style={{
-              width: 400,
-              height: 400,
-              backgroundColor: "#eee",
-            }}
-            source={require("../../assets/40864-the-awkward-monster.json")}
-          />
-          <Text p>Progress:</Text>
-          <Text p> {this.state.currSteps} steps</Text>
-        </DismissKeyboard>
-        {this.state.autoPlay && (
-          <Button
-            round
-            shadowless={true}
-            onPress={this.handlePress}
-            style={styles.button}
-          >
-            <Text style={styles.buttonText}>Play Again!</Text>
-          </Button>
+          </View>
         )}
       </View>
     );
