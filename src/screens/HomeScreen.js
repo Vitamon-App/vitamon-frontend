@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
-  Dimensions, KeyboardAvoidingView, Platform,
+  Dimensions,
+  KeyboardAvoidingView,
+  Platform,
   Keyboard,
   Alert,
   Image,
   TouchableOpacity,
-  Linking
+  Linking,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AuthForm from "../components/AuthForm";
 import { connect } from "react-redux";
 import { auth } from "../store/user";
 // galio component
-import {
-  Block, Button, Input, NavBar, Text, Icon
-} from 'galio-framework';
-import theme from '../theme';
+import { Block, Button, Input, NavBar, Text, Icon } from "galio-framework";
+import theme from "../theme";
 
-const { height, width } = Dimensions.get('window');
+const { height, width } = Dimensions.get("window");
 
 function HomeScreen({ navigation, login, user, error }) {
   const [email, setEmail] = useState("");
@@ -39,7 +39,6 @@ function HomeScreen({ navigation, login, user, error }) {
       await login(email, password, "login");
       setEmail("");
       setPassword("");
-    
     } catch (err) {
       console.log(err);
     }
@@ -47,86 +46,102 @@ function HomeScreen({ navigation, login, user, error }) {
 
   return (
     <Block safe flex style={{ backgroundColor: theme.COLORS.WHITE }}>
-
-    
-    <KeyboardAvoidingView style={styles.container} behavior="height" enabled>
-      <Block flex center style={{ marginTop: theme.SIZES.BASE * 2.875, marginBottom: height * 0.1, color: theme.COLORS.PRIMARY}}>
-       
-        <Block row center space="between" style={{ marginVertical: theme.SIZES.BASE * 0.5 }}>
-          <Block flex middle right>
-          
-          </Block>
-          <Block flex middle center>
-          <Image  style={styles.largeLogo} source={require('../../assets/Vitamontransparent-2.png')}/>
+      <KeyboardAvoidingView style={styles.container} behavior="height" enabled>
+        <Block
+          flex
+          center
+          style={{
+            marginTop: theme.SIZES.BASE * 2.875,
+            marginBottom: height * 0.1,
+            color: theme.COLORS.PRIMARY,
+          }}
+        >
+          <Block
+            row
+            center
+            space="between"
+            style={{ marginVertical: theme.SIZES.BASE * 0.5 }}
+          >
+            <Block flex middle right></Block>
+            <Block flex middle center>
+              <Image
+                style={styles.largeLogo}
+                source={require("../../assets/Vitamontransparent-2.png")}
+              />
               {/* <Image
           style={styles.largeLogo}
           source={require("../../assets/icon2.png")}
         /> */}
+            </Block>
+            <Block flex middle left></Block>
           </Block>
-          <Block flex middle left>
-         
-          </Block>
-        </Block>
-        {/* <Text muted center size={theme.SIZES.FONT * 0.875} color={theme.COLORS.PRIMARY}>
+          {/* <Text muted center size={theme.SIZES.FONT * 0.875} color={theme.COLORS.PRIMARY}>
           The once a day way to achieve your goals
         </Text> */}
-      </Block>
-
-      <Block flex={2} center space="evenly">
-        <Block flex={2}>
-        {!user.id ? (
-          <AuthForm
-            formType={formType}
-            email={email}
-            password={password}
-            onEmailChange={(newEmail) => setEmail(newEmail)}
-            onPasswordChange={(newPassword) => setPassword(newPassword)}
-            onPress={() => onButtonPress()}
-          />):
-          (
-            <Block>
-            <Button
-            round
-              color={theme.COLORS.PRIMARY}
-              onPress={() => {
-                navigation.navigate("Welcome");
-              }}
-            >
-              <Text style={styles.buttonText}> Back to DashBoard</Text>
-            </Button>
-            <Button
-                 round
-                   color={theme.COLORS.PRIMARY}
-                   onPress={() => {
-                     navigation.navigate("Settings");
-                   }}
-                 >
-                   <Text style={styles.buttonText}>Settings</Text>
-                 </Button>
-
-                 <Button
-                 round
-                   color={theme.COLORS.PRIMARY}
-                   onPress={() => {
-                     navigation.navigate("UserStats");
-                   }}
-                 >
-                   <Text style={styles.buttonText}>Go to Profile</Text>
-                 </Button>
-                 </Block>
-          )
-          }
-        
-        
         </Block>
-        {!user.id && (<Block flex middle>
-        <Button color="transparent" shadowless onPress={() => navigation.navigate('SignUp')}>
-            <Text center color={theme.COLORS.PRIMARY} size={theme.SIZES.FONT * 0.75}>
-              {"Don't have an account? Sign Up"}
-            </Text>
-          </Button>
-        </Block> )}
-        {/* {user.id && (
+
+        <Block flex={2} center space="evenly">
+          <Block flex={2}>
+            {!user.id ? (
+              <AuthForm
+                formType={formType}
+                email={email}
+                password={password}
+                onEmailChange={(newEmail) => setEmail(newEmail)}
+                onPasswordChange={(newPassword) => setPassword(newPassword)}
+                onPress={() => onButtonPress()}
+              />
+            ) : (
+              <Block>
+                <Button
+                  round
+                  color={theme.COLORS.PRIMARY}
+                  onPress={() => {
+                    navigation.navigate("Welcome");
+                  }}
+                >
+                  <Text style={styles.buttonText}> Back to Dashboard</Text>
+                </Button>
+                <Button
+                  round
+                  color={theme.COLORS.PRIMARY}
+                  onPress={() => {
+                    navigation.navigate("Settings");
+                  }}
+                >
+                  <Text style={styles.buttonText}>Settings</Text>
+                </Button>
+
+                <Button
+                  round
+                  color={theme.COLORS.PRIMARY}
+                  onPress={() => {
+                    navigation.navigate("UserStats");
+                  }}
+                >
+                  <Text style={styles.buttonText}>Go to Profile</Text>
+                </Button>
+              </Block>
+            )}
+          </Block>
+          {!user.id && (
+            <Block flex middle>
+              <Button
+                color="transparent"
+                shadowless
+                onPress={() => navigation.navigate("SignUp")}
+              >
+                <Text
+                  center
+                  color={theme.COLORS.PRIMARY}
+                  size={theme.SIZES.FONT * 0.75}
+                >
+                  {"Don't have an account? Sign Up"}
+                </Text>
+              </Button>
+            </Block>
+          )}
+          {/* {user.id && (
           <Button
           round
             color={theme.COLORS.PRIMARY}
@@ -137,7 +152,7 @@ function HomeScreen({ navigation, login, user, error }) {
             <Text style={styles.buttonText}> Back to DashBoard</Text>
           </Button>
         )} */}
-         {/* <Button
+          {/* <Button
          round
             color={theme.COLORS.PRIMARY}
             onPress={() => {
@@ -151,10 +166,9 @@ function HomeScreen({ navigation, login, user, error }) {
               {"Settings"}
             </Text>
           </Button> */}
-       
-      </Block>
-    </KeyboardAvoidingView>
-  </Block>
+        </Block>
+      </KeyboardAvoidingView>
+    </Block>
   );
 }
 
