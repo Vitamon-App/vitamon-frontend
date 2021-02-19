@@ -30,10 +30,15 @@ function AllGoalsScreen({ navigation, goals, user, setUserGoals }) {
             {"\n"}
             Feed your Vitamons by achieving your goals!{"\n"}
           </Text>
-          <Text style={styles.instructions}>Tap on a goal to see your progress</Text>
+          {goals.length ? (
+     <Text style={styles.instructions}>Tap on a goal to see your progress</Text>
+          ): null}
+    
           {!goals.length ? (
             <View>
-              <Text h4>You haven't added any goals yet!</Text>
+              <Text style={styles.instructions}
+                  color="#2C148B"
+                  h5>You haven't added any goals yet!</Text>
             </View>
           ) : null}
 
